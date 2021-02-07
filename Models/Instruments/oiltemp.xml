@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<!--
+Instrument display degC, so these conversions are used:
+degC	degF
+-50	58
+0	32
+50	122
+100	212
+150	302
+-->
+
+<PropertyList>
+
+  <path>oiltemp.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>OilTemp.FaceBack</object-name>
+    <object-name>OilTemp.Needle1</object-name>
+    <object-name>OilTemp.Needle2</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>OilTemp.Needle1</object-name>
+    <property alias="../../oil-temperature1-degf"/>
+    <interpolation>
+      <entry><ind>-58</ind><dep>  45</dep></entry>
+      <entry><ind> 32</ind><dep>22.5</dep></entry>
+      <entry><ind>122</ind><dep>   0</dep></entry>
+      <entry><ind>302</ind><dep> -45</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>-0.0251</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>OilTemp.Needle2</object-name>
+    <property alias="../../oil-temperature2-degf"/>
+    <interpolation>
+      <entry><ind>-58</ind><dep>  45</dep></entry>
+      <entry><ind> 32</ind><dep>22.5</dep></entry>
+      <entry><ind>122</ind><dep>   0</dep></entry>
+      <entry><ind>302</ind><dep> -45</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>0.0251</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+</PropertyList>

@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <name>Lockheed1049h-menu</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+
+  <nasal>
+    <open><![CDATA[
+      var tanks = props.globals.getNode("/systems/fuel/tanks");
+      var presets = tanks.getChildren("fuel_preset");
+      var selected = getprop("systems/fuel/tanks/dialog-preset");
+      for (i = 0; i < size(presets); i += 1) {
+          var name = presets[i].getChild("preset_name").getValue();
+          if (selected == name) {
+              var description = getprop("systems/fuel/tanks/fuel_preset["~i~"]/description");
+              setprop("systems/fuel/tanks/dialog-preset-description", description);
+              break;
+          }
+      }
+    ]]></open>
+  </nasal>
+
+  <group>
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+    <text>
+      <label>Refuelling</label>
+    </text>
+    <empty><stretch>1</stretch></empty>
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <default>1</default>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </button>
+  </group>
+
+  <hrule><dummy/></hrule>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>10</default-padding>
+    <group>
+      <layout>vbox</layout>
+      <default-padding>0</default-padding>
+      <group>
+        <layout>vbox</layout>
+        <default-padding>0</default-padding>
+        <group>
+          <layout>hbox</layout>
+          <default-padding>5</default-padding>
+          <text>
+            <label>Refuelling Mode</label>
+            <halign>left</halign>
+            <pref-width>120</pref-width>
+          </text>
+          <combo>
+            <pref-width>240</pref-width>
+            <property>systems/fuel/tanks/dialog-preset</property>
+            <value>Casual Flying</value>
+            <value>Fuel Management</value>
+            <value>Max Landing</value>
+            <value>Max Takeoff</value>
+            <value>Manual Input</value>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script><![CDATA[
+                var tanks = props.globals.getNode("/systems/fuel/tanks");
+                var presets = tanks.getChildren("fuel_preset");
+                var selected = getprop("systems/fuel/tanks/dialog-preset");
+                for (i = 0; i < size(presets); i += 1) {
+                    var name = presets[i].getChild("preset_name").getValue();
+                    if (selected == name) {
+                        var description = getprop("systems/fuel/tanks/fuel_preset["~i~"]/description");
+                        setprop("systems/fuel/tanks/dialog-preset-description", description);
+                        break;
+                    }
+                }
+              ]]></script>
+            </binding>
+          </combo>
+        </group>
+        <text>
+          <property>systems/fuel/tanks/dialog-preset-description</property>
+          <pref-width>244</pref-width>
+          <live>true</live>
+          <halign>right</halign>
+        </text>
+      </group>
+      <text><label/></text>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>5</default-padding>
+        <text>
+          <label>Refuelling Errors</label>
+          <halign>left</halign>
+        </text>
+        <slider>
+          <property>sim/model/options/refuel-error-pct</property>
+          <pref-width>160</pref-width>
+          <min>0.0</min>
+          <max>5.0</max>
+          <live>true</live>
+          <halign>right</halign>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </slider>
+      </group>
+      <text>
+        <label>None                          High </label>
+        <halign>right</halign>
+      </text>
+      <text><label/></text>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>5</default-padding>
+        <text>
+          <label>Request Fuel (lbs)</label>
+          <halign>left</halign>
+        </text>
+        <input>
+          <property>systems/fuel/tanks/request-fuel-lbs</property>
+          <pref-width>160</pref-width>
+          <live>true</live>
+          <halign>right</halign>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </input>
+      </group>
+      <text>
+        <label>Only used with manual input </label>
+        <halign>right</halign>
+      </text>
+    </group>
+  </group>
+
+  <hrule><dummy/></hrule>
+
+  <group>
+    <layout>hbox</layout>
+    <button>
+      <legend>Refuel</legend>
+      <padding>5</padding>
+      <binding>
+        <command>nasal</command>
+        <script><![CDATA[
+          Lockheed1049h.preset_select();
+        ]]></script>
+      </binding>
+    </button>
+    <button>
+      <legend>Close</legend>
+      <default>true</default>
+      <key>Esc</key>
+      <padding>5</padding>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+    </button>
+  </group>
+
+</PropertyList>

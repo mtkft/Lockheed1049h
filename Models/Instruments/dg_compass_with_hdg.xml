@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>dg_compass_with_hdg.ac</path>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>DG.face</object-name>
+    <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+    <factor>-1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>DG.knob</object-name>
+    <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+    <factor>5</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>-0.03</y-m>
+      <z-m>-0.03</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>DG.knobHdg</object-name>
+    <property>autopilot/settings/heading-bug-deg</property>
+    <factor>5</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0.03</y-m>
+      <z-m>-0.03</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>DG.HdgBug</object-name>
+    <property>autopilot/settings/heading-bug-deg</property>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>DG.HdgBug</object-name>
+    <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+    <factor>-1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+</PropertyList>
+

@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>zero_reader.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>ZR.Ball</object-name>
+    <object-name>ZR.Alt</object-name>
+    <object-name>ZR.Azi</object-name>
+    <object-name>ZR.Alt2</object-name>
+    <object-name>ZR.Azi2</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>ZR.Alt</object-name>
+    <condition>
+      <and>
+        <equals>
+          <property>instrumentation/deviation-indicator/frequency</property>
+          <value>0</value>
+        </equals>
+        <property>instrumentation/nav[0]/nav-loc</property>
+        <property>instrumentation/nav[0]/in-range</property>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ZR.Alt</object-name>
+    <property>instrumentation/nav[0]/gs-needle-deflection</property>
+    <interpolation>
+      <entry><ind>-400</ind><dep>-30</dep></entry>
+      <entry><ind> -10</ind><dep>-30</dep></entry>
+      <entry><ind>   0</ind><dep>  0</dep></entry>
+      <entry><ind>  10</ind><dep> 30</dep></entry>
+      <entry><ind> 400</ind><dep> 30</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>-0.036</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>ZR.Azi</object-name>
+    <condition>
+      <and>
+        <equals>
+          <property>instrumentation/deviation-indicator/frequency</property>
+          <value>0</value>
+        </equals>
+        <property>instrumentation/nav[0]/nav-loc</property>
+        <property>instrumentation/nav[0]/in-range</property>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ZR.Azi</object-name>
+    <property>instrumentation/nav[0]/heading-needle-deflection</property>
+    <interpolation>
+      <entry><ind>-10</ind><dep>-30</dep></entry>
+      <entry><ind>  0</ind><dep>  0</dep></entry>
+      <entry><ind> 10</ind><dep> 30</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y></y>
+      <z>1</z>
+    </axis>
+    <center>
+      <x-m>-0.036</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+  </animation>
+
+
+  <animation>
+    <type>select</type>
+    <object-name>ZR.Alt2</object-name>
+    <condition>
+      <and>
+        <equals>
+          <property>instrumentation/deviation-indicator/frequency</property>
+          <value>1</value>
+        </equals>
+        <property>instrumentation/nav[1]/nav-loc</property>
+        <property>instrumentation/nav[1]/in-range</property>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ZR.Alt2</object-name>
+    <property>instrumentation/nav[1]/gs-needle-deflection</property>
+    <interpolation>
+      <entry><ind>-400</ind><dep>-30</dep></entry>
+      <entry><ind> -10</ind><dep>-30</dep></entry>
+      <entry><ind>   0</ind><dep>  0</dep></entry>
+      <entry><ind>  10</ind><dep> 30</dep></entry>
+      <entry><ind> 400</ind><dep> 30</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>-0.036</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>ZR.Azi2</object-name>
+    <condition>
+      <and>
+        <equals>
+          <property>instrumentation/deviation-indicator/frequency</property>
+          <value>1</value>
+        </equals>
+        <property>instrumentation/nav[1]/nav-loc</property>
+        <property>instrumentation/nav[1]/in-range</property>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ZR.Azi2</object-name>
+    <property>instrumentation/nav[1]/heading-needle-deflection</property>
+    <interpolation>
+      <entry><ind>-10</ind><dep>-30</dep></entry>
+      <entry><ind>  0</ind><dep>  0</dep></entry>
+      <entry><ind> 10</ind><dep> 30</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y></y>
+      <z>1</z>
+    </axis>
+    <center>
+      <x-m>-0.036</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+  </animation>
+
+</PropertyList>

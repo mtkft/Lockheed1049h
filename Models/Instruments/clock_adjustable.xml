@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>clock_adjustable.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>Clock.Face</object-name>
+    <object-name>Clock.Hour</object-name>
+    <object-name>Clock.Minute</object-name>
+    <object-name>Clock.Second</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>Clock.Knob</object-name>
+    <emission>
+      <red>0.25</red>
+      <green>0.25</green>
+      <blue>0.25</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>Clock.Hour</object-name>
+    <property>instrumentation/clock/indicated-sec</property>
+    <factor>0.00833333333333333</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>Clock.Minute</object-name>
+    <property>instrumentation/clock/indicated-sec</property>
+    <factor>0.1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>Clock.Second</object-name>
+    <property>instrumentation/clock/indicated-sec</property>
+    <factor>6</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>knob</type>
+    <object-name>Clock.Knob</object-name>
+    <property>instrumentation/clock/offset-sec</property>
+    <factor>0.1667</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>-0.0225</y-m>
+      <z-m>-0.0225</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>instrumentation/clock/offset-sec</property>
+        <factor>60</factor>
+        <min>-43200</min>
+        <max>43200</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+  </animation>
+
+</PropertyList>

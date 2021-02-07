@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>amps_dc_apu.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>AmpsDCAPU.FaceBack</object-name>
+    <object-name>AmpsDCAPU.Needle</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>AmpsDCAPU.Needle</object-name>
+    <property>systems/electrical/power-source[4]/amps</property>
+    <interpolation>
+      <entry><ind>  0</ind><dep>-60</dep></entry>
+      <entry><ind>300</ind><dep>  0</dep></entry>
+      <entry><ind>600</ind><dep> 60</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>-0.0112</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+</PropertyList>

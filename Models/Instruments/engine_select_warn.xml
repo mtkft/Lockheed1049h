@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!-- Engine Start Selector On warning lamp -->
+
+<PropertyList>
+
+  <path>engine_select_warn.ac</path>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampSSWarnOn</object-name>
+    <condition>
+      <and>
+        <property>controls/switches/engine-start-select</property>
+        <greater-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>23.5</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampSSWarn</object-name>
+    <condition>
+      <or>
+        <not><property>controls/switches/engine-start-select</property></not>
+        <less-than-equals>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>23.5</value>
+        </less-than-equals>
+      </or>
+    </condition>
+  </animation>
+
+</PropertyList>
+

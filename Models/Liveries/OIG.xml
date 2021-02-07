@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <sim>
+    <model>
+      <livery>
+        <name type="string">O Galego Itinerante</name>
+        <texture>txt_livery_fuselage_OIG.rgb</texture>
+      </livery>
+      <cowls>
+        <texture>txt_livery_cowls_OIG.rgb</texture>
+      </cowls>
+      <rudders>
+        <texture>txt_livery_rudders_OIG.rgb</texture>
+      </rudders>
+      <wing>
+        <texture>txt_livery_wing_OIG.rgb</texture>
+      </wing>
+      <propellers>
+        <texture>txt_livery_prop1_OIG.rgb</texture>
+      </propellers>
+      <propellerdisks>
+        <texture>txt_propblur_OIG.rgb</texture>
+      </propellerdisks>
+    </model>
+  </sim>
+</PropertyList>

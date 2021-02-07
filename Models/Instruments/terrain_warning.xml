@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>terrain_warning.ac</path>
+
+  <!-- 2000' warning -->
+
+
+  <animation>
+    <type>material</type>
+    <object-name>LampGndRdr05RedOn</object-name>
+    <emission>
+      <red>1</red>
+      <green>0</green>
+      <blue>0</blue>
+      <factor-prop>/systems/electrical/bus-dc/volts</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>LampGndRdr10YellowOn</object-name>
+    <emission>
+      <red>1</red>
+      <green>1</green>
+      <blue>0</blue>
+      <factor-prop>/systems/electrical/bus-dc/volts</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>LampGndRdr20AmberOn</object-name>
+    <emission>
+      <red>1</red>
+      <green>0.4</green>
+      <blue>0.05</blue>
+      <factor-prop>/systems/electrical/bus-dc/volts</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampGndRdr20AmberOn</object-name>
+    <condition>
+      <or>
+        <equals>
+          <property>instrumentation/terrain-warning/test-2000</property>
+          <value>on</value>
+        </equals>
+        <and>
+          <less-than-equals>
+            <property>position/altitude-agl-ft</property>
+            <value>2000</value>
+          </less-than-equals>
+          <greater-than>
+            <property>position/altitude-agl-ft</property>
+            <value>1000</value>
+          </greater-than>
+          <less-than-equals>
+            <property>position/altitude-agl-ft</property>
+            <property n="1">/instrumentation/terrain-warning/selector-ft</property>
+          </less-than-equals>
+        </and>
+      </or>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampGndRdr20Amber</object-name>
+    <condition>
+      <not>
+        <or>
+          <equals>
+            <property>instrumentation/terrain-warning/test-2000</property>
+            <value>on</value>
+          </equals>
+          <and>
+            <less-than-equals>
+              <property>position/altitude-agl-ft</property>
+              <value>2000</value>
+            </less-than-equals>
+            <greater-than>
+              <property>position/altitude-agl-ft</property>
+              <value>1000</value>
+            </greater-than>
+            <less-than-equals>
+              <property>position/altitude-agl-ft</property>
+              <property n="1">/instrumentation/terrain-warning/selector-ft</property>
+            </less-than-equals>
+          </and>
+        </or>
+      </not>
+    </condition>
+  </animation>
+
+  <!-- 1000' warning -->
+
+  <animation>
+    <type>select</type>
+    <object-name>LampGndRdr10YellowOn</object-name>
+    <condition>
+      <or>
+        <equals>
+          <property>instrumentation/terrain-warning/test-2000</property>
+          <value>on</value>
+        </equals>
+        <and>
+          <less-than-equals>
+            <property>position/altitude-agl-ft</property>
+            <value>1000</value>
+          </less-than-equals>
+          <greater-than>
+            <property>position/altitude-agl-ft</property>
+            <value>500</value>
+          </greater-than>
+          <less-than-equals>
+            <property>position/altitude-agl-ft</property>
+            <property n="1">/instrumentation/terrain-warning/selector-ft</property>
+          </less-than-equals>
+        </and>
+      </or>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampGndRdr10Yellow</object-name>
+    <condition>
+      <not>
+        <or>
+          <equals>
+            <property>instrumentation/terrain-warning/test-1000</property>
+            <value>on</value>
+          </equals>
+          <and>
+            <less-than-equals>
+              <property>position/altitude-agl-ft</property>
+              <value>1000</value>
+            </less-than-equals>
+            <greater-than>
+              <property>position/altitude-agl-ft</property>
+              <value>500</value>
+            </greater-than>
+            <less-than-equals>
+              <property>position/altitude-agl-ft</property>
+              <property n="1">/instrumentation/terrain-warning/selector-ft</property>
+            </less-than-equals>
+          </and>
+        </or>
+      </not>
+    </condition>
+  </animation>
+
+  <!-- 500' warning -->
+
+  <animation>
+    <type>select</type>
+    <object-name>LampGndRdr05RedOn</object-name>
+    <condition>
+      <or>
+        <equals>
+          <property>instrumentation/terrain-warning/test-2000</property>
+          <value>on</value>
+        </equals>
+        <and>
+          <less-than-equals>
+            <property>position/altitude-agl-ft</property>
+            <value>500</value>
+          </less-than-equals>
+          <less-than-equals>
+            <property>position/altitude-agl-ft</property>
+            <property n="1">/instrumentation/terrain-warning/selector-ft</property>
+          </less-than-equals>
+        </and>
+      </or>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampGndRdr05Red</object-name>
+    <condition>
+      <not>
+        <or>
+          <equals>
+            <property>instrumentation/terrain-warning/test-2000</property>
+            <value>on</value>
+          </equals>
+          <and>
+            <less-than-equals>
+              <property>position/altitude-agl-ft</property>
+              <value>500</value>
+            </less-than-equals>
+            <less-than-equals>
+              <property>position/altitude-agl-ft</property>
+              <property n="1">/instrumentation/terrain-warning/selector-ft</property>
+            </less-than-equals>
+            <greater-than>
+              <property>systems/electrical/bus-dc/volts</property>
+              <value>9</value>
+            </greater-than>
+          </and>
+        </or>
+      </not>
+    </condition>
+  </animation>
+
+</PropertyList>
+

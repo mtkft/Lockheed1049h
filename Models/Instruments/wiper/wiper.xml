@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+  <animation>
+    <object-name>wiperSup</object-name>
+    <object-name>wiper</object-name>
+    <object-name>wiperView</object-name>
+  </animation>
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>wiperView</object-name>
+  </animation>
+
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>Models/Instruments/wiper/transparent.png</texture>
+    <object-name>wiperView</object-name>
+  </animation>
+  
+  <animation>
+    <type>select</type>
+    <object-name>wiperView</object-name>
+    <condition>
+      <and>
+	<property>controls/special/wiper-switch</property>
+	<not>
+	  <greater-than>
+	    <property>controls/special/wiper-deg</property>
+	    <value>40</value>
+	  </greater-than>
+	</not>
+	<not>
+	  <less-than>
+	    <property>controls/special/wiper-deg</property>
+	    <value>-35</value>
+	  </less-than>
+	</not>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>wiperSup</object-name>
+    <object-name>wiper</object-name>
+    <property>controls/special/wiper-deg</property>
+    <factor alias="../../direction"/>
+    <center>
+      <x-m> 0.0 </x-m>
+      <y-m> 0.0 </y-m>
+      <z-m> 0.23</z-m>
+    </center>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>wiper</object-name>
+    <property>controls/special/wiper-deg</property>
+    <factor alias="../../direction"/>
+    <center>
+      <x-m> 0.0 </x-m>
+      <y-m> 0.0 </y-m>
+      <z-m> 0.0</z-m>
+    </center>
+    <axis>
+      <x> -0.9 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+</PropertyList>

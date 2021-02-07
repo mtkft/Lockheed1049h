@@ -1,0 +1,1184 @@
+<!-- Lockheed Constellation 1049h Instruments -->
+<!-- Gary R. Neely 'Buckaroo', June 2008      -->
+
+
+<PropertyList>
+
+  <!-- Special Groups and Shaders -->
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>asi</object-name>
+    <object-name>ai</object-name>
+    <object-name>vsi</object-name>
+    <object-name>alt</object-name>
+    <object-name>mdi</object-name>
+    <object-name>turn_bank</object-name>
+    <object-name>ctl_pos</object-name>
+    <object-name>clock</object-name>
+    <object-name>clock_cp</object-name>
+    <object-name>zero_reader</object-name>
+    <object-name>rmi</object-name>
+    <object-name>autopilot_warn</object-name>
+    <object-name>marker_beacons</object-name>
+    <object-name>terrain_warn</object-name>
+    <object-name>pbrake_p</object-name>
+    <object-name>pbrake_cp</object-name>
+    <object-name>flaps</object-name>
+    <object-name>trim</object-name>
+    <object-name>air_temp</object-name>
+    <object-name>landing_gear</object-name>
+    <object-name>manpress_L</object-name>
+    <object-name>manpress_R</object-name>
+    <object-name>rpm_L</object-name>
+    <object-name>rpm_R</object-name>
+    <object-name>swplate_voradf</object-name>
+    <object-name>compass</object-name>
+    <object-name>fuzzy dice</object-name>
+    <object-name>fueling_notice</object-name>
+    <object-name>fuelLo</object-name>
+    <object-name>fuelLm</object-name>
+    <object-name>fuelLi</object-name>
+    <object-name>fuelC</object-name>
+    <object-name>fuelRi</object-name>
+    <object-name>fuelRm</object-name>
+    <object-name>fuelRo</object-name>
+    <object-name>asi_eng</object-name>
+    <object-name>alt_eng</object-name>
+    <object-name>clock_eng</object-name>
+    <object-name>fuelTotal</object-name>
+    <object-name>air_temp_eng</object-name>
+    <object-name>cowlflaps_L</object-name>
+    <object-name>cowlflaps_R</object-name>
+    <object-name>manpress_eng_L</object-name>
+    <object-name>manpress_eng_R</object-name>
+    <object-name>bmep_L</object-name>
+    <object-name>bmep_R</object-name>
+    <object-name>rpm_eng_L</object-name>
+    <object-name>rpm_eng_R</object-name>
+    <object-name>oiltemp_L</object-name>
+    <object-name>oiltemp_R</object-name>
+    <object-name>oilpress_L</object-name>
+    <object-name>oilpress_R</object-name>
+    <object-name>fuelpress_L</object-name>
+    <object-name>fuelpress_R</object-name>
+    <object-name>fuelflow_L</object-name>
+    <object-name>fuelflow_R</object-name>
+    <object-name>cyltemp_L</object-name>
+    <object-name>cyltemp_R</object-name>
+    <object-name>egttemp_L</object-name>
+    <object-name>egttemp_R</object-name>
+    <object-name>prop_rev</object-name>
+    <object-name>master_fire</object-name>
+    <object-name>master_fire_eng</object-name>
+    <object-name>door_warn</object-name>
+    <object-name>prop_gov</object-name>
+    <object-name>press_warn</object-name>
+    <object-name>asi_cp</object-name>
+    <object-name>ai_cp</object-name>
+    <object-name>vsi_cp</object-name>
+    <object-name>alt_cp</object-name>
+    <object-name>rmi_cp</object-name>
+    <object-name>mdi_cp</object-name>
+    <object-name>turn_bank_cp</object-name>
+    <object-name>engine_select_warn</object-name>
+    <object-name>volts_dc</object-name>
+    <object-name>volts_ac</object-name>
+    <object-name>amps_dc1</object-name>
+    <object-name>amps_dc2</object-name>
+    <object-name>amps_dc_apu</object-name>
+    <object-name>comm1</object-name>
+    <object-name>comm2</object-name>
+    <object-name>nav1</object-name>
+    <object-name>nav2</object-name>
+    <object-name>adf1</object-name>
+    <object-name>adf2</object-name>
+  </animation>
+
+  <!-- Captain Panel -->
+  <!-- Translations from old model: x+ 0.1, z+ 0.165 -->
+
+  <model>
+    <name>dme40</name>
+	<path>Aircraft/Lockheed1049h/Models/Instruments/dme40.xml</path>
+	<overlay>
+        <power>systems/electrical/outputs/dme[0]</power>
+        <switch-mode>instrumentation/dme[0]/switch-position</switch-mode>
+        <switch-nav>instrumentation/dme[0]/switch-nav</switch-nav>
+        <dim>instrumentation/dme[0]/dim</dim>
+        <in-range>instrumentation/dme[0]/in-range</in-range>
+        <distance-nm>instrumentation/dme[0]/indicated-distance-nm</distance-nm>
+        <time-min>instrumentation/dme[0]/indicated-time-min</time-min>
+        <ground-speed-kt>instrumentation/dme[0]/indicated-ground-speed-kt</ground-speed-kt>
+        <frequencies>
+          <source>instrumentation/dme[0]/frequencies/source</source>
+          <selected-mhz>instrumentation/dme[0]/frequencies/selected-mhz</selected-mhz>
+        </frequencies>
+      </overlay>
+	<offsets>
+      <x-m>-15.469</x-m>
+      <y-m>0.091</y-m>
+      <z-m>1.137</z-m>
+      <roll-deg>0</roll-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>marker_beacons</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/marker_beacons.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.384</y-m>
+      <z-m>1.010</z-m>
+      <roll-deg>90</roll-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>asi</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/asi.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.526</y-m>
+      <z-m>0.936</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>ai</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/ai_j8.xml</path> <!-- Bendix J-8 AI -->
+    <!--<path>Aircraft/Lockheed1049h/Models/Instruments/ai.xml</path>--> <!-- Alternate modern AI -->
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.434</y-m>
+      <z-m>0.936</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>vsi</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/vsi.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.343</y-m>
+      <z-m>0.844</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>alt</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/alt.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.343</y-m>
+      <z-m>0.936</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>mdi</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/compass_mdi_with_hdg.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.434</y-m>
+      <z-m>0.844</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>turn_bank</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/turn_bank.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.526</y-m>
+      <z-m>0.844</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>ctl_pos</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/control_positions_sm.xml</path>
+    <offsets>
+      <x-m>-15.648</x-m>
+      <y-m>-0.304</y-m>
+      <z-m>1.017</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>clock</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/clock_adjustable.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.239</y-m>
+      <z-m>1.017</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>zero_reader</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/zero_reader.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.252</y-m>
+      <z-m>0.936</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>rmi</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/rmi.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.343</y-m>
+      <z-m>0.752</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>terrain_warn</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/terrain_warning.xml</path>
+    <offsets>
+      <x-m>-15.65</x-m>
+      <y-m>-0.640</y-m>
+      <z-m>0.846</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>pbrake_p</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/parking_brake_p.xml</path>
+    <offsets>
+      <x-m>-15.65</x-m>
+      <y-m>-0.158</y-m>
+      <z-m>0.696</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Pic Deviation / Radial Finder</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/pic-dev/pic-dev.xml</path>
+    <overlay>
+      <gs-in-range>/instrumentation/nav[0]/gs-in-range</gs-in-range>
+      <dme-in-range>/instrumentation/dme[0]/in-range</dme-in-range>
+      <dme-indicated-distance-nmi>/instrumentation/dme[0]/indicated-distance-nm</dme-indicated-distance-nmi>
+      <nav-data-is-valid>/instrumentation/nav[0]/data-is-valid</nav-data-is-valid>
+      <to-flag>/instrumentation/nav[0]/to-flag</to-flag>
+      <from-flag>/instrumentation/nav[0]/from-flag</from-flag>
+      <selected-deg>/instrumentation/nav[0]/radials/selected-deg</selected-deg>
+      <heading-needle-deflection>/instrumentation/nav[0]/heading-needle-deflection</heading-needle-deflection>
+      <gs-needle-deflection>/instrumentation/nav[0]/gs-needle-deflection</gs-needle-deflection>
+    </overlay>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.252</y-m>
+      <z-m>0.844</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Pic Deviation / Radial Finder</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/pic-dev/pic-dev.xml</path>
+    <overlay>
+      <gs-in-range>/instrumentation/nav[1]/gs-in-range</gs-in-range>
+      <dme-in-range>/instrumentation/dme[1]/in-range</dme-in-range>
+      <dme-indicated-distance-nmi>/instrumentation/dme[1]/indicated-distance-nm</dme-indicated-distance-nmi>
+      <nav-data-is-valid>/instrumentation/nav[1]/data-is-valid</nav-data-is-valid>
+      <to-flag>/instrumentation/nav[1]/to-flag</to-flag>
+      <from-flag>/instrumentation/nav[1]/from-flag</from-flag>
+      <selected-deg>/instrumentation/nav[1]/radials/selected-deg</selected-deg>
+      <heading-needle-deflection>/instrumentation/nav[1]/heading-needle-deflection</heading-needle-deflection>
+      <gs-needle-deflection>/instrumentation/nav[1]/gs-needle-deflection</gs-needle-deflection>
+    </overlay>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.252</y-m>
+      <z-m>0.752</z-m>
+    </offsets>
+  </model>
+  
+  <!-- Center Panel -->
+
+  <model>
+    <name>flaps</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/flaps.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.132</y-m>
+      <z-m>0.914</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>trim</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/trim.xml</path>
+    <offsets>
+      <x-m>-15.648</x-m>
+      <y-m>-0.044</y-m>
+      <z-m>0.914</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>air_temp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/airtemp.xml</path>
+    <offsets>
+      <x-m>-15.648</x-m>
+      <y-m>0.044</y-m>
+      <z-m>0.914</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>landing_gear</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/landing_gear.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.132</y-m>
+      <z-m>0.914</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>manpress_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/manpress_L.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.132</y-m>
+      <z-m>1.002</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>manpress_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/manpress_R.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.044</y-m>
+      <z-m>1.002</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>rpm_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/rpm_L.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.044</y-m>
+      <z-m>1.002</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>rpm_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/rpm_R.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.132</y-m>
+      <z-m>1.002</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>prop_rev</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/prop_reversing.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>-0.122</y-m>
+      <z-m>0.85</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>master_fire</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/master_fire.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0</y-m>
+      <z-m>1.056</z-m>
+    </offsets>
+  </model>
+
+
+  <!-- Hood Console -->
+
+  <model>
+    <name>swplate_voradf</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/swplate_voradf.xml</path>
+    <offsets>
+      <x-m>-15.465</x-m>
+      <y-m>-0.084</y-m>
+      <z-m>1.137</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fueling_notice</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fueling_notice.xml</path>
+    <offsets>
+      <x-m>-15.463</x-m>
+      <y-m>0</y-m>
+      <z-m>1.150</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>autopilot_warn</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/autopilot_warn.xml</path>
+    <offsets>
+      <x-m>-15.464</x-m>
+      <y-m>0</y-m>
+      <z-m>1.120</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>plug1</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/plug_3.xml</path>
+    <offsets>
+      <x-m>-15.464</x-m>
+      <y-m>0</y-m>
+      <z-m>1.137</z-m>
+    </offsets>
+  </model>
+
+
+  <!-- Overhead Compass Box -->
+
+  <model>
+    <name>compass</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/compass_magnetic.xml</path>
+    <offsets>
+      <x-m>-15.466</x-m>
+      <y-m>0</y-m>
+      <z-m>1.380</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuzzy dice</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuzzy_dice.xml</path>
+    <offsets>
+      <x-m>-15.4</x-m>
+      <y-m>0</y-m>
+      <z-m>1.49</z-m>
+    </offsets>
+  </model>
+
+  <!-- Copilot Panel -->
+
+  <model>
+    <name>asi_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/asi.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.252</y-m>
+      <z-m>0.936</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>ai_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/ai.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.343</y-m>
+      <z-m>0.936</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>alt_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/alt.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.434</y-m>
+      <z-m>0.936</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>vsi_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/vsi.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.434</y-m>
+      <z-m>0.844</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>rmi_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/rmi.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.434</y-m>
+      <z-m>0.752</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Pic Deviation / Radial Finder</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/pic-dev/pic-dev.xml</path>
+    <overlay>
+      <gs-in-range>/instrumentation/nav[0]/gs-in-range</gs-in-range>
+      <dme-in-range>/instrumentation/dme[0]/in-range</dme-in-range>
+      <dme-indicated-distance-nmi>/instrumentation/dme[0]/indicated-distance-nm</dme-indicated-distance-nmi>
+      <nav-data-is-valid>/instrumentation/nav[0]/data-is-valid</nav-data-is-valid>
+      <to-flag>/instrumentation/nav[0]/to-flag</to-flag>
+      <from-flag>/instrumentation/nav[0]/from-flag</from-flag>
+      <selected-deg>/instrumentation/nav[0]/radials/selected-deg</selected-deg>
+      <heading-needle-deflection>/instrumentation/nav[0]/heading-needle-deflection</heading-needle-deflection>
+      <gs-needle-deflection>/instrumentation/nav[0]/gs-needle-deflection</gs-needle-deflection>
+    </overlay>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.526</y-m>
+      <z-m>0.844</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Pic Deviation / Radial Finder</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/pic-dev/pic-dev.xml</path>
+    <overlay>
+      <gs-in-range>/instrumentation/nav[1]/gs-in-range</gs-in-range>
+      <dme-in-range>/instrumentation/dme[1]/in-range</dme-in-range>
+      <dme-indicated-distance-nmi>/instrumentation/dme[1]/indicated-distance-nm</dme-indicated-distance-nmi>
+      <nav-data-is-valid>/instrumentation/nav[1]/data-is-valid</nav-data-is-valid>
+      <to-flag>/instrumentation/nav[1]/to-flag</to-flag>
+      <from-flag>/instrumentation/nav[1]/from-flag</from-flag>
+      <selected-deg>/instrumentation/nav[1]/radials/selected-deg</selected-deg>
+      <heading-needle-deflection>/instrumentation/nav[1]/heading-needle-deflection</heading-needle-deflection>
+      <gs-needle-deflection>/instrumentation/nav[1]/gs-needle-deflection</gs-needle-deflection>
+    </overlay>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.526</y-m>
+      <z-m>0.752</z-m>
+    </offsets>
+  </model>
+  
+  <model>
+    <name>mdi_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/compass_mdi_with_hdg.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.343</y-m>
+      <z-m>0.844</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>turn_bank_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/turn_bank.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.252</y-m>
+      <z-m>0.844</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>clock_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/clock_adjustable.xml</path>
+    <offsets>
+      <x-m>-15.649</x-m>
+      <y-m>0.239</y-m>
+      <z-m>1.017</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>pbrake_cp</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/parking_brake_cp.xml</path>
+    <offsets>
+      <x-m>-15.65</x-m>
+      <y-m>0.165</y-m>
+      <z-m>0.696</z-m>
+    </offsets>
+  </model>
+
+  <!-- Engineer Panel -->
+  <!-- Translations from old model: x- 0.013, y- 0.234, z+ 0.089 -->
+  <!-- Upper panel x rotation: 55 deg -->
+
+  <model>
+    <name>fuelLo</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_L_outboard.xml</path>
+    <offsets>
+      <x-m>-14.498</x-m>
+      <y-m>0.553</y-m>
+      <z-m>1.417</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelLm</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_L_middle.xml</path>
+    <offsets>
+      <x-m>-14.406</x-m>
+      <y-m>0.553</y-m>
+      <z-m>1.417</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelLi</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_L_inboard.xml</path>
+    <offsets>
+      <x-m>-14.314</x-m>
+      <y-m>0.553</y-m>
+      <z-m>1.417</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelC</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_C.xml</path>
+    <offsets>
+      <x-m>-14.222</x-m>
+      <y-m>0.553</y-m>
+      <z-m>1.417</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelRi</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_R_inboard.xml</path>
+    <offsets>
+      <x-m>-14.130</x-m>
+      <y-m>0.553</y-m>
+      <z-m>1.417</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelRm</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_R_middle.xml</path>
+    <offsets>
+      <x-m>-14.038</x-m>
+      <y-m>0.553</y-m>
+      <z-m>1.417</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelRo</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_R_outboard.xml</path>
+    <offsets>
+      <x-m>-13.946</x-m>
+      <y-m>0.553</y-m>
+      <z-m>1.417</z-m>
+    </offsets>
+  </model>
+
+
+  <model>
+    <name>asi_eng</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/asi_engineer.xml</path>
+    <offsets>
+      <x-m>-14.498</x-m>
+      <y-m>0.626</y-m>
+      <z-m>1.364</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>alt_eng</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/alt_engineer.xml</path>
+    <offsets>
+      <x-m>-14.406</x-m>
+      <y-m>0.626</y-m>
+      <z-m>1.364</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>clock_eng</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/clock_engineer.xml</path>
+    <offsets>
+      <x-m>-14.314</x-m>
+      <y-m>0.626</y-m>
+      <z-m>1.364</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelTotal</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_total.xml</path>
+    <offsets>
+      <x-m>-14.222</x-m>
+      <y-m>0.626</y-m>
+      <z-m>1.364</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>air_temp_eng</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/airtemp_engineer.xml</path>
+    <offsets>
+      <x-m>-14.314</x-m>
+      <y-m>0.7</y-m>
+      <z-m>1.31</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>cowlflaps_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/cowlflaps_L.xml</path>
+    <offsets>
+      <x-m>-14.498</x-m>
+      <y-m>0.701</y-m>
+      <z-m>1.312</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>cowlflaps_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/cowlflaps_R.xml</path>
+    <offsets>
+      <x-m>-14.406</x-m>
+      <y-m>0.701</y-m>
+      <z-m>1.312</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelflow_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuelflow_L.xml</path>
+    <offsets>
+      <x-m>-14.493</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.170</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>fuelflow_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuelflow_R.xml</path>
+    <offsets>
+      <x-m>-14.406</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.170</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>cyltemp_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/cyltemp_L.xml</path>
+    <offsets>
+      <x-m>-14.493</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.086</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>cyltemp_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/cyltemp_R.xml</path>
+    <offsets>
+      <x-m>-14.406</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.086</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>egttemp_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/egttemp.xml</path>
+    <offsets>
+      <x-m>-14.493</x-m>
+      <y-m>0.777</y-m>
+      <z-m>0.963</z-m>
+    </offsets>
+    <overlay>
+      <egt1-degf>engines/engine[0]/egt-degf</egt1-degf>
+      <egt2-degf>engines/engine[1]/egt-degf</egt2-degf>
+    </overlay>
+  </model>
+
+  <model>
+    <name>egttemp_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/egttemp.xml</path>
+    <offsets>
+      <x-m>-14.406</x-m>
+      <y-m>0.777</y-m>
+      <z-m>0.963</z-m>
+    </offsets>
+    <overlay>
+      <egt1-degf>engines/engine[2]/egt-degf</egt1-degf>
+      <egt2-degf>engines/engine[3]/egt-degf</egt2-degf>
+    </overlay>
+  </model>
+
+  <model>
+    <name>bmep_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/bmep_L.xml</path>
+    <offsets>
+      <x-m>-14.317</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.190</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>bmep_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/bmep_R.xml</path>
+    <offsets>
+      <x-m>-14.227</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.190</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>manpress_eng_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/manpress_engineer_L.xml</path>
+    <offsets>
+      <x-m>-14.317</x-m>
+      <y-m>0.777</y-m>
+      <z-m>0.996</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>manpress_eng_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/manpress_engineer_R.xml</path>
+    <offsets>
+      <x-m>-14.227</x-m>
+      <y-m>0.777</y-m>
+      <z-m>0.996</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>rpm_eng_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/rpm_engineer_L.xml</path>
+    <offsets>
+      <x-m>-14.317</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.082</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>rpm_eng_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/rpm_engineer_R.xml</path>
+    <offsets>
+      <x-m>-14.227</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.082</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>oiltemp_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/oiltemp.xml</path>
+    <offsets>
+      <x-m>-14.038</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.205</z-m>
+    </offsets>
+    <overlay>
+      <oil-temperature1-degf>engines/engine[0]/oil-temperature-degf</oil-temperature1-degf>
+      <oil-temperature2-degf>engines/engine[1]/oil-temperature-degf</oil-temperature2-degf>
+    </overlay>
+  </model>
+
+  <model>
+    <name>oiltemp_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/oiltemp.xml</path>
+    <offsets>
+      <x-m>-13.946</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.205</z-m>
+    </offsets>
+    <overlay>
+      <oil-temperature1-degf>engines/engine[2]/oil-temperature-degf</oil-temperature1-degf>
+      <oil-temperature2-degf>engines/engine[3]/oil-temperature-degf</oil-temperature2-degf>
+    </overlay>
+  </model>
+
+  <model>
+    <name>oilpress_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/oilpress.xml</path>
+    <offsets>
+      <x-m>-14.038</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.113</z-m>
+    </offsets>
+    <overlay>
+      <oil-pressure1-psi>engines/engine[0]/oil-pressure-psi</oil-pressure1-psi>
+      <oil-pressure2-psi>engines/engine[1]/oil-pressure-psi</oil-pressure2-psi>
+    </overlay>
+  </model>
+
+  <model>
+    <name>oilpress_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/oilpress.xml</path>
+    <offsets>
+      <x-m>-13.946</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.113</z-m>
+    </offsets>
+    <overlay>
+      <oil-pressure1-psi>engines/engine[2]/oil-pressure-psi</oil-pressure1-psi>
+      <oil-pressure2-psi>engines/engine[3]/oil-pressure-psi</oil-pressure2-psi>
+    </overlay>
+  </model>
+
+  <model>
+    <name>fuelpress_L</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_pressure.xml</path>
+    <offsets>
+      <x-m>-14.038</x-m>
+      <y-m>0.777</y-m>
+      <z-m>0.984</z-m>
+    </offsets>
+    <overlay>
+      <fuel-pressure1>engines/engine[0]/est-fuelpress</fuel-pressure1>
+      <fuel-pressure2>engines/engine[1]/est-fuelpress</fuel-pressure2>
+    </overlay>
+  </model>
+
+  <model>
+    <name>fuelpress_R</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/fuel_pressure.xml</path>
+    <offsets>
+      <x-m>-13.946</x-m>
+      <y-m>0.777</y-m>
+      <z-m>0.984</z-m>
+    </offsets>
+    <overlay>
+      <fuel-pressure1>engines/engine[2]/est-fuelpress</fuel-pressure1>
+      <fuel-pressure2>engines/engine[3]/est-fuelpress</fuel-pressure2>
+    </overlay>
+  </model>
+
+  <model>
+    <name>prop_gov</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/prop_gov.xml</path>
+    <offsets>
+      <x-m>-14.272</x-m>
+      <y-m>0.778</y-m>
+      <z-m>0.934</z-m>
+    </offsets>
+  </model>
+
+  <model>
+    <name>master_fire_eng</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/master_fire.xml</path>
+    <offsets>
+      <x-m>-14.272</x-m>
+      <y-m>0.777</y-m>
+      <z-m>1.136</z-m>
+      <heading-deg>-90</heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>door_warn</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/door_warn.xml</path>
+  </model>
+
+  <model>
+    <name>press_warn</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/press_warn.xml</path>
+    <offsets>
+      <x-m>-13.992</x-m>
+      <y-m>0.778</y-m>
+      <z-m>1.044</z-m>
+    </offsets>
+  </model>
+
+  <!-- MJB Panel -->
+
+  <model>
+    <name>engine_select_warn</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/engine_select_warn.xml</path>
+  </model>
+
+  <model>
+    <name>volts_dc</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/volts_dc.xml</path>
+    <offsets>
+      <x-m>-14.786</x-m>
+      <y-m>0.782</y-m>
+      <z-m>1.170</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>volts_ac</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/volts_ac.xml</path>
+    <offsets>
+      <x-m>-14.598</x-m>
+      <y-m>0.782</y-m>
+      <z-m>1.170</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>amps_dc1</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/amps_dc.xml</path>
+    <offsets>
+      <x-m>-14.765</x-m>
+      <y-m>0.782</y-m>
+      <z-m>1.094</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>amps_dc2</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/amps_dc2.xml</path>
+    <offsets>
+      <x-m>-14.681</x-m>
+      <y-m>0.782</y-m>
+      <z-m>1.094</z-m>
+    </offsets>
+  </model>
+  <model>
+    <name>amps_dc_apu</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/amps_dc_apu.xml</path>
+    <offsets>
+      <x-m>-14.603</x-m>
+      <y-m>0.782</y-m>
+      <z-m>1.094</z-m>
+    </offsets>
+  </model>
+
+  <!-- Overhead Radios -->
+
+  <model>
+    <name>comm1</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/comm.xml</path>
+    <overlay>
+      <params>
+        <display-sel-mhz>/instrumentation/comm[0]/frequencies/display-sel-mhz</display-sel-mhz>
+        <display-sel-khz>/instrumentation/comm[0]/frequencies/display-sel-khz</display-sel-khz>
+        <selected-mhz>/instrumentation/comm[0]/frequencies/selected-mhz</selected-mhz>
+        <display-sby-khz>/instrumentation/comm[0]/frequencies/display-sby-khz</display-sby-khz>
+        <display-sby-mhz>/instrumentation/comm[0]/frequencies/display-sby-mhz</display-sby-mhz>
+        <standby-mhz>/instrumentation/comm[0]/frequencies/standby-mhz</standby-mhz>
+        <volume>/instrumentation/comm[0]/volume</volume>
+      </params>
+    </overlay>
+    <offsets>
+      <x-m>-14.969</x-m>
+      <y-m>-0.148</y-m>
+      <z-m>1.563</z-m>
+      <pitch-deg>78</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>comm2</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/comm.xml</path>
+    <overlay>
+      <params>
+        <display-sel-mhz>/instrumentation/comm[1]/frequencies/display-sel-mhz</display-sel-mhz>
+        <display-sel-khz>/instrumentation/comm[1]/frequencies/display-sel-khz</display-sel-khz>
+        <selected-mhz>/instrumentation/comm[1]/frequencies/selected-mhz</selected-mhz>
+        <display-sby-khz>/instrumentation/comm[1]/frequencies/display-sby-khz</display-sby-khz>
+        <display-sby-mhz>/instrumentation/comm[1]/frequencies/display-sby-mhz</display-sby-mhz>
+        <standby-mhz>/instrumentation/comm[1]/frequencies/standby-mhz</standby-mhz>
+        <volume>/instrumentation/comm[1]/volume</volume>
+      </params>
+    </overlay>
+    <offsets>
+      <x-m>-14.969</x-m>
+      <y-m>0.148</y-m>
+      <z-m>1.563</z-m>
+      <pitch-deg>78</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>nav1</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/nav.xml</path>
+    <overlay>
+      <params>
+        <display-sel-mhz>/instrumentation/nav[0]/frequencies/display-sel-mhz</display-sel-mhz>
+        <display-sel-khz>/instrumentation/nav[0]/frequencies/display-sel-khz</display-sel-khz>
+        <selected-mhz>/instrumentation/nav[0]/frequencies/selected-mhz</selected-mhz>
+        <display-sby-khz>/instrumentation/nav[0]/frequencies/display-sby-khz</display-sby-khz>
+        <display-sby-mhz>/instrumentation/nav[0]/frequencies/display-sby-mhz</display-sby-mhz>
+        <standby-mhz>/instrumentation/nav[0]/frequencies/standby-mhz</standby-mhz>
+        <volume>/instrumentation/nav[0]/volume</volume>
+      </params>
+    </overlay>
+    <offsets>
+      <x-m>-15.032</x-m>
+      <y-m>-0.148</y-m>
+      <z-m>1.549</z-m>
+      <pitch-deg>78</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>nav2</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/nav.xml</path>
+    <overlay>
+      <params>
+        <display-sel-mhz>/instrumentation/nav[1]/frequencies/display-sel-mhz</display-sel-mhz>
+        <display-sel-khz>/instrumentation/nav[1]/frequencies/display-sel-khz</display-sel-khz>
+        <selected-mhz>/instrumentation/nav[1]/frequencies/selected-mhz</selected-mhz>
+        <display-sby-khz>/instrumentation/nav[1]/frequencies/display-sby-khz</display-sby-khz>
+        <display-sby-mhz>/instrumentation/nav[1]/frequencies/display-sby-mhz</display-sby-mhz>
+        <standby-mhz>/instrumentation/nav[1]/frequencies/standby-mhz</standby-mhz>
+        <volume>/instrumentation/nav[1]/volume</volume>
+      </params>
+    </overlay>
+    <offsets>
+      <x-m>-15.032</x-m>
+      <y-m>0.148</y-m>
+      <z-m>1.549</z-m>
+      <pitch-deg>78</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>adf1</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/adf.xml</path>
+    <overlay>
+      <params>
+        <selected-khz>/instrumentation/adf[0]/frequencies/selected-khz</selected-khz>
+        <standby-khz>/instrumentation/adf[0]/frequencies/standby-khz</standby-khz>
+        <volume>/instrumentation/adf[0]/volume-norm</volume>
+      </params>
+    </overlay>
+    <offsets>
+      <x-m>-15.095</x-m>
+      <y-m>-0.148</y-m>
+      <z-m>1.536</z-m>
+      <pitch-deg>78</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>adf2</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/adf.xml</path>
+    <overlay>
+      <params>
+        <selected-khz>/instrumentation/adf[1]/frequencies/selected-khz</selected-khz>
+        <standby-khz>/instrumentation/adf[1]/frequencies/standby-khz</standby-khz>
+        <volume>/instrumentation/adf[1]/volume-norm</volume>
+      </params>
+    </overlay>
+    <offsets>
+      <x-m>-15.095</x-m>
+      <y-m>0.148</y-m>
+      <z-m>1.536</z-m>
+      <pitch-deg>78</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <path>Aircraft/Instruments-3d/kt76a/kt76a.xml</path>
+    <overlay>
+      <params>
+        <dimming>controls/lighting/panel-norm</dimming>
+      </params>
+    </overlay>
+    <offsets>
+      <x-m>-15.148</x-m>
+      <y-m>-0.142</y-m>
+      <z-m>1.532</z-m>
+      <pitch-deg>78</pitch-deg>
+    </offsets>
+  </model>
+
+</PropertyList>

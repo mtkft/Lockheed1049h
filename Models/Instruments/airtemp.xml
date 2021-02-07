@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>airtemp.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>Airtemp.FaceBack</object-name>
+    <object-name>Airtemp.Needle</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>Airtemp.Needle</object-name>
+    <property>environment/temperature-degc</property>
+    <interpolation>
+      <entry><ind>-60</ind><dep>-60</dep></entry>
+      <entry><ind>  0</ind><dep>  0</dep></entry>
+      <entry><ind> 60</ind><dep> 60</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>-0.016</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+</PropertyList>

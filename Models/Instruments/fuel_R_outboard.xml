@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<!-- Right outboard tank -->
+
+<PropertyList>
+
+  <path>fuel30_engineer.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>Fuel30.Face</object-name>
+    <object-name>Fuel30.Needle</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>Fuel30.Needle</object-name>
+    <property>consumables/fuel/tank[11]/level-lbs</property>
+    <interpolation>
+      <entry><ind>   0</ind><dep>  0</dep></entry>
+      <entry><ind>3800</ind><dep>304</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>0.574</y>
+      <z>0.819</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>Fuel30.Face</object-name>
+    <action>
+      <name>FuelRoDec</name>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>consumables/fuel/tank[11]/level-gal_us</property>
+        <step>40</step>
+        <min>0</min>
+        <max>565.0</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <action>
+      <name>FuelRoInc</name>
+      <button>1</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>consumables/fuel/tank[11]/level-gal_us</property>
+        <step>-40</step>
+        <min>0</min>
+        <max>565.0</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+  </animation>
+
+</PropertyList>

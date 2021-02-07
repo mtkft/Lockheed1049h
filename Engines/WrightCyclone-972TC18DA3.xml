@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<!--
+Description of the Wright Cyclone 972TC18DA3 engine for the Lockheed1049h
+Copyright (C) 2015, 2018 Ludovic Brenta <ludovic@ludovic-brenta.org>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+References:
+
+http://www.enginehistory.org/Wright/Kuhns/CurtissWrightTC18/TurboCompounds.shtml
+http://www.flightglobal.com/FlightPDFArchive/1962/1962 - 2858.PDF
+
+In summary, three versions of the Turbo-Compound engine were offered for the 1049H:
+
+* the 972TC18DA3 rated at 3250hp,
+* the 988TC18EA3 rated at 3400hp,
+* the 988TC18EA6 rated at 3400hp.
+
+This file models the "low-end" engine.
+
+http://www.airweb.faa.gov/Regulatory_and_Guidance_Library/rgMakeModel.nsf/MainFrame?OpenFrameSet
+(FAA certificate, 6a5 revision 25)
+
+Engine performance depends on the impeller ratio, low or high, which the flight
+engineer selects with the SUPERCHARGER levers:
+
+Impeller ratio | 6.46:1 (low setting)          | 8.67:1 (high)
+_______________+_______________________________+________________________________
+  Maximum continuous power at critical altitudes:
+sea level      | 49.0 inHg, 2600 rpm (2700 hp) | -
+ 5800 ft       | 47.0 inHg, 2600 rpm (2750 hp) | -
+10050 ft       | -                             | 48.5 inHg, 2600 rpm (2405 hp)
+16400 ft       | -                             | 47.0 inHg, 2600 rpm (2450 hp)
+_______________+_______________________________+________________________________
+  Maximum take-off power (2 minutes at sea level; 5 minutes at 7500 ft.; straight
+  line variation of takeoff power time with altitude to 7500 ft.):
+Sea level      | 56.5 inhg, 2900 rpm (3250 hp) | -
+ 5500 ft       | 53.5 inHg, 2900 rpm (3250 hp) | -
+13300 ft       |                               | 49.5 inHg, 2600 rpm (2535 hp) 
+15200 ft       | -                             | 49.0 inHg, 2600 rpm (2550 hp)
+_______________+_______________________________+________________________________
+
+To compute the fuel flow, the same document tell us that:
+
+* the 1049H has a fuel capacity of 6550 gal plus two optional wing tip tanks of
+  609 gal each, not modelled here.
+* http://www.munich-airport.de/en/consumer/erlebnis/besucherpark/hist_flugz/superconst/index.jsp
+  tells us that a 1049G with the same engines and tip tanks had a range of
+  4774 nmi @282 KTAS and 20000 ft.
+* Knowing that 1 gal = 6 lbs of high-octane fuel, this gives a fuel flow of
+  (6550+2*609 gal * 6 lbs/gal)/(4774 nmi/282 kts)=2753 lbs/hour during cruise.
+* www.flightglobal.com/FlightPDFArchive/1962/1962 - 2858.PDF says 370 imperial
+  gallons/h = 444 gal/h = 2666 lbs/h at a slower 270 KTAS; this is
+  almost perfectly proportional to the above, viz. 0.101 nmi/lb.
+* So, we tune our engine model to burn 2666/4=666.5 lbs/hour per engine at
+  270 KTAS and 20000ft.
+* https://en.wikipedia.org/wiki/Lockheed_L-1049_Super_Constellation states
+  that the wing-tip tanks increased range by 1770 km or 956 nmi; this gives
+  a range for our aircraft of 3818 nmi.
+
+I tuned the figures following http://wiki.flightgear.org/JSBSim_Engines:
+volumetric efficiency to get the desired fuel flow, then bsfc to get the desired
+power at altitude.
+
+-->
+
+<piston_engine name="Wright Cyclone 972TC18DA3">
+
+  <minmp unit="INHG"> 7.0 </minmp>
+  <maxmp unit="INHG"> 29.92 </maxmp>
+  <displacement unit="IN3"> 3347.9 </displacement>
+  <bsfc>0.251</bsfc>
+  <volumetric-efficiency> 0.385 </volumetric-efficiency>
+  <maxhp>    3250.00 </maxhp>
+  <cycles>      4.0 </cycles>
+  <bore unit="IN"> 6.125  </bore>
+  <stroke unit="IN"> 6.312 </stroke>
+  <cylinders> 18 </cylinders>
+  <cylinder-head-mass> 25.0 </cylinder-head-mass>
+  <compression-ratio> 6.7 </compression-ratio>
+  <sparkfaildrop> 0.9 </sparkfaildrop>
+  <idlerpm>   500.0 </idlerpm>
+  <maxrpm>       2900.0 </maxrpm>
+  <maxthrottle> 1.0 </maxthrottle>
+  <minthrottle> 0.1 </minthrottle>
+  <starter-rpm>470</starter-rpm>
+  <boostmanual>      1 </boostmanual>
+  <numboostspeeds>   2 </numboostspeeds>
+  <boostoverride>    1 </boostoverride> <!-- allow MAP to exceed rated MAP -->
+  <takeoffboost>     0</takeoffboost> <!-- takeoff boost not used because it works poorly. -->
+
+  <!-- Low-speed supercharger; see table above.  The rated boost is on top of
+       sea level ambient pressure. -->
+  <ratedboost1 unit="INHG"> 23.58 </ratedboost1> <!-- 53.5 - 29.92 -->
+  <ratedpower1> 3250 </ratedpower1>
+  <ratedrpm1>   2900 </ratedrpm1>
+  <ratedaltitude1> 5500 </ratedaltitude1>
+
+  <!-- High-speed supercharger; see table above. -->
+  <ratedboost2 unit="INHG"> 19.08 </ratedboost2> <!-- 49.0 - 29.92 -->
+  <ratedpower2> 2550 </ratedpower2>
+  <ratedrpm2>   2600 </ratedrpm2>
+  <ratedaltitude2> 15200 </ratedaltitude2>
+
+</piston_engine>

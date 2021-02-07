@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <sim>
+    <model>
+      <livery>
+        <name type="string">Eastern Great Silver Fleet</name>
+        <texture>txt_livery_fuselage.rgb</texture>
+      </livery>
+      <cowls>
+        <texture>txt_livery_cowls.rgb</texture>
+      </cowls>
+      <rudders>
+        <texture>txt_livery_rudders.rgb</texture>
+      </rudders>
+      <wing>
+        <texture>txt_livery_wing.rgb</texture>
+      </wing>
+      <propellers>
+        <texture>txt_livery_prop1.rgb</texture>
+      </propellers>
+      <propellerdisks>
+        <texture>txt_propblur.rgb</texture>
+      </propellerdisks>
+    </model>
+  </sim>
+</PropertyList>

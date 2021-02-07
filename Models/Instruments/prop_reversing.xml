@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>prop_reversing.ac</path>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampPropRevOn1</object-name>
+    <object-name>LampPropRevOn2</object-name>
+    <object-name>LampPropRevOn3</object-name>
+    <object-name>LampPropRevOn4</object-name>
+    <condition>
+      <and>
+        <property>controls/engines/engine[0]/reverser</property>
+        <greater-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampPropRev1</object-name>
+    <object-name>LampPropRev2</object-name>
+    <object-name>LampPropRev3</object-name>
+    <object-name>LampPropRev4</object-name>
+    <condition>
+      <or>
+        <not><property>controls/engines/engine[0]/reverser</property></not>
+        <less-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </less-than>
+      </or>
+    </condition>
+  </animation>
+
+</PropertyList>
+

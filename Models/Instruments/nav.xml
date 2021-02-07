@@ -1,0 +1,319 @@
+<?xml version="1.0"?>
+<PropertyList>
+
+  <path>nav_radio.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>Panel</object-name>
+    <object-name>TFRbutton</object-name>
+    <object-name>StdbyKnob1</object-name>
+    <object-name>StdbyKnob2</object-name>
+    <object-name>ActKnob1</object-name>
+    <object-name>ActKnob2</object-name>
+    <object-name>VolumeKnob</object-name>
+    <emission>
+      <red>0.15</red>
+      <green>0.15</green>
+      <blue>0.15</blue>
+      <factor-prop>controls/lighting/chart</factor-prop>
+    </emission>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>ActDigit1</object-name>
+    <object-name>ActDigit2</object-name>
+    <object-name>ActDigit3</object-name>
+    <object-name>ActDigit4</object-name>
+    <object-name>ActDigit5</object-name>
+    <object-name>DecimalActive</object-name>
+    <object-name>StdbyDigit1</object-name>
+    <object-name>StdbyDigit2</object-name>
+    <object-name>StdbyDigit3</object-name>
+    <object-name>StdbyDigit4</object-name>
+    <object-name>StdbyDigit5</object-name>
+    <object-name>DecimalStdby</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <!--  Active Freq Digits -->
+
+  <animation>
+    <type>textranslate</type>
+    <object-name>ActDigit1</object-name>
+    <property alias="../../params/display-sel-mhz"/>
+    <factor>0.001</factor>
+    <step>100</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>textranslate</type>
+    <object-name>ActDigit2</object-name>
+    <property alias="../../params/display-sel-mhz"/>
+    <factor>0.01</factor>
+    <step>10</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>textranslate</type>
+    <object-name>ActDigit3</object-name>
+    <property alias="../../params/display-sel-mhz"/>
+    <factor>0.1</factor>
+    <step>1</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>textranslate</type>
+    <object-name>ActDigit4</object-name>
+    <property alias="../../params/display-sel-khz"/>
+    <factor>0.01</factor>
+    <step>10</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>textranslate</type>
+    <object-name>ActDigit5</object-name>
+    <property alias="../../params/display-sel-khz"/>
+    <factor>0.1</factor>
+    <step>1</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!--  Active Freq Knobs -->
+
+  <animation>
+    <type>knob</type>
+    <object-name>ActKnob1</object-name>
+    <property alias="../../params/display-sel-mhz"/>
+    <center>
+      <x-m>0</x-m>
+      <y-m>-0.038</y-m>
+      <z-m>-0.013</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/selected-mhz"/>
+        <min>107.95</min>
+        <max>117.95</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+  <animation>
+    <type>knob</type>
+    <object-name>ActKnob2</object-name>
+    <property alias="../../params/display-sel-khz"/>
+    <center>
+      <x-m>0</x-m>
+      <y-m>-0.038</y-m>
+      <z-m>-0.013</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/selected-mhz"/>
+        <factor>0.05</factor>
+        <min>107.95</min>
+        <max>117.95</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+
+  <!--  Standby Freq Digits -->
+
+  <animation>
+    <type>textranslate</type>
+    <object-name>StdbyDigit1</object-name>
+    <property alias="../../params/display-sby-mhz"/>
+    <factor>0.001</factor>
+    <step>100</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>textranslate</type>
+    <object-name>StdbyDigit2</object-name>
+    <property alias="../../params/display-sby-mhz"/>
+    <factor>0.01</factor>
+    <step>10</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>textranslate</type>
+    <object-name>StdbyDigit3</object-name>
+    <property alias="../../params/display-sby-mhz"/>
+    <factor>0.1</factor>
+    <step>1</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>textranslate</type>
+    <object-name>StdbyDigit4</object-name>
+    <property alias="../../params/display-sby-khz"/>
+    <factor>0.01</factor>
+    <step>10</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>textranslate</type>
+    <object-name>StdbyDigit5</object-name>
+    <property alias="../../params/display-sby-khz"/>
+    <factor>0.1</factor>
+    <step>1</step>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!--  Standby Freq Knobs -->
+
+  <animation>
+    <type>knob</type>
+    <object-name>StdbyKnob1</object-name>
+    <property alias="../../params/display-sby-mhz"/>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0.038</y-m>
+      <z-m>-0.013</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/standby-mhz"/>
+        <min>107.95</min>
+        <max>117.95</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+  <animation>
+    <type>knob</type>
+    <object-name>StdbyKnob2</object-name>
+    <property alias="../../params/display-sby-khz"/>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0.038</y-m>
+      <z-m>-0.013</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/standby-mhz"/>
+        <factor>0.05</factor>
+        <min>107.95</min>
+        <max>117.95</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+
+  <!--  Freq Transfer Button -->
+
+  <animation>
+    <type>pick</type>
+    <object-name>TFRbutton</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-swap</command>
+        <property alias="../../../../params/selected-mhz"/>
+        <property alias="../../../../params/standby-mhz"/>
+      </binding>
+    </action>
+  </animation>
+
+  <!-- Volume Knob -->
+
+  <animation>
+    <type>knob</type>
+    <object-name>VolumeKnob</object-name>
+    <property alias="../../params/volume"/>
+    <factor>90</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0</y-m>
+      <z-m>-0.01286</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../params/volume"/>
+        <factor>0.1</factor>
+        <min>0.0</min>
+        <max>1.0</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+  </animation>
+
+</PropertyList>

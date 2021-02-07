@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+Filters that compute the maximum load factors for the Lockheed1049h.
+Copyright (C) 2015 Ludovic Brenta <ludovic@ludovic-brenta.org>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+-->
+<PropertyList>
+
+  <filter>
+    <name>Maximum positive load factor depending on flap position</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <condition>
+        <greater-than>
+          <property>controls/flight/flaps</property>
+          <value>0</value>
+        </greater-than>
+      </condition>
+      <value>2.0</value>
+    </input>
+    <input>2.5</input>
+    <output>limits/max-positive-g</output>
+  </filter>
+
+  <filter>
+    <name>Maximum negative load factor depending on flap position and IAS</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <condition>
+        <greater-than>
+          <property>controls/flight/flaps</property>
+          <value>0</value>
+        </greater-than>
+      </condition>
+      <!-- linear interpolation from indicated airspeed: 260.7 KIAS -> -1.0g
+                                                         325.9 KIAS -> -0.5g
+           source: Lockheed Report 7786, page 256
+           http://www.avialogs.com/viewer/avialogs-documentviewer.php?id=3447
+      -->
+      <property>velocities/airspeed-kt</property>
+      <scale>0.00766871165</scale>
+      <offset>-3</offset>
+      <min>-1.0</min>
+      <max>-0.5</max>
+    </input>
+    <input>-1.0</input>
+    <output>limits/max-negative-g</output>
+  </filter>
+
+  <filter>
+    <name>Vne depending on pressure altitude</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <!-- 0 .. 11000 ft -> 293 KIAS, then -11 KIAS/2000ft -->
+    <input>
+      <property>instrumentation/altimeter/pressure-alt-ft</property>
+      <scale>-0.0055</scale>
+      <offset>353.5</offset>
+    </input>
+    <min>0</min>
+    <max>293</max>
+    <output>limits/vne</output>
+  </filter>
+
+</PropertyList>

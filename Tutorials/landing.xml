@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+    <name>Straight-in Landing</name>
+
+    <description>Landings are not optional...
+
+Land the aircraft from an altitude of 1700 ft on runway 23 at Sabadell (EHLE) on a calm morning.
+
+Unlike normal flight, when landing you use power alone to control descent rate. The runway should stay in the same position throughout the descent - about a third of the distance above the glare-shield.
+
+EHLE has a VASI to the left of runway 23, a series of lights designed to help you judge your approach. Simply put, the VASI will display red lights if you are descending too fast (indicating that you need to increase power), and white lights if you are too high (indicating that you need to decrease power). If you are descending at the right angle, you will see three red lights and three white.
+
+You start the tutorial cruising at around 1000 ft and 130 kts. Your flaps and throttle will be controlled by your co-pilot.
+  </description>
+
+    <timeofday>morning</timeofday>
+    <presets>
+        <airport-id>EHLE</airport-id>
+        <on-ground>0</on-ground>
+        <runway>23</runway>
+        <altitude-ft>1000</altitude-ft>
+        <latitude-deg>-9999</latitude-deg>
+        <longitude-deg>-9999</longitude-deg>
+        <!--    <heading-deg>300.0</heading-deg> -->
+        <airspeed-kt>130.0</airspeed-kt>
+        <glideslope-deg>3</glideslope-deg>
+        <offset-azimuth-deg>0</offset-azimuth-deg>
+        <offset-distance-nm>3</offset-distance-nm>
+        <ndb-id>0</ndb-id>
+        <vor-id>0</vor-id>
+        <fix>0</fix>
+    </presets>
+
+    <init>
+      <nasal>
+        autochecklist.complete_checklists("approach", 0);
+        controls.selectAllEngines();
+      </nasal>
+      <set>
+        <property>/autopilot/settings/target-speed-kt</property>
+        <value>130</value>
+      </set>
+      <set>
+        <property>/autopilot/locks/speed</property>
+        <value>speed-with-throttle</value>
+      </set>
+    </init>
+
+    <step>
+        <message>The runway is straight ahead.</message>
+<!--        <set>
+            <property>/controls/engines/current-engine/throttle</property>
+            <value>0.65</value>
+        </set>
+-->
+        <set>
+          <property>/autopilot/locks/speed</property>
+          <value>speed-with-throttle</value>
+        </set>
+        <wait>1</wait>
+    </step>
+
+    <step>
+        <message>Keep the runway in the center of the screen
+        </message>
+
+        <exit>
+            <condition>
+                <less-than>
+                    <property>/position/altitude-agl-ft</property>
+                    <value>50.0</value>
+                </less-than>
+            </condition>
+        </exit>
+    </step>
+
+    <step>
+        <message>Throttles being reduced captain</message>
+        <set>
+          <property>/autopilot/settings/target-speed-kt</property>
+          <value>0</value>
+        </set>
+        <wait>2</wait>
+    </step>
+
+    <step>
+        <message>Keep tracking straight down the runway and let the aircraft land on the main gear.</message>
+        <set>
+          <property>/autopilot/locks/speed</property>
+          <value></value>
+        </set>
+        <exit>
+            <condition>
+                <less-than>
+                    <property>/velocities/airspeed-kt</property>
+                    <value>75.0</value>
+                </less-than>
+            </condition>
+        </exit>
+        <wait>1</wait>
+    </step>
+
+    <step>
+        <message>Lower the nose wheel, continue to track down the runway.
+        </message>
+        <set>
+          <property>/autopilot/locks/speed</property>
+          <value></value>
+        </set>
+        <nasal>
+          controls.applyBrakes(1);
+        </nasal>
+    </step>
+
+    <step>
+        <message>Congratulations on a successful landing.</message>
+    </step>
+
+</PropertyList>

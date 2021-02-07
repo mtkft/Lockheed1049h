@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <sim>
+    <model>
+      <livery>
+        <name type="string">Estonian Air Retro</name>
+        <texture>txt_livery_fuselage_EST.rgb</texture>
+      </livery>
+      <cowls>
+        <texture>txt_livery_cowls_EST.rgb</texture>
+      </cowls>
+      <rudders>
+        <texture>txt_livery_rudders_EST.rgb</texture>
+      </rudders>
+      <wing>
+        <texture>txt_livery_wing.rgb</texture>
+      </wing>
+      <propellers>
+        <texture>txt_livery_prop_EST.rgb</texture>
+      </propellers>
+      <propellerdisks>
+        <texture>txt_propblur_EST.rgb</texture>
+      </propellerdisks>
+    </model>
+  </sim>
+</PropertyList>

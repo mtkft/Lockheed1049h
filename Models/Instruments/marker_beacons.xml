@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>marker_beacons.ac</path>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>SwMBTest</object-name>
+    <property>instrumentation/marker-beacon/test</property>
+    <interpolation>
+      <entry><ind>0</ind><dep>-25</dep></entry>
+      <entry><ind>1</ind><dep> 25</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>-0.002</x-m>
+      <y-m>0.0</y-m>
+      <z-m>-0.051</z-m>
+    </center>
+    <axis>
+      <x>0.0</x>
+      <y>0.0</y>
+      <z>1.0</z>
+    </axis>
+  </animation>
+  <animation>
+    <type>pick</type>
+    <object-name>SwMBTest</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>instrumentation/marker-beacon/test</property>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampOuterBlueOn</object-name>
+    <condition>
+      <or>
+        <property>instrumentation/marker-beacon/outer</property>
+        <property>instrumentation/marker-beacon/test</property>
+      </or>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampOuterBlue</object-name>
+    <condition>
+      <and>
+        <not><property>instrumentation/marker-beacon/outer</property></not>
+        <not><property>instrumentation/marker-beacon/test</property></not>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampMiddleAmberOn</object-name>
+    <condition>
+      <or>
+        <property>instrumentation/marker-beacon/middle</property>
+        <property>instrumentation/marker-beacon/test</property>
+      </or>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampMiddleAmber</object-name>
+    <condition>
+      <and>
+        <not><property>instrumentation/marker-beacon/middle</property></not>
+        <not><property>instrumentation/marker-beacon/test</property></not>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampInnerWhiteOn</object-name>
+    <condition>
+      <or>
+        <property>instrumentation/marker-beacon/inner</property>
+        <property>instrumentation/marker-beacon/test</property>
+      </or>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampInnerWhite</object-name>
+    <condition>
+      <and>
+        <not><property>instrumentation/marker-beacon/inner</property></not>
+        <not><property>instrumentation/marker-beacon/test</property></not>
+      </and>
+    </condition>
+  </animation>
+
+</PropertyList>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>master_fire.ac</path>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampMasterFireOn</object-name>
+    <condition>
+      <and>
+        <property>controls/special/fire-warning</property>
+        <or>
+          <property>hazards/fire/engine[0]</property>
+          <property>hazards/fire/engine[1]</property>
+          <property>hazards/fire/engine[2]</property>
+          <property>hazards/fire/engine[3]</property>
+        </or>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>Placard.001</object-name>
+    <emission>
+      <red>0.2</red>
+      <green>0.2</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/chart</factor-prop>
+    </emission>
+  </animation>
+
+</PropertyList>

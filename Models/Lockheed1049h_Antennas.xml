@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!-- Lockheed Constellation 1049h        -->
+<!-- Gary R. Neely 'Buckaroo', Nov 2008  -->
+
+<PropertyList>
+
+  <path>mesh_antennas.ac</path>
+
+
+  <!-- Special Shaders -->
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>ADFLoopL</object-name>
+    <object-name>ADFLoopR</object-name>
+    <object-name>ADFSenseMastAL</object-name>
+    <object-name>ADFSenseMastAR</object-name>
+    <object-name>ADFSenseMastFL</object-name>
+    <object-name>ADFSenseMastFR</object-name>
+    <object-name>HF</object-name>
+    <object-name>HFMast</object-name>
+    <object-name>RadAltL</object-name>
+    <object-name>RadAltR</object-name>
+    <object-name>Terrain</object-name>
+    <object-name>VHF</object-name>
+    <object-name>VorLoc</object-name>
+    <object-name>VHF</object-name>
+    <object-name>VHF</object-name>
+  </animation>
+
+</PropertyList>
+

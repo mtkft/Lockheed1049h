@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- Fuel Total gauge -->
+
+<PropertyList>
+
+  <path>fuel400_engineer.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>Fuel400.Face</object-name>
+    <object-name>Fuel400.Needle</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>Fuel400.Needle</object-name>
+    <property>consumables/fuel/total-fuel-lbs</property>
+    <interpolation>
+      <entry><ind>    0</ind><dep>    0</dep></entry>
+      <entry><ind>44000</ind><dep>316.8</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>0.574</y>
+      <z>0.819</z>
+    </axis>
+  </animation>
+
+</PropertyList>

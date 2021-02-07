@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <!-- Specific keys -->
+
+  <key>
+    <name>=</name>
+    <desc>Options menu</desc>
+  </key>
+  <key>
+    <name>Shift+C</name>
+    <desc>Toggle auto-coordination</desc>
+  </key>
+  <key>
+    <name>D</name>
+    <desc>Crew door view</desc>
+  </key>
+  <key>
+    <name>Ctrl+D</name>
+    <desc>Open/Close crew door</desc>
+  </key>
+  <key>
+    <name>E</name>
+    <desc>Engineer view</desc>
+  </key>
+  <key>
+    <name>F, Shift+F</name>
+    <desc>Open, close cowl flaps one step</desc>
+  </key>
+  <key>
+    <name>J</name>
+    <desc>Jump seat view</desc>
+  </key>
+  <key>
+    <name>K</name>
+    <desc>Cockpit observer view</desc>
+  </key>
+  <key>
+    <name>L</name>
+    <desc>Copilot view</desc>
+  </key>
+  <key>
+    <name>Ctrl+L</name>
+    <desc>Unlock/Lock Prop Reversing</desc>
+  </key>
+  <key>
+    <name>Alt+L</name>
+    <desc>Run After Landing Checklist</desc>
+  </key>
+  <key>
+    <name>O</name>
+    <desc>Overhead panel view</desc>
+  </key>
+  <key>
+    <name>Alt+S</name>
+    <desc>Toggle superchargers low/high</desc>
+  </key>
+  <key>
+    <name>Ctrl+V</name>
+    <desc>Pilot view</desc>
+  </key>
+  <key>
+    <name>Delete</name>
+    <desc>Engage/Disengage Prop Reverse</desc>
+  </key>
+  <key>
+    <name>Ctrl+Z</name>
+    <desc>Toggle autopilot on/off</desc>
+  </key>
+
+  <!-- FDM ops -->
+
+  <text>
+Starting the Constellation's engines:
+
+Engage the magnetos for the engines you wish to start by setting the
+switches above the pilot seat to "Both". From the engineer's station,
+locate the "MJB No. 1" panel to the upper left. Turn on the ship's
+battery or ground cart battery. Turn on all generator switches. Below
+that panel, find the "MJB No. 2" panel. Turn the "Engine Starter Select"
+switch to the engine you want to start. Press "Start" and watch your
+gauges for the engine to catch. Repeat for all 4 engines.
+
+________________________Procedures_________________________
+Takeoff :
+Open cowl flaps 100%.
+flaps 60%.
+56.5 inHg, 2900 RPM.  Note: this is not full throttle!
+120 KIAS (light load) or 130 KIAS (full load): rotate
+165 KIAS: gear up
+184 KIAS: flaps up
+
+Climb :
+48.0 inHg, 2600 RPM.  Note: this is not full throttle!
+Cowl flaps 60%
+Maintain 190 KIAS.
+Above 3600 ft, lean mixture gradually to keep BMEP as high as possible.
+Open throttle gradually to maintain 48 inHg.
+Watch cylinder head temperature; open cowl flaps as necessary.
+
+When throttle is wide open and manifold pressure drops below 48 inHg
+(approximately 9000 ft), reduce throttle and engage supercharger high speed
+then adjust throttle to keep 48 inHg.
+
+Cruise :
+223 KIAS at 20000 ft, 218 KIAS at 21000 ft
+45 inHg, 2300 RPM.  With throttle wide open, adjust RPM to control speed.
+Reduce RPM further as your ship becomes lighter.
+Close cowl flaps.
+
+Descent :
+max pitch, 48.0 inHg or less as necessary.
+Gradually enrich mixture to keep BMEP maximized.
+Engage supercharger low speed below 9000 ft.
+
+Approach :
+184 KIAS: flaps 60%
+165 KIAS: gear down
+161 KIAS: flaps 66%
+154 KIAS: flaps 80%
+148 KIAS: flaps 100%
+
+Landing :
+maintain 120 kt (landing load);
+touch down 110 kt (landing load), 100 kt (empty load).
+
+________________________Emergency_________________________
+Put out fire :
+At Engineer View:
+
+Mixture  lever for this engine down
+Throttle lever for this engine down
+
+Restart after fire :
+Magnetos for this engine to both
+Mixture max. (or same as others)
+Throttle max. (or same as others)
+Starter switch to the engine no....
+and restart with S or starter button
+
+<!-- Real data -->
+________________________ Performance _______________________
+Ceiling : 23500 ft
+Normal cruise : 280 KTAS (223 KIAS) @ 20000 ft
+Range : 3800 nmi
+
+_______________________ Speed limits _______________________
+Vne (never exceed) : 294 KIAS until 12500 ft; then - 10 KIAS / 2000 ft
+Vno (normal operation): 261 KIAS until 12500 ft, then - 10 KIAS / 2000 ft
+Va (maneuvering) : 193 KIAS
+Vlo (landing gear operation) : 165 KIAS
+Vle (landing gear extension) : 165 KIAS
+Vf (flaps):
+ take-off   60%: 195 KIAS
+ approach   66%: 174 KIAS
+ final      80%: 174 KIAS
+ landing   100%: 165 KIAS
+
+________________________ Engine limits _____________________
+Maximum take-off power: 2900 rpm, 3250 hp
+2 minutes at sea level : 56.5 inHg
+5 minutes at 7500 ft   : 53.5 inHg
+
+Maximum continuous power: 2600 rpm
+sea level: 49.0 inHg, 2700 hp
+ 5800 ft:  47.0 inHg, 2750 hp
+10050 ft:  48.5 inHg, 2400 hp
+16400 ft:  47.0 inHg, 2450 hp
+
+Maximum cylinder head temperature: 270 degC, 550 degF
+
+________________________ Weight limits _____________________
+See Equipment > Fuel and payload.
+The center of gravity must lie within the following limits:
+
+At 137500 lbs: between 671.3 and 685.2 inches aft of the nose
+At  90000 lbs: between 660.5 and 685.2 inches aft of the nose
+  </text>
+
+</PropertyList>

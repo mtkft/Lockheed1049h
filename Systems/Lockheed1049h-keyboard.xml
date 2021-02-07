@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <key n="1">
+    <!-- The default key sets altitude hold mode with a target
+         altitude of zero.  Override with our custom autopilot to
+         capture and hold current altitude. -->
+    <name>Ctrl+A</name>
+    <binding>
+      <command>property-toggle</command>
+      <property>autopilot/switches/alt</property>
+    </binding>
+  </key>
+
+  <key n="4">
+    <name>Ctrl+D</name>
+    <binding>
+      <command>nasal</command>
+      <script>Lockheed1049h.door_crew.toggle()</script>
+    </binding>
+  </key>
+
+  <key n="12">
+    <name>Ctrl-L</name>
+    <desc>Propeller reverse lock</desc>
+    <binding>
+      <command>nasal</command>
+      <script>Lockheed1049h.toggle_reverse_lockout()</script>
+    </binding>
+  </key>
+
+  <key n="26">
+    <name>Ctrl-Z</name>
+    <desc>Toggle autopilot on/off</desc>
+    <binding>
+      <command>nasal</command>
+      <script>Lockheed1049h.toggle_autopilot_on_off()</script>
+    </binding>
+  </key>
+
+  <key n="61">
+    <name>=</name>
+    <desc>Menu</desc>
+    <binding>
+      <command>dialog-show</command>
+      <dialog-name>Lockheed1049h-menu</dialog-name>
+    </binding>
+  </key>
+
+  <key n="67">
+    <name>C</name>
+    <binding>
+      <command>property-toggle</command>
+      <property>controls/flight/auto-coordination</property>
+    </binding>
+  </key>
+
+  <key n="70">
+    <name>F</name>
+    <desc>Close cowl flaps</desc>
+    <binding>
+      <command>property-adjust</command>
+      <property>controls/engines/engine[0]/cowl-flaps-norm</property>
+      <step>-0.2</step>
+      <min>0</min>
+      <max>1</max>
+      <wrap>0</wrap>
+    </binding>
+    <binding>
+      <command>property-adjust</command>
+      <property>controls/engines/engine[1]/cowl-flaps-norm</property>
+      <step>-0.2</step>
+      <min>0</min>
+      <max>1</max>
+      <wrap>0</wrap>
+    </binding>
+    <binding>
+      <command>property-adjust</command>
+      <property>controls/engines/engine[2]/cowl-flaps-norm</property>
+      <step>-0.2</step>
+      <min>0</min>
+      <max>1</max>
+      <wrap>0</wrap>
+    </binding>
+    <binding>
+      <command>property-adjust</command>
+      <property>controls/engines/engine[3]/cowl-flaps-norm</property>
+      <step>-0.2</step>
+      <min>0</min>
+      <max>1</max>
+      <wrap>0</wrap>
+    </binding>
+    <binding>
+      <command>nasal</command>
+      <script>
+        Lockheed1049h.switch_ani(0,-1);
+        Lockheed1049h.switch_ani(1,-1);
+        Lockheed1049h.switch_ani(2,-1);
+        Lockheed1049h.switch_ani(3,-1);
+      </script>
+    </binding>
+  </key>
+
+  <key n="100">
+    <name>d</name>
+    <desc>Crew Door View</desc>
+    <binding>
+      <command>nasal</command>
+      <script>setprop ("/sim/current-view/view-number", view.indexof ("Crew Door View"));</script>
+    </binding>
+  </key>
+
+  <key n="101">
+    <name>e</name>
+    <desc>Engineer View</desc>
+    <binding>
+      <command>nasal</command>
+      <script>setprop ("/sim/current-view/view-number", view.indexof ("Engineer View"));</script>
+    </binding>
+  </key>
+
+  <key n="102">
+    <name>f</name>
+    <desc>Open cowl flaps</desc>
+    <binding>
+      <command>property-adjust</command>
+      <property>controls/engines/engine[0]/cowl-flaps-norm</property>
+      <step>0.2</step>
+      <min>0</min>
+      <max>1</max>
+      <wrap>0</wrap>
+    </binding>
+    <binding>
+      <command>property-adjust</command>
+      <property>controls/engines/engine[1]/cowl-flaps-norm</property>
+      <step>0.2</step>
+      <min>0</min>
+      <max>1</max>
+      <wrap>0</wrap>
+    </binding>
+    <binding>
+      <command>property-adjust</command>
+      <property>controls/engines/engine[2]/cowl-flaps-norm</property>
+      <step>0.2</step>
+      <min>0</min>
+      <max>1</max>
+      <wrap>0</wrap>
+    </binding>
+    <binding>
+      <command>property-adjust</command>
+      <property>controls/engines/engine[3]/cowl-flaps-norm</property>
+      <step>0.2</step>
+      <min>0</min>
+      <max>1</max>
+      <wrap>0</wrap>
+    </binding>
+    <binding>
+      <command>nasal</command>
+      <script>
+        Lockheed1049h.switch_ani(0,1);
+        Lockheed1049h.switch_ani(1,1);
+        Lockheed1049h.switch_ani(2,1);
+        Lockheed1049h.switch_ani(3,1);
+      </script>
+    </binding>
+  </key>
+
+  <key n="106">
+    <name>j</name>
+    <desc>Jump Seat View</desc>
+    <binding>
+      <command>nasal</command>
+      <script>setprop ("/sim/current-view/view-number", view.indexof ("Jump Seat View"));</script>
+    </binding>
+  </key>
+
+  <key n="107">
+    <name>k</name>
+    <desc>Observer View</desc>
+    <binding>
+      <command>nasal</command>
+      <script>setprop ("/sim/current-view/view-number", view.indexof ("Observer View"));</script>
+    </binding>
+  </key>
+
+  <key n="108">
+    <name>l</name>
+    <desc>Copilot View</desc>
+    <binding>
+      <command>nasal</command>
+      <script>setprop ("/sim/current-view/view-number", view.indexof ("Copilot View"));</script>
+    </binding>
+    <mod-alt>
+      <binding>
+        <command>nasal</command>
+        <script><![CDATA[
+          if (props.globals.getNode("sim/checklists/auto") != nil) {
+              autochecklist.complete_checklists("after-landing", 0);
+          }
+        ]]></script>
+      </binding>
+    </mod-alt>
+  </key>
+
+  <key n="111">
+    <name>o</name>
+    <desc>Overhead Panel</desc>
+    <binding>
+      <command>nasal</command>
+      <script>setprop ("/sim/current-view/view-number", view.indexof ("Overhead Panel"));</script>
+    </binding>
+  </key>
+
+  <key n="115">
+    <name>s</name>
+    <desc>Selected Engine Starter</desc>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/switches/engine-start</property>
+      <value>1</value>
+    </binding>
+    <mod-up>
+      <binding>
+        <command>property-assign</command>
+        <property>controls/switches/engine-start</property>
+        <value>0</value>
+      </binding>
+    </mod-up>
+    <mod-alt>
+      <desc>Toggle superchargers</desc>
+      <binding>
+        <command>property-toggle</command>
+        <property>fdm/jsbsim/propulsion/engine[0]/boost-speed</property>
+      </binding>
+      <binding>
+        <command>property-toggle</command>
+        <property>fdm/jsbsim/propulsion/engine[1]/boost-speed</property>
+      </binding>
+      <binding>
+        <command>property-toggle</command>
+        <property>fdm/jsbsim/propulsion/engine[2]/boost-speed</property>
+      </binding>
+      <binding>
+        <command>property-toggle</command>
+        <property>fdm/jsbsim/propulsion/engine[3]/boost-speed</property>
+      </binding>
+    </mod-alt>
+  </key>
+
+  <key n="127">
+    <name>Delete</name>
+    <desc>Engage Propeller reverse</desc>
+    <binding>
+      <command>nasal</command>
+      <script>Lockheed1049h.toggle_prop_reverse()</script>
+    </binding>
+  </key>
+
+</PropertyList>

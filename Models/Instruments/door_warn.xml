@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!-- Engineer station door open warning lamp -->
+
+<PropertyList>
+
+  <path>door_warn.ac</path>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampDoorWarnOn</object-name>
+    <condition>
+      <and>
+        <property>controls/door-crew/position-norm</property>
+        <greater-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>23.5</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampDoorWarn</object-name>
+    <condition>
+      <or>
+        <not><property>controls/door-crew/position-norm</property></not>
+        <less-than-equals>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>23.5</value>
+        </less-than-equals>
+      </or>
+    </condition>
+  </animation>
+
+</PropertyList>
+

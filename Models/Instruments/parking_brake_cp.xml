@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>parking_brake_cp.ac</path>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampParkingBrakeOn</object-name>
+    <condition>
+      <and>
+        <property>controls/gear/brake-parking</property>
+        <greater-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>LampParkingBrake</object-name>
+    <condition>
+      <or>
+        <not><property>controls/gear/brake-parking</property></not>
+        <less-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </less-than>
+      </or>
+    </condition>
+  </animation>
+
+</PropertyList>
+

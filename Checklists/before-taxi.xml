@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+Checklist: Before Taxi
+
+Adapted from Lockheed Super Constallation Crew Operating Manual, 1952, p96
+@see http://www.avialogs.com/viewer/avialogs-documentviewer.php?id=3447
+
+Checklist items copied from the Lake of Constance Hangar, M. Kraus.
+
+Some items from the original checklist have been omitted because they are
+not included in the current Flightgear model. These may be added as the
+cockpit and flight engineer's station develops. Comments have been included
+at the relevant places in the checklist.
+
+Some additional items have been added to guide the Flightgear pilot. These
+are indicated in the comments by an asterisk.
+-->
+
+<PropertyList>
+
+  <title>Before Taxi</title>
+
+  <!-- Taxi Light* - ON -->
+  <item>
+    <name>Taxi Light</name>
+    <value>ON</value>
+    <marker>
+      <x-m>-15.2000</x-m>
+      <y-m>-0.8600</y-m>
+      <z-m>0.8500</z-m>
+      <scale>1.0000</scale>
+    </marker>
+    <condition>
+      <equals>
+        <property>controls/lighting/taxi</property>
+        <value>1</value>
+      </equals>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/lighting/taxi</property>
+      <value>1</value>
+    </binding>
+  </item>
+
+  <!-- Brake Selector Valve - NORM -->
+  <!-- Turn Indicators - CHECKED -->
+
+  <!-- Propellor Reversing - CHECKED -->
+  <item>
+    <name>Propellor Reversing</name>
+    <value>CHECK</value>
+    <marker>
+      <x-m>-15.4800</x-m>
+      <y-m>-0.0500</y-m>
+      <z-m>0.9200</z-m>
+      <scale>4.8000</scale>
+    </marker>
+    <binding>
+      <command>nasal</command>
+      <script><![CDATA[
+        setprop("controls/engines/reverser_allow", 1);
+        settimer(func {
+          setprop("controls/engines/engine[0]/reverser", 1);
+          setprop("controls/engines/engine[1]/reverser", 1);
+          setprop("controls/engines/engine[2]/reverser", 1);
+          setprop("controls/engines/engine[3]/reverser", 1);
+          settimer(func {
+            setprop("controls/engines/engine[0]/reverser", 0);
+            setprop("controls/engines/engine[1]/reverser", 0);
+            setprop("controls/engines/engine[2]/reverser", 0);
+            setprop("controls/engines/engine[3]/reverser", 0);
+            settimer(func {
+              setprop("controls/engines/reverser_allow", 0);
+            }, 1);
+          }, 1);
+        }, 1);  
+      ]]></script>
+    </binding>
+  </item>
+
+  <!-- Clocks and Altimeter - SET -->
+  <item>
+    <name>Clocks and Altimeter</name>
+    <value>SET</value>
+    <marker>
+      <x-m>-15.6400</x-m>
+      <y-m>-0.3100</y-m>
+      <z-m>1.0000</z-m>
+      <scale>8.2000</scale>
+    </marker>
+  </item>
+
+</PropertyList>
+

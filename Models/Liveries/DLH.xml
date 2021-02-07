@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <sim>
+    <model>
+      <livery>
+        <name type="string">DLH</name>
+        <texture>txt_livery_fuselage_DLH.rgb</texture>
+      </livery>
+      <cowls>
+        <texture>txt_livery_cowls_DLH.rgb</texture>
+      </cowls>
+      <rudders>
+        <texture>txt_livery_rudders_DLH.rgb</texture>
+      </rudders>
+      <wing>
+        <texture>txt_livery_wing.rgb</texture>
+      </wing>
+      <propellers>
+        <texture>txt_livery_prop1_DLH.rgb</texture>
+      </propellers>
+      <propellerdisks>
+        <texture>txt_propblur_DLH.rgb</texture>
+      </propellerdisks>
+    </model>
+  </sim>
+</PropertyList>

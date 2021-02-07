@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <sim>
+    <model>
+      <livery>
+        <name type="string">Warner Bros. Animanics</name>
+        <texture>txt_livery_wba_fuselage.rgb</texture>
+      </livery>
+      <cowls>
+        <texture>txt_livery_wba_cowls.rgb</texture>
+      </cowls>
+      <rudders>
+        <texture>txt_livery_wba_rudders.rgb</texture>
+      </rudders>
+      <wing>  
+        <texture>txt_livery_wba_wing.rgb</texture>
+      </wing>
+      <propellers>
+        <texture>txt_livery_wba_prop1.rgb</texture>
+      </propellers>
+      <propellerdisks>
+        <texture>txt_livery_wba_propblur.rgb</texture>
+      </propellerdisks>
+    </model>
+  </sim>
+</PropertyList>

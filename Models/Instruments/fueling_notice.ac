@@ -1,0 +1,26 @@
+AC3Db
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.5 0.5 0.5  shi 64  trans 0
+MATERIAL "Placards" rgb 0.8 0.8 0.8 amb 0.2 0.2 0.2 emis 0 0 0 spec 0.3 0.3 0.3 shi 16 trans 0
+OBJECT world
+kids 1
+OBJECT poly
+name "FuelingNotice"
+data 9
+Plane.005
+texture "fueling_notice.rgb"
+texrep 1 1
+crease 30.000000
+numvert 4
+0 -0.013 -0.051
+0 -0.013 0.051
+0 0.013 0.051
+0 0.013 -0.051
+numsurf 1
+SURF 0x00
+mat 1
+refs 4
+0 1.0 0.0
+3 1.0 0.999999880791
+2 0.0 1.0
+1 0.0 1.43280374232e-007
+kids 0

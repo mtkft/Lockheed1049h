@@ -1,0 +1,49 @@
+AC3Db
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.5 0.5 0.5  shi 64  trans 0
+MATERIAL "DefaultBlack.001" rgb 0.6 0.6 0.6 amb 0.6 0.6 0.6 emis 0 0 0 spec 0.2 0.2 0.2 shi 16 trans 0
+OBJECT world
+kids 1
+OBJECT poly
+name "plug_3"
+data 12
+Cylinder.433
+texture "plug_3.rgb"
+texrep 1 1
+crease 45.000000
+numvert 8
+0 -0.028956 -0.028956
+0 -0.04095 0
+0 -0.028956 0.028956
+0 0 0.04095
+0 0.028956 0.028956
+0 0.04095 0
+0 0.028956 -0.028956
+0 0 -0.04095
+numsurf 4
+SURF 0x10
+mat 1
+refs 3
+4 1.0 1.0
+6 1.0 1.0
+5 1.0 1.0
+SURF 0x10
+mat 1
+refs 4
+3 0.0 0.0
+7 0.0 0.0
+6 0.0 0.0
+4 0.0 0.0
+SURF 0x10
+mat 1
+refs 4
+0 0.0 0.0
+7 0.0 0.0
+3 0.0 0.0
+2 0.0 0.0
+SURF 0x10
+mat 1
+refs 3
+0 0.0 0.0
+2 0.0 0.0
+1 0.0 0.0
+kids 0

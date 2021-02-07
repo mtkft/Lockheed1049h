@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+
+<!--
+Lockheed 1049H
+Gary Neely aka 'Buckaroo'
+
+Fuel Preset Configurations
+
+Notes:
+- Fuel configuration defaults to the first preset in the list, 0.
+- All tanks (0-12), tank valves (0-4) and cross-feed valves (0-3) must have an entry.
+- Tanks must be ordered in the same sequence as declared in the FDM.
+- Tanks 0-3 are fuel line buffers and must always be set to 2.0.
+- Wing-tip tanks 1A and 4A are currently unused and should be set to 0.0 unless
+you wish to simulate their weight effects.
+- Preset names must be given matching names in the 1049H dialog menu for fuel options.
+- Tank valves may be set to 0 (offline), 1 (primary open), 2 (secondary open). 2A is the
+secondary for 2, 3A for 3. 1A, 4A would be secondary's for 1, 4 if wing-tips were used.
+Note that the center tank 5 has no secondary tank.
+- Cross-feed valves may be set to 0 (closed) or 1 (open).
+- For more about the fuel system, see the notes in Lockheed1049h-fuel.nas.
+
+Max tank capacities:
+Index	Tank	Max Capacity (gallons)
+4	1       1555
+5	2       790
+6	3       790
+7	4       1555
+8	5       730
+9	1A	(609, unused)
+10	2A      565
+11	3A      565
+12	4A	(609, unused)
+
+-->
+
+<PropertyList>
+
+  <!-- Default for manual input, saved on exit -->
+  <request-fuel-lbs type="double" archive="y">4800</request-fuel-lbs>
+
+  <!-- *********************************************************** -->
+  <!-- NOTE: If indexes are changed, update Lockheed1049h-fuel.nas -->
+  <!-- *********************************************************** -->
+
+  <fuel_preset n="0">
+    <preset_name>Casual Flying</preset_name>
+    <description>Two hours flying, no fuel management</description>
+    <tank n="0"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="1"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="2"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="3"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="4"><level-gal_us>200.0</level-gal_us></tank>
+    <tank n="5"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="6"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="7"><level-gal_us>200.0</level-gal_us></tank>
+    <tank n="8"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="9"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="10"><level-gal_us>200.0</level-gal_us></tank>
+    <tank n="11"><level-gal_us>200.0</level-gal_us></tank>
+    <tank n="12"><level-gal_us>0.0</level-gal_us></tank>
+    <tankvalve n="0">1</tankvalve>
+    <tankvalve n="1">2</tankvalve>
+    <tankvalve n="2">2</tankvalve>
+    <tankvalve n="3">1</tankvalve>
+    <tankvalve n="4">0</tankvalve>
+    <crossfeedvalve n="0">0</crossfeedvalve>
+    <crossfeedvalve n="1">0</crossfeedvalve>
+    <crossfeedvalve n="2">0</crossfeedvalve>
+    <crossfeedvalve n="3">0</crossfeedvalve>
+  </fuel_preset>
+
+  <fuel_preset n="1">
+    <preset_name>Fuel Management</preset_name>
+    <description>Two hours flying, fuel management</description>
+    <tank n="0"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="1"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="2"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="3"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="4"><level-gal_us>175.0</level-gal_us></tank>
+    <tank n="5"><level-gal_us>75.0</level-gal_us></tank>
+    <tank n="6"><level-gal_us>75.0</level-gal_us></tank>
+    <tank n="7"><level-gal_us>175.0</level-gal_us></tank>
+    <tank n="8"><level-gal_us>100.0</level-gal_us></tank>
+    <tank n="9"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="10"><level-gal_us>100.0</level-gal_us></tank>
+    <tank n="11"><level-gal_us>100.0</level-gal_us></tank>
+    <tank n="12"><level-gal_us>0.0</level-gal_us></tank>
+    <tankvalve n="0">0</tankvalve>
+    <tankvalve n="1">0</tankvalve>
+    <tankvalve n="2">0</tankvalve>
+    <tankvalve n="3">0</tankvalve>
+    <tankvalve n="4">0</tankvalve>
+    <crossfeedvalve n="0">0</crossfeedvalve>
+    <crossfeedvalve n="1">0</crossfeedvalve>
+    <crossfeedvalve n="2">0</crossfeedvalve>
+    <crossfeedvalve n="3">0</crossfeedvalve>
+  </fuel_preset>
+
+  <fuel_preset n="2">
+    <!-- Fuel quantities calculated by the refuelling dialog from payload -->
+    <preset_name>Max Landing</preset_name>
+    <description>Realistic refuelling to max landing weight</description>
+    <tankvalve n="0">1</tankvalve>
+    <tankvalve n="1">2</tankvalve>
+    <tankvalve n="2">2</tankvalve>
+    <tankvalve n="3">1</tankvalve>
+    <tankvalve n="4">0</tankvalve>
+    <crossfeedvalve n="0">0</crossfeedvalve>
+    <crossfeedvalve n="1">0</crossfeedvalve>
+    <crossfeedvalve n="2">0</crossfeedvalve>
+    <crossfeedvalve n="3">0</crossfeedvalve>
+  </fuel_preset>
+
+  <fuel_preset n="3">
+    <!-- Fuel quantities calculated by the refuelling dialog from payload -->
+    <preset_name>Max Takeoff</preset_name>
+    <description>Realistic refuelling to max takeoff weight</description>
+    <tankvalve n="0">1</tankvalve>
+    <tankvalve n="1">2</tankvalve>
+    <tankvalve n="2">2</tankvalve>
+    <tankvalve n="3">1</tankvalve>
+    <tankvalve n="4">0</tankvalve>
+    <crossfeedvalve n="0">0</crossfeedvalve>
+    <crossfeedvalve n="1">0</crossfeedvalve>
+    <crossfeedvalve n="2">0</crossfeedvalve>
+    <crossfeedvalve n="3">0</crossfeedvalve>
+  </fuel_preset>
+
+  <fuel_preset n="4">
+    <!-- Fuel quantities manually entered in the refuelling dialog -->
+    <preset_name>Manual Input</preset_name>
+    <description>Realistic refuelling, weight input manually</description>
+    <tank n="0"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="1"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="2"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="3"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="4"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="5"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="6"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="7"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="8"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="9"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="10"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="11"><level-gal_us>0.0</level-gal_us></tank>
+    <tank n="12"><level-gal_us>0.0</level-gal_us></tank>
+    <tankvalve n="0">1</tankvalve>
+    <tankvalve n="1">2</tankvalve>
+    <tankvalve n="2">2</tankvalve>
+    <tankvalve n="3">1</tankvalve>
+    <tankvalve n="4">0</tankvalve>
+    <crossfeedvalve n="0">0</crossfeedvalve>
+    <crossfeedvalve n="1">0</crossfeedvalve>
+    <crossfeedvalve n="2">0</crossfeedvalve>
+    <crossfeedvalve n="3">0</crossfeedvalve>
+  </fuel_preset>
+
+</PropertyList>

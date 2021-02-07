@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<!-- 
+Sperry Model R-1 Pictorial Deviation Indicator
+Syd Adams
+-->
+
+<PropertyList>
+
+  <path>pic-dev.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>crs.set</object-name>
+    <emission>
+      <red>0.25</red>
+      <green>0.25</green>
+      <blue>0.25</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>PicDev.face</object-name>
+    <object-name>CrsNum.1</object-name>
+    <object-name>CrsNum.2</object-name>
+    <object-name>CrsNum.3</object-name>
+    <object-name>PicDev.compass</object-name>
+    <object-name>PicDev.gs</object-name>
+    <object-name>PicDev.crs</object-name>
+    <object-name>PicDev.pwr-off</object-name>
+    <object-name>PicDev.nav-off</object-name>
+    <object-name>PicDev.to-flag</object-name>
+    <object-name>PicDev.from-flag</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>dmeOn</object-name>
+    <emission>
+      <red>   2 </red>
+      <green> 2 </green>
+      <blue>  0 </blue>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>dmeOn</object-name>
+    <condition>
+      <or>
+        <property alias="../../../../gs-in-range"/>
+        <and>
+          <property alias="../../../../../dme-in-range"/>
+          <less-than>
+            <property alias="../../../../../../dme-indicated-distance-nm"/>
+            <value>2.0</value>
+          </less-than>
+          <greater-than>
+            <property alias="../../../../../../dme-indicated-distance-nm"/>
+            <value>-0.02</value>
+          </greater-than>
+        </and>
+      </or>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>PicDev.pwr-off</object-name>
+    <condition>
+      <less-than>
+        <property>systems/electrical/bus-dc/volts</property>
+        <value>9</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>PicDev.nav-off</object-name>
+    <condition>
+      <not>
+        <property alias="../../../../nav-data-is-valid"/>
+      </not>
+    </condition>
+    <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>PicDev.to-flag</object-name>
+    <condition>
+      <property alias="../../../to-flag"/>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>PicDev.from-flag</object-name>
+    <condition>
+      <property alias="../../../from-flag"/>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>PicDev.compass</object-name>
+    <object-name>PicDev.crs</object-name>
+    <object-name>PicDev.to-flag</object-name>
+    <object-name>PicDev.from-flag</object-name>
+    <object-name>PicDev.nav-off</object-name>
+    <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+    <axis>
+      <x>1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+    <center>
+      <x-m>0.0</x-m>
+      <y-m>0.0</y-m>
+      <z-m>-0.006</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>PicDev.compass</object-name>
+    <object-name>PicDev.crs</object-name>
+    <object-name>PicDev.to-flag</object-name>
+    <object-name>PicDev.from-flag</object-name>
+    <object-name>PicDev.nav-off</object-name>
+    <property alias="../../selected-deg"/>
+    <axis>
+      <x>-1.0</x>
+      <y>0.0</y>
+      <z>0.0</z>
+    </axis>
+    <center>
+      <x-m>0.0</x-m>
+      <y-m>0.0</y-m>
+      <z-m>-0.006</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>PicDev.crs</object-name>
+    <property alias="../../heading-needle-deflection"/>
+    <interpolation>
+      <entry><ind>-10.0</ind><dep>-0.0152</dep></entry>
+      <entry><ind>10.0</ind><dep>0.0152</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0.0</x>
+      <y>1.0</y>
+      <z>0.0</z>
+    </axis>
+    <center>
+      <x-m>0.0</x-m>
+      <y-m>0.0</y-m>
+      <z-m>-0.006</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>PicDev.gs</object-name>
+    <property alias="../../gs-needle-deflection"/>
+    <interpolation>
+      <entry><ind>-10.0</ind><dep>-0.0137</dep></entry>
+      <entry><ind>10.0</ind><dep>0.0137</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0.0</x>
+      <y>0.0</y>
+      <z>1.0</z>
+    </axis>
+    <center>
+      <x-m>0.0</x-m>
+      <y-m>0.0</y-m>
+      <z-m>-0.006</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>textranslate</type>
+    <object-name>CrsNum.1</object-name>
+    <property alias="../../selected-deg"/>
+    <factor>0.001</factor>
+    <step>100</step>
+    <scroll>1</scroll>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>textranslate</type>
+    <object-name>CrsNum.2</object-name>
+    <property alias="../../selected-deg"/>
+    <factor>0.01</factor>
+    <step>10</step>
+    <scroll>1</scroll>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>textranslate</type>
+    <object-name>CrsNum.3</object-name>
+    <property alias="../../selected-deg"/>
+    <factor>0.1</factor>
+    <step>1</step>
+    <scroll>1</scroll>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!-- Hotspots -->
+
+  <animation>
+    <type>knob</type>
+    <object-name>crs.set</object-name>
+    <property alias="../../selected-deg"/>
+    <factor>1</factor>
+    <center>
+      <x-m> 4.403</x-m>
+      <y-m> 0.033</y-m>
+      <z-m> 0.033</z-m>
+    </center>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property alias="../../../../selected-deg"/>
+        <factor>1</factor>
+        <min>0</min>
+        <max>360</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>
+
+</PropertyList>

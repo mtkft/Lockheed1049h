@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!--
+Checklist: Start Engines
+ 
+Adapted from Lockheed Super Constallation Crew Operating Manual, 1952, p96
+@see http://www.avialogs.com/viewer/avialogs-documentviewer.php?id=3447
+
+Many checklist items copied from the Lake of Constance Hangar, M. Kraus.
+
+Some items from the original checklist have been omitted because they are
+not included in the current Flightgear model. These may be added as the
+cockpit and flight engineer's station develops. Comments have been included
+at the relevant places in the checklist.
+
+Some additional items have been added to guide the Flightgear pilot. These
+are indicated in the comments by an asterisk.
+-->
+
+<PropertyList>
+
+  <title>Start Engines</title>
+
+  <!-- Doors* - CLOSED -->
+  <item>
+    <name>Doors</name>
+    <value>CLOSED</value>
+    <condition>
+      <equals>
+        <property>controls/door-crew/position-norm</property>
+        <value>0.0</value>
+      </equals>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/door-crew/position-norm</property>
+      <value>0.0</value>
+    </binding>
+  </item>
+
+  <!-- Mixtures* - FULL RICH -->
+  <item>
+    <name>Mixtures</name>
+    <value>FULL RICH</value>
+    <marker>
+      <x-m>-14.1140</x-m>
+      <y-m>0.8570</y-m>
+      <z-m>0.7752</z-m>
+      <scale>4.6529</scale>
+    </marker>
+    <condition>
+      <equals>
+        <property>controls/engines/engine[0]/mixture</property>
+        <value>1</value>
+      </equals>
+      <equals>
+        <property>controls/engines/engine[1]/mixture</property>
+        <value>1</value>
+      </equals>
+      <equals>
+        <property>controls/engines/engine[2]/mixture</property>
+        <value>1</value>
+      </equals>
+      <equals>
+        <property>controls/engines/engine[3]/mixture</property>
+        <value>1</value>
+      </equals>
+    </condition>
+    <binding>
+      <command>property-interpolate</command>
+      <property>controls/engines/engine[0]/mixture</property>
+      <value>1</value>
+      <rate>0.5</rate>
+    </binding>
+    <binding>
+      <command>property-interpolate</command>
+      <property>controls/engines/engine[1]/mixture</property>
+      <value>1</value>
+      <rate>0.5</rate>
+    </binding>
+    <binding>
+      <command>property-interpolate</command>
+      <property>controls/engines/engine[2]/mixture</property>
+      <value>1</value>
+      <rate>0.5</rate>
+    </binding>
+    <binding>
+      <command>property-interpolate</command>
+      <property>controls/engines/engine[3]/mixture</property>
+      <value>1</value>
+      <rate>0.5</rate>
+    </binding>
+  </item>
+
+  <!-- Beacon* - ON -->
+  <item>
+    <name>Anti Collision Lights</name>
+    <value>ON</value>
+    <marker>
+      <x-m>-15.1300</x-m>
+      <y-m>-0.8800</y-m>
+      <z-m>0.8500</z-m>
+      <scale>1.0000</scale>
+    </marker>
+    <condition>
+      <equals>
+        <property>controls/lighting/beacon/enabled</property>
+        <value>1</value>
+      </equals>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/lighting/beacon/enabled</property>
+      <value>1</value>
+    </binding>
+  </item>
+
+  <!-- Start Engines -->
+
+  <!-- Start Engine 3* -->
+  <item>
+    <name>Ignition Switches (Engine 3)</name>
+    <value>BOTH</value>
+    <marker>
+      <x-m>-14.8355</x-m>
+      <y-m>-0.0612</y-m>
+      <z-m>1.5818</z-m>
+      <scale>1.9091</scale>
+    </marker>
+    <condition>
+      <equals>
+        <property>controls/engines/engine[2]/magnetos</property>
+        <value>3</value>
+      </equals>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/engines/engine[2]/magnetos</property>
+      <value>3</value>
+    </binding>
+  </item>
+  <item>
+    <name>Engine Starter Select</name>
+    <value>ENGINE 3</value>
+    <marker>
+      <x-m>-14.6008</x-m>
+      <y-m>0.8124</y-m>
+      <z-m>0.7083</z-m>
+      <scale>4.5868</scale>
+    </marker>
+    <condition>
+      <or>
+        <property>engines/engine[2]/running</property>
+        <equals>
+          <property>controls/switches/engine-start-select</property>
+          <value>3</value>
+        </equals>
+      </or>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/switches/engine-start-select</property>
+      <value>3</value>
+    </binding>
+  </item>
+  <item>
+    <name>Engine Starter</name>
+    <value>START</value>
+    <marker>
+      <x-m>-14.6231</x-m>
+      <y-m>0.8124</y-m>
+      <z-m>0.7083</z-m>
+      <scale>4.5868</scale>
+    </marker>
+    <condition>
+      <property>engines/engine[2]/running</property>
+    </condition>
+    <binding>
+      <command>nasal</command>
+      <script>Lockheed1049h.start_selected_engine();</script>
+    </binding>
+  </item>
+
+  <!-- Start Engine 4* -->
+  <item>
+    <name>Ignition Switches (Engine 4)</name>
+    <value>BOTH</value>
+    <marker>
+      <x-m>-14.8355</x-m>
+      <y-m>-0.0190</y-m>
+      <z-m>1.5818</z-m>
+      <scale>1.9091</scale>
+    </marker>
+    <condition>
+      <equals>
+        <property>controls/engines/engine[3]/magnetos</property>
+        <value>3</value>
+      </equals>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/engines/engine[3]/magnetos</property>
+      <value>3</value>
+    </binding>
+  </item>
+  <item>
+    <name>Engine Starter Select</name>
+    <value>ENGINE 4</value>
+    <marker>
+      <x-m>-14.6008</x-m>
+      <y-m>0.8124</y-m>
+      <z-m>0.7083</z-m>
+      <scale>4.5868</scale>
+    </marker>
+    <condition>
+      <or>
+      <property>engines/engine[3]/running</property>
+        <equals>
+          <property>controls/switches/engine-start-select</property>
+          <value>4</value>
+        </equals>
+      </or>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/switches/engine-start-select</property>
+      <value>4</value>
+    </binding>
+  </item>
+  <item>
+    <name>Engine Starter</name>
+    <value>START</value>
+    <marker>
+      <x-m>-14.6231</x-m>
+      <y-m>0.8124</y-m>
+      <z-m>0.7083</z-m>
+      <scale>4.5868</scale>
+    </marker>
+    <condition>
+      <property>engines/engine[3]/running</property>
+    </condition>
+    <binding>
+      <command>nasal</command>
+      <script>Lockheed1049h.start_selected_engine();</script>
+    </binding>
+  </item>
+
+  <!-- Start Engine 2* -->
+  <item>
+    <name>Ignition Switches (Engine 2)</name>
+    <value>BOTH</value>
+    <marker>
+      <x-m>-14.8355</x-m>
+      <y-m>0.0322</y-m>
+      <z-m>1.5818</z-m>
+      <scale>1.9091</scale>
+    </marker>
+    <condition>
+      <equals>
+        <property>controls/engines/engine[1]/magnetos</property>
+        <value>3</value>
+      </equals>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/engines/engine[1]/magnetos</property>
+      <value>3</value>
+    </binding>
+  </item>
+  <item>
+    <name>Engine Starter Select</name>
+    <value>ENGINE 2</value>
+    <marker>
+      <x-m>-14.6008</x-m>
+      <y-m>0.8124</y-m>
+      <z-m>0.7083</z-m>
+      <scale>4.5868</scale>
+    </marker>
+    <condition>
+      <or>
+        <property>engines/engine[1]/running</property>
+        <equals>
+          <property>controls/switches/engine-start-select</property>
+          <value>2</value>
+        </equals>
+      </or>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/switches/engine-start-select</property>
+      <value>2</value>
+    </binding>
+  </item>
+  <item>
+    <name>Engine Starter</name>
+    <value>START</value>
+    <marker>
+      <x-m>-14.6231</x-m>
+      <y-m>0.8124</y-m>
+      <z-m>0.7083</z-m>
+      <scale>4.5868</scale>
+    </marker>
+    <condition>
+      <property>engines/engine[1]/running</property>
+    </condition>
+    <binding>
+      <command>nasal</command>
+      <script>Lockheed1049h.start_selected_engine();</script>
+    </binding>
+  </item>
+
+  <!-- Start Engine 1* -->
+  <item>
+    <name>Ignition Switches (Engine 1)</name>
+    <value>BOTH</value>
+    <marker>
+      <x-m>-14.8355</x-m>
+      <y-m>0.0719</y-m>
+      <z-m>1.5818</z-m>
+      <scale>1.9091</scale>
+    </marker>
+    <condition>
+      <equals>
+        <property>controls/engines/engine[0]/magnetos</property>
+        <value>3</value>
+      </equals>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/engines/engine[0]/magnetos</property>
+      <value>3</value>
+    </binding>
+  </item>
+  <item>
+    <name>Engine Starter Select</name>
+    <marker>
+      <x-m>-14.6008</x-m>
+      <y-m>0.8124</y-m>
+      <z-m>0.7083</z-m>
+      <scale>4.5868</scale>
+    </marker>
+    <value>ENGINE 1</value>
+    <condition>
+      <or>
+        <property>engines/engine[0]/running</property>
+        <equals>
+          <property>controls/switches/engine-start-select</property>
+          <value>1</value>
+        </equals>
+      </or>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>controls/switches/engine-start-select</property>
+      <value>1</value>
+    </binding>
+  </item>
+  <item>
+    <name>Engine Starter</name>
+    <value>START</value>
+    <marker>
+      <x-m>-14.6231</x-m>
+      <y-m>0.8124</y-m>
+      <z-m>0.7083</z-m>
+      <scale>4.5868</scale>
+    </marker>
+    <condition>
+      <property>engines/engine[0]/running</property>
+    </condition>
+    <binding>
+      <command>nasal</command>
+      <script>Lockheed1049h.start_selected_engine();</script>
+    </binding>
+  </item>
+
+  <!-- Control Boosters - CHECKED -->
+
+  <!-- Auto Pilot - CHECKED -->
+  <item>
+    <name>Auto Pilot</name>
+    <value>CHECKED</value>
+    <marker>
+      <x-m>-15.3100</x-m>
+      <y-m>0.0700</y-m>
+      <z-m>0.7100</z-m>
+      <scale>7.4000</scale>
+    </marker>
+    <condition>
+      <and>
+        <equals>
+          <property>autopilot/switches/ap</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>autopilot/switches/alt</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>autopilot/settings/flight-path</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>autopilot/settings/target-bank-deg</property>
+          <value>0</value>
+        </equals>
+        <greater-than>
+          <property>autopilot/settings/target-pitch-deg</property>
+          <value>2.5</value>
+        </greater-than>
+      </and>
+    </condition>
+    <binding>
+      <command>property-assign</command>
+      <property>autopilot/switches/ap</property>
+      <value>0</value>
+    </binding>
+    <binding>
+      <command>property-assign</command>
+      <property>autopilot/switches/alt</property>
+      <value>0</value>
+    </binding>
+    <binding>
+      <command>property-assign</command>
+      <property>autopilot/settings/flight-path</property>
+      <value>0</value>
+    </binding>
+    <binding>
+      <command>property-assign</command>
+      <property>autopilot/settings/target-bank-deg</property>
+      <value>0</value>
+    </binding>
+    <binding>
+      <command>property-assign</command>
+      <property>autopilot/settings/target-pitch-deg</property>
+      <value>4.0</value>
+    </binding>
+  </item>
+
+</PropertyList>

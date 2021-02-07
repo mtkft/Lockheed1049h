@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <autoflight>
+    <altitude-switch type="bool">false</altitude-switch>
+    <autopilot>
+      <engaged type="bool">false</engaged>
+    </autopilot>
+    <bank-angle-select>20</bank-angle-select>
+  </autoflight>
+
+  <door-crew>
+    <!-- this property is normally created by Nasal/Lockheed1049h-doors.nas but we
+         want it to exist before Nasal runs.  This way, we can alias it to a
+         multiplayer generic property. -->
+    <position-norm type="double">0.0</position-norm>
+  </door-crew>
+
+  <flight>
+    <auto-coordination-factor type="double">0.02</auto-coordination-factor>
+  </flight>
+
+  <engines>
+    <engine n="0">
+      <magnetos archive="y">0</magnetos>
+      <propeller-pitch>1.0</propeller-pitch>
+      <mixture type="double">0</mixture>
+    </engine>
+    <engine n="1">
+      <magnetos archive="y">0</magnetos>
+      <propeller-pitch>1.0</propeller-pitch>
+      <mixture type="double">0</mixture>
+    </engine>
+    <engine n="2">
+      <magnetos archive="y">0</magnetos>
+      <propeller-pitch>1.0</propeller-pitch>
+      <mixture type="double">0</mixture>
+    </engine>
+    <engine n="3">
+      <magnetos archive="y">0</magnetos>
+      <propeller-pitch>1.0</propeller-pitch>
+      <mixture type="double">0</mixture>
+    </engine>
+    <reverser_allow type="bool">false</reverser_allow>  <!-- Required for prop thrust reverse system -->
+  </engines>
+
+  <fuel>
+    <tankvalve n="0" type="int">1</tankvalve>
+    <tankvalve n="1" type="int">1</tankvalve>
+    <tankvalve n="2" type="int">1</tankvalve>
+    <tankvalve n="3" type="int">1</tankvalve>
+    <tankvalve n="4" type="int">1</tankvalve>
+
+    <crossfeedvalve n="0" type="int">0</crossfeedvalve>
+    <crossfeedvalve n="1" type="int">0</crossfeedvalve>
+    <crossfeedvalve n="2" type="int">0</crossfeedvalve>
+    <crossfeedvalve n="3" type="int">0</crossfeedvalve>
+
+    <enginevalve n="0" type="int">0</enginevalve>
+    <enginevalve n="1" type="int">0</enginevalve>
+    <enginevalve n="2" type="int">0</enginevalve>
+    <enginevalve n="3" type="int">0</enginevalve>
+
+    <jettison n="0">
+      <valve type="bool">0</valve>
+      <spray type="bool">0</spray>
+    </jettison>
+    <jettison n="1">
+      <valve type="bool">0</valve>
+      <spray type="bool">0</spray>
+    </jettison>
+  </fuel>
+
+  <gear>
+    <brake-parking type="double">1.0</brake-parking>
+  </gear>
+
+  <lighting>
+    <nav type="bool">false</nav>
+    <tail type="bool">false</tail>
+    <taxi type="bool">false</taxi>
+    <landing-left type="bool">false</landing-left>
+    <landing-right type="bool">false</landing-right>
+    <landing-extend-left type="bool">false</landing-extend-left>
+    <landing-extend-right type="bool">false</landing-extend-right>
+    <beacon>
+      <enabled type="bool">0</enabled>
+      <state type="bool">0</state>
+    </beacon>
+    <cabin type="double">0</cabin>
+    <chart type="double">0</chart>
+  </lighting>
+
+  <switches>
+    <engine-start type="bool">false</engine-start>
+    <engine-prime type="bool">false</engine-prime>
+    <engine-start-select type="int">0</engine-start-select>
+    <generator n="0" type="bool">0</generator>
+    <generator n="1" type="bool">0</generator>
+    <generator n="2" type="bool">0</generator>
+    <generator n="3" type="bool">0</generator>
+    <gen-apu type="bool">0</gen-apu>
+    <battery-ship type="bool">0</battery-ship>
+    <battery-cart type="bool">0</battery-cart>
+    <volts-select-dc type="int">0</volts-select-dc>
+    <volts-select-ac type="int">0</volts-select-ac>
+    <horn type="double">0.0</horn>
+    <command-bell type="double">0.0</command-bell>
+    <no-smoking-signs type="bool">false</no-smoking-signs>
+    <seat-belt-signs type="bool">false</seat-belt-signs>
+  </switches>
+ 
+  <special>
+    <flightpath-switch type="int">0</flightpath-switch>
+    <wiper-switch type="int">0</wiper-switch>
+    <wiper-deg type="double">55.0</wiper-deg>
+    <fire-warning type="double">0</fire-warning>
+  </special>
+
+</PropertyList>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!--
+Lockheed 1049h Fuel Tanks
+
+Density was 6 historically but JSBSim is always 6.6
+-->
+
+
+<PropertyList>
+
+  <!-- Engine fuel line buffers -->
+
+  <tank n="0">
+    <name type="string">Engine 1 fuel line</name>
+    <capacity-gal_us>2.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>B1</tank-num>
+  </tank>
+  <tank n="1">
+    <name type="string">Engine 2 fuel line</name>
+    <capacity-gal_us>2.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>B2</tank-num>
+  </tank>
+  <tank n="2">
+    <name type="string">Engine 3 fuel line</name>
+    <capacity-gal_us>2.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>B3</tank-num>
+  </tank>
+  <tank n="3">
+    <name type="string">Engine 4 fuel line</name>
+    <capacity-gal_us>2.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>B4</tank-num>
+  </tank>
+
+  <!-- Primary tanks -->
+
+  <tank n="4">
+    <name type="string">Tank 1: left wing</name>
+    <capacity-gal_us>1555.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>1</tank-num>
+  </tank>
+  <tank n="5">
+    <name type="string">Tank 2: left wing</name>
+    <capacity-gal_us>790.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>2</tank-num>
+  </tank>
+  <tank n="6">
+    <name type="string">Tank 3: right wing</name>
+    <capacity-gal_us>790.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>3</tank-num>
+  </tank>
+  <tank n="7">  <!-- Tank 4 -->
+    <name type="string">Tank 4: right wing</name>
+    <capacity-gal_us>1555.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>4</tank-num>
+  </tank>
+  <tank n="8">  <!-- Tank 5 -->
+    <name type="string">Tank 5: center section</name>
+    <capacity-gal_us>730.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>5</tank-num>
+  </tank>
+
+  <!-- Secondary tanks. Note that tip tanks 1A and 4A are not currently used. -->
+
+  <tank n="9">
+    <name type="string">Tank 1A: left wing tip (not installed)</name>
+    <capacity-gal_us>1.0</capacity-gal_us> <!-- if used: 609.0 -->
+    <density-ppg>6.0</density-ppg>
+    <tank-num>1A</tank-num>
+  </tank>
+  <tank n="10">
+    <name type="string">Tank 2A: left outer</name>
+    <capacity-gal_us>565.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>2A</tank-num>
+  </tank>
+  <tank n="11">
+    <name type="string">Tank 3A: right outer</name>
+    <capacity-gal_us>565.0</capacity-gal_us>
+    <density-ppg>6.0</density-ppg>
+    <tank-num>3A</tank-num>
+  </tank>
+  <tank n="12">
+    <name type="string">Tank 4A: right wing tip (not installed)</name>
+    <capacity-gal_us>1.0</capacity-gal_us> <!-- if used: 609.0 -->
+    <density-ppg>6.0</density-ppg>
+    <tank-num>4A</tank-num>
+  </tank>
+
+  <!-- Fuel Totalizer -->
+
+  <total-fuel-lbs type="double">0.0</total-fuel-lbs>
+
+</PropertyList>

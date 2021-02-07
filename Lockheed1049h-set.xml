@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+
+Lockheed1049h: pilot (main) model
+
+Copyright (c) 2010 Gary R. Neely 'Buckaroo'
+Copyright (c) 2015 Ludovic Brenta <ludovic@ludovic-brenta.org>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+************************************************************************
+-->
+
+<PropertyList include="Lockheed1049h-common.xml">
+
+  <nasal>
+    <engine-fire>
+      <file>Nasal/mk-crashed.nas</file>
+    </engine-fire>
+    <dual_control>
+      <file>Aircraft/Generic/DualControl/pilot-dual-control.nas</file>
+    </dual_control>
+  </nasal>
+
+  <sim include="Systems/Lockheed1049h-views.xml">
+
+    <aero>Lockheed1049h</aero>
+    <description>Lockheed 1049H Super Duper Constellation</description>
+    <long-description>
+      The pinnacle of piston engine techology and of pure beauty.  The
+      last airliner of the Golden Age, before the jet age and before
+      mass tourism.  Welcome back to the Fifties.
+    </long-description>
+    <flight-model>jsb</flight-model>
+    <flight-recorder include="Systems/flight-recorder.xml"/>
+
+    <menubar>
+      <default>
+        <menu n="100">
+          <label>Constellation</label>
+          <item>
+            <label>Autostart</label>
+            <binding>
+              <command>nasal</command>
+              <script><![CDATA[
+                if (props.globals.getNode("sim/checklists/auto") == nil) {
+                    setprop("sim/messages/copilot",
+                        "Autostart needs FGDATA 3.5 or higher"
+                    );
+                    return;
+                }
+                if (getprop("gear/gear[1]/wow")) {
+                    if (Lockheed1049h.is_near_runway()) {
+                        setprop("sim/checklists/auto/completed-message",
+                            "Checklists complete, ready for takeoff"
+                        );
+                        autochecklist.complete_checklists("runway-start");
+                    } else {
+                        setprop("sim/checklists/auto/completed-message",
+                            "Checklists complete, ready to taxi"
+                        );
+                        autochecklist.complete_checklists("terminal-start");
+                    }
+                } else {
+                    autochecklist.complete_checklists("in-air-start", 0);
+                }
+              ]]></script>
+            </binding>
+          </item>
+          <item>
+            <label>Pushback</label>
+            <name>pushback</name>
+            <binding>
+              <command>dialog-show</command>
+              <dialog-name>pushback</dialog-name>
+            </binding>
+          </item>
+          <item>
+            <label>Select Livery</label>
+            <binding>
+              <command>nasal</command>
+              <script>aircraft.livery.dialog.toggle()</script>
+            </binding>
+          </item>
+          <item>
+            <label>Set Comm 1 to 122.75</label>
+            <binding>
+              <command>property-assign</command>
+              <property>instrumentation/comm[0]/frequencies/selected-mhz</property>
+              <value type="double">122.75</value>
+            </binding>
+          </item>
+          <item>
+            <label>Select MP-Copilot</label>
+            <binding>
+              <command>nasal</command>
+              <script>
+                dual_control_tools.copilot_dialog.show(aircraft_dual_control.copilot_type);
+              </script>
+            </binding>
+          </item>
+          <item>
+            <label>Preferences</label>
+            <binding>
+              <command>nasal</command>
+              <script><![CDATA[
+                var node = "sim/gui/dialogs/menu/dialog";
+                var path = "Dialogs/Lockheed1049h-menu.xml";
+                gui.Dialog.new(node, path).open();
+              ]]></script>
+            </binding>
+          </item>
+          <item>
+            <label>Refuelling</label>
+            <binding>
+              <command>nasal</command>
+              <script><![CDATA[
+                var node = "sim/gui/dialogs/refuel/dialog";
+                var path = "Dialogs/Lockheed1049h-refuel.xml";
+                gui.Dialog.new(node, path).open();
+              ]]></script>
+            </binding>
+          </item>
+        </menu>
+      </default>
+    </menubar>
+
+    <model>
+      <path>Aircraft/Lockheed1049h/Models/Lockheed1049h.xml</path>
+      <livery>
+        <file type="string">EasternGSF</file>
+      </livery>
+    </model>
+
+    <!-- Initialize props for passing lighting and door settings over multiplayer -->
+    <multiplay>
+      <generic>
+        <float n="0" alias="/controls/lighting/cabin"/>
+        <float n="4" alias="/controls/door-crew/position-norm"/>
+        <float n="5" alias="/position/altitude-agl-ft"/>    <!-- for the shadow and engine fire -->
+        <int n="1" type="int">0</int> <!-- many booleans packed into this property, sent to everyone -->
+        <!-- more properties are sent only when the engineer is connected, look in L1049h-dual-control.nas -->
+      </generic>
+    </multiplay>
+
+    <view n= "0"> <!-- Pilot View: not available in the copilot-set.xml -->
+      <name>Pilot view</name>
+      <internal type="bool" archive="y">true</internal>
+      <config>
+        <default-field-of-view-deg type="double">82</default-field-of-view-deg>
+        <!-- x/y/z == right/up/back ( Blender/FG y/z/x) -->
+        <x-offset-m archive="y">-0.45</x-offset-m>
+        <y-offset-m archive="y">1.24</y-offset-m>
+        <z-offset-m archive="y">2.89</z-offset-m>
+        <pitch-offset-deg>-11</pitch-offset-deg>
+      </config>
+    </view>
+
+  </sim>
+
+</PropertyList>

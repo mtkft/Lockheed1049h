@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>compass_mdi_with_hdg.ac</path>
+
+  <animation>
+    <type>select</type>
+    <object-name>MDI.KnobHdg</object-name>
+    <object-name>MDI.HdgBug</object-name>
+    <condition>
+      <property>sim/model/options/show-heading-bug</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>MDI.KnobHdg</object-name>
+    <emission>
+      <red>0.25</red>
+      <green>0.25</green>
+      <blue>0.25</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>MDI.Card</object-name>
+    <object-name>MDI.Face</object-name>
+    <object-name>MDI.HdgBug</object-name>
+    <object-name>MDI.Needle</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>MDI.Card</object-name>
+    <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+    <factor>-1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>knob</type>
+    <object-name>MDI.Knob</object-name>
+    <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+    <factor>5</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>-0.03</y-m>
+      <z-m>-0.03</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>instrumentation/heading-indicator/offset-deg</property>
+        <min>0</min>
+        <max>359</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>    
+
+  <animation>
+    <type>knob</type>
+    <object-name>MDI.KnobHdg</object-name>
+    <property>autopilot/settings/heading-bug-deg</property>
+    <factor>5</factor>
+    <center>
+      <x-m>0</x-m>
+      <y-m>0.03</y-m>
+      <z-m>-0.03</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>autopilot/settings/heading-bug-deg</property>
+        <min>0</min>
+        <max>359</max>
+        <wrap>true</wrap>
+      </binding>
+    </action>
+  </animation>    
+
+  <animation>
+    <type>rotate</type>
+    <object-name>MDI.HdgBug</object-name>
+    <property>autopilot/settings/heading-bug-deg</property>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>MDI.HdgBug</object-name>
+    <property>instrumentation/heading-indicator/indicated-heading-deg</property>
+    <factor>-1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+</PropertyList>

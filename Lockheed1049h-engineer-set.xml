@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+
+Lockheed1049h: engineer model
+
+Copyright (c) 2012 Marc Kraus (Lake of Constance Hangar)
+Copyright (c) 2015 Ludovic Brenta <ludovic@ludovic-brenta.org>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+************************************************************************
+-->
+
+<PropertyList include="Lockheed1049h-common.xml">
+
+  <!-- never be nil for engineer -->
+  <engines n="0">
+    <engine n="0">
+      <bmep type="double">0</bmep>
+      <running type="bool">0</running>
+      <fuel-flow-gph type="double">0</fuel-flow-gph>
+      <n1 type="double">0</n1>
+      <n2 type="double">0</n2>
+      <rpm type="double">0</rpm>
+    </engine>
+    <engine n="1">
+      <bmep type="double">0</bmep>
+      <running type="bool">0</running>
+      <fuel-flow-gph type="double">0</fuel-flow-gph>
+      <n1 type="double">0</n1>
+      <n2 type="double">0</n2>
+      <rpm type="double">0</rpm>
+    </engine>
+    <engine n="2">
+      <bmep type="double">0</bmep>
+      <running type="bool">0</running>
+      <fuel-flow-gph type="double">0</fuel-flow-gph>
+      <n1 type="double">0</n1>
+      <n2 type="double">0</n2>
+      <rpm type="double">0</rpm>
+    </engine>
+    <engine n="3">
+      <bmep type="double">0</bmep>
+      <running type="bool">0</running>
+      <fuel-flow-gph type="double">0</fuel-flow-gph>
+      <n1 type="double">0</n1>
+      <n2 type="double">0</n2>
+      <rpm type="double">0</rpm>
+    </engine>
+  </engines>
+
+  <!-- never be nil for engineer -->
+  <fdm>
+    <jsbsim>
+      <propulsion>
+        <engine n="0">
+          <power-hp type="double">0</power-hp>
+          <boost-speed type="bool">0</boost-speed>
+        </engine>
+        <engine n="1">
+          <power-hp type="double">0</power-hp>
+          <boost-speed type="bool">0</boost-speed>
+        </engine>
+        <engine n="2">
+          <power-hp type="double">0</power-hp>
+          <boost-speed type="bool">0</boost-speed>
+        </engine>
+        <engine n="3">
+          <power-hp type="double">0</power-hp>
+          <boost-speed type="bool">0</boost-speed>
+        </engine>
+      </propulsion>
+    </jsbsim>
+  </fdm>
+
+  <nasal>
+    <engineer>
+      <file>Nasal/mk-engineer.nas</file>
+    </engineer>
+    <dual_control>
+      <file>Aircraft/Generic/DualControl/copilot-dual-control.nas</file>
+    </dual_control>
+  </nasal>
+
+  <sim include="Systems/Lockheed1049h-views.xml">
+
+    <description>Lockheed 1049H Engineer</description>
+    <long-description>
+      This allows you to take the seat of the flight engineer aboard a
+      Lockheed 1049H Super Constellation flown by another pilot over
+      the multiplayer network.  Start in a location near the aircraft
+      then go to the Constellation menu and "Select MP-Pilot" to climb
+      on board.  The pilot must similarly select the engineer.  This
+      allows the engineer to control throttle, mixture, superchargers,
+      fuel, etc.
+    </long-description>
+    <flight-model>null</flight-model>
+    <variant-of>Lockheed1049h</variant-of>
+    <menubar>
+      <default>
+        <menu n="100">
+          <label>Constellation</label>
+          <enabled type="bool">true</enabled>
+          <item>
+            <label>Select MP-Pilot</label>
+            <binding>
+              <command>nasal</command>
+              <script>
+                dual_control_tools.copilot_dialog.show(aircraft_dual_control.pilot_type);
+              </script>
+            </binding>
+          </item>
+        </menu>
+      </default>
+    </menubar>
+
+    <model>
+      <path>Aircraft/Lockheed1049h/Models/L1049h-engineer.xml</path>
+      <livery>
+        <file type="string">EasternGSF</file>
+      </livery>
+    </model>
+
+    <view n="0"> <!-- the default view is the engineer's, not the pilot view -->
+      <name>Engineer View</name>
+      <type>lookfrom</type>
+      <internal type="bool">true</internal>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">120.0</default-field-of-view-deg>
+        <default-pitch-deg type="double">0</default-pitch-deg>
+        <default-heading-deg type="double">0</default-heading-deg>
+        <front-direction-deg type="double">0</front-direction-deg>
+        <front-left-direction-deg type="double">45</front-left-direction-deg>
+        <left-direction-deg type="double">90</left-direction-deg>
+        <back-left-direction-deg type="double">135</back-left-direction-deg>
+        <back-direction-deg type="double">180</back-direction-deg>
+        <back-right-direction-deg type="double">225</back-right-direction-deg>
+        <right-direction-deg type="double">270</right-direction-deg>
+        <front-right-direction-deg type="double">315</front-right-direction-deg>
+        <x-offset-m archive="y">0.40</x-offset-m>
+        <y-offset-m archive="y">0.90</y-offset-m>
+        <z-offset-m archive="y">3.55</z-offset-m>
+        <pitch-offset-deg>0</pitch-offset-deg>
+        <heading-offset-deg type="double">270</heading-offset-deg>
+      </config>
+    </view>
+
+  </sim>
+
+</PropertyList>

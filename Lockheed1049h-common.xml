@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+************************************************************************
+
+Lockheed1049h: parts that are common to the pilot and engineer.
+
+Copyright (c) 2015 Ludovic Brenta <ludovic@ludovic-brenta.org>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+************************************************************************
+-->
+
+<PropertyList>
+
+  <autopilot>
+    <settings>
+      <target-bank-deg>0</target-bank-deg>
+      <target-speed-kt type="double">223</target-speed-kt>
+      <target-pitch-deg type="double">4.0</target-pitch-deg>
+      <target-altitude-ft type="double">0</target-altitude-ft>
+      <vertical-speed-fpm type="double">0</vertical-speed-fpm>
+      <heading-bug-deg type="double">0</heading-bug-deg>
+    </settings>
+    <switches>
+      <ap type="bool">0</ap>
+      <alt type="bool">0</alt>
+      <selected-nav type="bool">1</selected-nav>
+    </switches>
+    <trim>
+      <elevator-trim-turn type="double">0</elevator-trim-turn>
+    </trim>
+  </autopilot>
+
+  <consumables>
+    <fuel include="Systems/Lockheed1049h-init-fuel.xml"/>
+  </consumables>
+
+  <controls include="Systems/Lockheed1049h-init-controls.xml"/>
+
+  <fdm>
+    <jsbsim>
+      <systems>
+	<crash-detect>
+	  <crash-on-ground type="bool">0</crash-on-ground>
+	  <crash-save type="bool">0</crash-save>
+	</crash-detect>
+      </systems>
+    </jsbsim>
+  </fdm>
+
+  <hazards>
+    <fire>
+      <engine n="0" type="bool">0</engine>
+      <engine n="1" type="bool">0</engine>
+      <engine n="2" type="bool">0</engine>
+      <engine n="3" type="bool">0</engine>
+    </fire>
+  </hazards>
+
+  <instrumentation include="Systems/Lockheed1049h-init-instrumentation.xml"/>
+
+  <input>
+    <keyboard include="Systems/Lockheed1049h-keyboard.xml"/>
+  </input>
+
+  <limits>
+    <mass-and-balance>
+      <maximum-takeoff-mass-lbs type="double">137500</maximum-takeoff-mass-lbs>
+      <maximum-landing-mass-lbs type="double">113000</maximum-landing-mass-lbs>
+    </mass-and-balance>
+    <max-flap-extension-speed>
+      <flaps type="double">0.25</flaps>
+      <speed type="double">195</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps type="double">0.50</flaps>
+      <speed type="double">174</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps type="double">0.75</flaps>
+      <speed type="double">174</speed>
+    </max-flap-extension-speed>
+    <max-flap-extension-speed>
+      <flaps type="double">1.0</flaps>
+      <speed type="double">165</speed>
+    </max-flap-extension-speed>
+    <max-gear-extension-speed type="double">165</max-gear-extension-speed>
+    <max-negative-g type="double">-1.0</max-negative-g>
+    <max-positive-g type="double">2.5</max-positive-g> <!-- 2.0 if flaps down -->
+    <vne type="double">263</vne> <!-- indicated airspeed in knots -->
+  </limits>
+
+  <nasal>
+    <dual_control_tools>
+      <file>Aircraft/Generic/DualControl/dual-control-tools.nas</file>
+    </dual_control_tools>
+    <aircraft_dual_control>
+      <file>Nasal/L1049h-dual-control.nas</file>
+    </aircraft_dual_control>
+    <autochecklist>
+      <file>Aircraft/Generic/autochecklist.nas</file>
+    </autochecklist>
+    <Lockheed1049h>
+      <file>Nasal/Lockheed1049h-menu.nas</file>
+      <file>Nasal/Lockheed1049h-lights.nas</file>
+      <file>Nasal/Lockheed1049h-doors.nas</file>
+      <file>Nasal/Lockheed1049h-prop_reverse.nas</file>
+      <file>Nasal/Lockheed1049h.nas</file>
+      <file>Nasal/Lockheed1049h-fuel.nas</file>
+      <file>Nasal/Lockheed1049h-engines.nas</file>
+      <file>Nasal/Lockheed1049h-electrical.nas</file>
+      <file>Nasal/Lockheed1049h-instrumentation_drivers.nas</file>
+      <file>Nasal/Lockheed1049h-refuel.nas</file>
+      <file>Nasal/Lockheed1049h-seats.nas</file>
+      <file>Nasal/Lockheed1049h-autopilot.nas</file>
+      <file>Nasal/Lockheed1049h-util.nas</file>
+      <file>Nasal/mk-wiper.nas</file>
+      <file>Aircraft/Generic/limits.nas</file>
+    </Lockheed1049h>
+  </nasal>
+
+  <payload>
+    <!-- The weight elements must match the pointmass elements in the JSBSim file -->
+    <weight>
+      <name type="string">Main Cabin A</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[3]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">2900</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin B</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[4]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">7200</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin C</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[5]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">5400</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin D</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[6]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">6100</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin E</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[7]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">6100</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin F</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[8]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">6300</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin G</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[9]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">6100</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin H</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[10]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">6100</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin I</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[11]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">6100</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin J</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[12]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">6100</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin K</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[13]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">7700</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Main Cabin L</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[14]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">3400</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Lower Cargo Hold A</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[15]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">2800</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Lower Cargo Hold B</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[16]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">5040</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Lower Cargo Hold C</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[17]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">5950</max-lb>
+    </weight>
+    <weight>
+      <name type="string">Lower Cargo Hold D</name>
+      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[18]"/>
+      <min-lb type="double">0</min-lb>
+      <max-lb type="double">6370</max-lb>
+    </weight>
+  </payload>
+
+  <sim include="Systems/Lockheed1049h-views.xml">
+    <allow-toggle-cockpit>true</allow-toggle-cockpit>
+
+    <aircraft-data>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[3]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[4]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[5]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[6]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[7]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[8]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[9]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[10]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[11]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[12]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[13]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[14]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[15]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[16]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[17]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[18]</path>
+      <path>fdm/jsbsim/inertia/pointmass-weight-lbs[19]</path>
+    </aircraft-data>
+
+    <aircraft-version>3.0.6</aircraft-version>
+
+    <author>Gary Neely, Marc Kraus, Ludovic Brenta, Richard Senior</author>
+    <chase-distance-m type="double" archive="y">-48.0</chase-distance-m>
+
+    <checklists>
+      <checklist include="Checklists/before-starting-engines.xml"/>
+      <checklist include="Checklists/start-engines.xml"/>
+      <checklist include="Checklists/during-warmup.xml"/>
+      <checklist include="Checklists/before-taxi.xml"/>
+      <checklist include="Checklists/before-takeoff.xml"/>
+      <checklist include="Checklists/initial-climb.xml"/>
+      <checklist include="Checklists/upper-climb.xml"/>
+      <checklist include="Checklists/pre-traffic-pattern.xml"/>
+      <checklist include="Checklists/traffic-pattern.xml"/>
+      <checklist include="Checklists/approach.xml"/>
+      <checklist include="Checklists/after-landing.xml"/>
+      <checklist include="Checklists/parking.xml"/>
+      <!--
+      Support for autostart and shutdown via checklists. Indexes
+      correspond to the checklists above. If additional checklists
+      are added the indexes may change.
+      -->
+      <terminal-start>
+        <index n="0">0</index>  <!-- Before Starting Engines -->
+        <index n="1">1</index>  <!-- Start Engines -->
+        <index n="2">2</index>  <!-- During Warmup -->
+        <index n="3">3</index>  <!-- Before Taxi -->
+      </terminal-start>
+      <runway-start>
+        <index n="0">0</index>  <!-- Before Starting Engines -->
+        <index n="1">1</index>  <!-- Start Engines -->
+        <index n="2">2</index>  <!-- During Warmup -->
+        <index n="3">4</index>  <!-- Before Takeoff -->
+      </runway-start>
+      <in-air-start>
+        <index n="0">0</index>  <!-- Before Starting Engines -->
+        <index n="1">1</index>  <!-- Start Engines -->
+        <index n="2">2</index>  <!-- During Warmup -->
+        <index n="4">5</index>  <!-- Initial Climb -->
+      </in-air-start>
+      <approach>
+        <index n="0">0</index>  <!-- Before Starting Engines -->
+        <index n="1">1</index>  <!-- Start Engines -->
+        <index n="2">7</index>  <!-- Pre Traffic Pattern -->
+        <index n="4">9</index>  <!-- Traffic Pattern -->
+      </approach>
+      <after-landing>
+        <index n="0">10</index>  <!-- After Landing -->
+      </after-landing>
+    </checklists>
+
+    <!-- Required for parkpos=AVAILABLE option -->
+    <aircraft-class>gate</aircraft-class>
+    <aircraft-operator></aircraft-operator>
+    <dimensions>
+      <radius-m type="float">19.24</radius-m>
+      <parkpos-offset type="float">0.0</parkpos-offset>
+    </dimensions>
+
+    <flaps>
+      <setting>0.0</setting>
+      <setting>0.25</setting>	<!-- 60% takeoff -->
+      <setting>0.5</setting>	<!-- 66% approach -->
+      <setting>0.75</setting>	<!-- 80% -->
+      <setting>1.0</setting>	<!-- 100% landing -->
+    </flaps>
+
+    <help include="Help/help.xml"/>
+
+    <instrumentation>
+      <path>Systems/Lockheed1049h-instrumentation.xml</path>
+    </instrumentation>
+
+    <model>
+      <options>
+        <hide-dice type="bool" archive="y">false</hide-dice>
+        <hide-yokes type="bool" archive="y">false</hide-yokes>
+        <show-heading-bug type="bool" archive="y">false</show-heading-bug>
+        <refuel-error-pct type="double" archive="y">1.0</refuel-error-pct>
+      </options>
+      <pushback>
+        <kp type="double">460</kp>
+        <ki type="double">25</ki>
+        <kd type="double">0</kd>
+        <position-norm type="double">0</position-norm>
+        <target-speed-fps type="double">0</target-speed-fps>
+      </pushback>
+    </model>
+
+    <presets>
+      <fuel type="int">0</fuel>
+    </presets>
+
+    <rating>
+      <FDM type="int">4</FDM>
+      <systems type="int">3</systems>
+      <cockpit type="int">4</cockpit>
+      <model type="int">4</model>
+    </rating>
+
+    <remote>
+      <pilot-callsign type="string"/>
+    </remote>
+
+    <sound>
+      <audible>true</audible>
+      <path>Sounds/Lockheed1049h-sound.xml</path>
+    </sound>
+
+    <systems>
+      <autopilot>
+        <path>Systems/Lockheed1049h-autopilot.xml</path>
+      </autopilot>
+      <electrical>
+        <path>Aircraft/Generic/generic-electrical.xml</path>
+      </electrical>
+      <property-rule n="100">
+        <path>Systems/engine-filters.xml</path>
+      </property-rule>
+      <property-rule n="101">
+        <path>Systems/load-factor-filters.xml</path>
+      </property-rule>
+      <property-rule n="102">
+        <path>Systems/instrumentation-filters.xml</path>
+      </property-rule>
+    </systems>
+
+    <state include="States/approach-overlay.xml" n="0" />
+
+    <tags>
+      <tag>1950s</tag> <!-- first flight in 1957 -->
+      <tag>4-engine</tag>
+      <tag>cargo</tag>
+      <tag>dual-controls</tag>
+      <tag>golden-age</tag>
+      <tag>ifr</tag>
+      <tag>lockheed</tag>
+      <tag>passenger</tag>
+      <tag>piston</tag>
+      <tag>pressurised</tag>
+      <tag>propeller</tag>
+      <tag>radial</tag>
+      <tag>retractable-gear</tag>
+      <tag>turbocharged</tag>  <!-- actually supercharged + turbo-compound -->
+    </tags>
+
+    <previews>
+      <preview>
+        <type>panel</type>
+        <splash type="bool">true</splash>
+        <path>Previews/preview.png</path>
+      </preview>
+      <preview>
+        <type>panel</type>
+        <splash type="bool">true</splash>
+        <path>Previews/cockpit.png</path>
+      </preview>
+    </previews>
+
+    <tutorials>
+      <tutorial n="0" include="Tutorials/landing.xml" />
+    </tutorials>
+  </sim>
+
+  <systems include="Systems/Lockheed1049h-init-systems.xml"/>
+
+</PropertyList>

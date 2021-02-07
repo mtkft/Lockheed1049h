@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <sim>
+    <model>
+      <livery>
+        <name type="string">KLM</name>
+        <texture>txt_livery_klm_fuselage.rgb</texture>
+      </livery>
+      <cowls>
+        <texture>txt_livery_klm_cowls.rgb</texture>
+      </cowls>
+      <wing>
+        <texture>txt_livery_wing.rgb</texture>
+      </wing>
+      <rudders>
+        <texture>txt_livery_klm_rudders.rgb</texture>
+      </rudders>
+      <propellers>
+        <texture>txt_livery_prop1_DLH.rgb</texture>
+      </propellers>
+      <propellerdisks>
+        <texture>txt_propblur_DLH.rgb</texture>
+      </propellerdisks>
+    </model>
+  </sim>
+</PropertyList>

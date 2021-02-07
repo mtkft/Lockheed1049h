@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!--
+Filters that compute values for various instruments in the Lochkeed 1049h.
+Copyright (C) 2015, 2018 Ludovic Brenta <ludovic@ludovic-brenta.org>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+-->
+<PropertyList>
+
+  <filter>
+    <name>BMEP #1: compute BMEP from engine power and RPM</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <expression>
+        <div>
+          <property>fdm/jsbsim/propulsion/engine[0]/power-hp</property>
+          <property>engines/engine[0]/rpm</property>
+        </div>
+      </expression>
+    </input>
+    <gain>260.0</gain>
+    <output>engines/engine[0]/bmep</output>
+  </filter>
+
+  <filter>
+    <name>BMEP #2: compute BMEP from engine power and RPM</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <expression>
+        <div>
+          <property>fdm/jsbsim/propulsion/engine[1]/power-hp</property>
+          <property>engines/engine[1]/rpm</property>
+        </div>
+      </expression>
+    </input>
+    <input>0</input>
+    <gain>260.0</gain>
+    <output>engines/engine[1]/bmep</output>
+  </filter>
+
+  <filter>
+    <name>BMEP #3: compute BMEP from engine power and RPM</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <expression>
+        <div>
+          <property>fdm/jsbsim/propulsion/engine[2]/power-hp</property>
+          <property>engines/engine[2]/rpm</property>
+        </div>
+      </expression>
+    </input>
+    <input>0</input>
+    <gain>260.0</gain>
+    <output>engines/engine[2]/bmep</output>
+  </filter>
+
+  <filter>
+    <name>BMEP #4: compute BMEP from engine power and RPM</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <expression>
+        <div>
+          <property>fdm/jsbsim/propulsion/engine[3]/power-hp</property>
+          <property>engines/engine[3]/rpm</property>
+        </div>
+      </expression>
+    </input>
+    <input>0</input>
+    <gain>260.0</gain>
+    <output>engines/engine[3]/bmep</output>
+  </filter>
+
+  <filter>
+    <name>Fuel Pressure #1: fuel pressure decreases as fuel flow increases</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <condition>
+        <property>engines/engine[0]/running</property>
+      </condition>
+      <property>engines/engine[0]/fuel-flow-gph</property>
+      <scale>-0.057</scale>
+      <offset>27</offset>
+    </input>
+    <input>0</input>
+    <output>engines/engine[0]/est-fuelpress</output>
+  </filter>
+  
+  <filter>
+    <name>Fuel Pressure #2: fuel pressure decreases as fuel flow increases</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <condition>
+        <property>engines/engine[1]/running</property>
+      </condition>
+      <property>engines/engine[1]/fuel-flow-gph</property>
+      <scale>-0.057</scale>
+      <offset>27</offset>
+    </input>
+    <input>0</input>
+    <output>engines/engine[1]/est-fuelpress</output>
+  </filter>
+  
+  <filter>
+    <name>Fuel Pressure #3: fuel pressure decreases as fuel flow increases</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <condition>
+        <property>engines/engine[2]/running</property>
+      </condition>
+      <property>engines/engine[2]/fuel-flow-gph</property>
+      <scale>-0.057</scale>
+      <offset>27</offset>
+    </input>
+    <input>0</input>
+    <output>engines/engine[2]/est-fuelpress</output>
+  </filter>
+  
+  <filter>
+    <name>Fuel Pressure #4: fuel pressure decreases as fuel flow increases</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <input>
+      <condition>
+        <property>engines/engine[3]/running</property>
+      </condition>
+      <property>engines/engine[3]/fuel-flow-gph</property>
+      <scale>-0.057</scale>
+      <offset>27</offset>
+    </input>
+    <input>0</input>
+    <output>engines/engine[3]/est-fuelpress</output>
+  </filter>
+
+</PropertyList>

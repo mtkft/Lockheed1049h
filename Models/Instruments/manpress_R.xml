@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>manpress.ac</path>
+
+  <animation>
+    <name>unused</name>
+    <object-name>MANPRESS.Needle1</object-name>
+    <object-name>MANPRESS.Needle2</object-name>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>unused</object-name>
+    <condition>
+      <equals><value>1</value><value>0</value></equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>MANPRESS.Face</object-name>
+    <object-name>MANPRESS.Needle3</object-name>
+    <object-name>MANPRESS.Needle4</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>MANPRESS.Needle3</object-name>
+    <property>engines/engine[2]/mp-osi</property>
+    <interpolation>
+      <entry><ind> 0</ind><dep>   -8</dep></entry>
+      <entry><ind> 2</ind><dep>   -6</dep></entry>
+      <entry><ind>10</ind><dep>    0</dep></entry>
+      <entry><ind>50</ind><dep>  200</dep></entry>
+      <entry><ind>75</ind><dep>337.5</dep></entry>
+    </interpolation>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>MANPRESS.Needle4</object-name>
+    <property>engines/engine[3]/mp-osi</property>
+    <interpolation>
+      <entry><ind> 0</ind><dep>   -8</dep></entry>
+      <entry><ind> 2</ind><dep>   -6</dep></entry>
+      <entry><ind>10</ind><dep>    0</dep></entry>
+      <entry><ind>50</ind><dep>  200</dep></entry>
+      <entry><ind>75</ind><dep>337.5</dep></entry>
+    </interpolation>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+</PropertyList>
+

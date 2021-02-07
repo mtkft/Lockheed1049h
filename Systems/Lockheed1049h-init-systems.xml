@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<!--
+Intialize systems:
+-->
+
+<PropertyList>
+
+
+  <switch-throw n="0">
+    <value type="double">0</value>
+  </switch-throw>
+  <switch-throw n="1">
+    <value type="double">0</value>
+  </switch-throw>
+  <switch-throw n="2">
+    <value type="double">0</value>
+  </switch-throw>
+  <switch-throw n="3">
+    <value type="double">0</value>
+  </switch-throw>
+
+  <autopilot>
+    <gyro-beacon>
+      <enabled type="bool">true</enabled>
+    </gyro-beacon>
+    <ap-warn type="bool">false</ap-warn>
+  </autopilot>
+
+  <fuel>
+    <tanks include="../Systems/Lockheed1049h-fuel-presets.xml"/>
+  </fuel>
+
+  <electrical>
+    <bus-dc>
+      <volts type="double">24.0</volts>	<!-- initialize to good volts or lights over MP will fail for others -->
+      <amps  type="double">0</amps>
+    </bus-dc>
+
+    <power-source n="0">
+      <name>gen1</name>
+      <volts type="double">0</volts>
+      <amps  type="double">350</amps>
+    </power-source>
+    <power-source n="1">
+      <name>gen2</name>
+      <volts type="double">0</volts>
+      <amps  type="double">350</amps>
+    </power-source>
+    <power-source n="2">
+      <name>gen3</name>
+      <volts type="double">0</volts>
+      <amps  type="double">350</amps>
+    </power-source>
+    <power-source n="3">
+      <name>gen4</name>
+      <volts type="double">0</volts>
+      <amps  type="double">350</amps>
+    </power-source>
+    <power-source n="4">
+      <name>apu</name>
+      <volts type="double">24.0</volts>
+      <amps  type="double">350</amps>
+    </power-source>
+    <power-source n="5">
+      <name>battery ship</name>
+      <volts type="double">24.0</volts>
+      <amps  type="double">0</amps>
+    </power-source>
+    <power-source n="6">
+      <name>battery cart</name>
+      <volts type="double">24.0</volts>
+      <amps  type="double">0</amps>
+    </power-source>
+
+    <battery-cart-lamp type="bool">false</battery-cart-lamp>
+
+    <test-volts-dc type="double">0</test-volts-dc>
+    <test-volts-ac type="double">0</test-volts-ac>
+  </electrical>
+
+  <seat>
+    <pilot-z-offset-m type="double">0</pilot-z-offset-m>
+    <presets>
+      <enable-presets type="int">0></enable-presets>
+      <z-offset-m type="double">0</z-offset-m>
+      <y-offset-m type="double">0</y-offset-m>
+      <pitch-offset-deg type="double">0</pitch-offset-deg>
+    </presets>
+    <defaults>
+      <z-offset-m type="double">2.89</z-offset-m>
+      <y-offset-m type="double">1.24</y-offset-m>
+      <pitch-offset-deg type="double">-11</pitch-offset-deg>
+    </defaults>
+  </seat>
+
+</PropertyList>
+

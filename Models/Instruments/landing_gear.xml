@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>landing_gear.ac</path>
+
+  <!-- Gear Unlocked -->
+  <animation>
+    <type>select</type>
+    <object-name>LampUnlockedOn</object-name>
+    <condition>
+      <and>
+        <greater-than>
+          <property>gear/gear[0]/position-norm</property>
+          <value>0</value>
+        </greater-than>
+        <less-than>
+          <property>gear/gear[0]/position-norm</property>
+          <value>1</value>
+        </less-than>
+        <greater-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampUnlocked</object-name>
+    <condition>
+      <or>
+        <equals>
+          <property>gear/gear[0]/position-norm</property>
+          <value>0</value>
+        </equals>
+        <equals>
+          <property>gear/gear[0]/position-norm</property>
+          <value>1</value>
+        </equals>
+      </or>
+    </condition>
+  </animation>
+
+  <!-- Nose -->
+  <animation>
+    <type>select</type>
+    <object-name>LampNoseOn</object-name>
+    <condition>
+      <and>
+        <equals>
+          <property>gear/gear[0]/position-norm</property>
+          <value>1</value>
+        </equals>
+        <greater-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampNose</object-name>
+    <condition>
+      <or>
+        <less-than>
+          <property>gear/gear[0]/position-norm</property>
+          <value>1</value>
+        </less-than>
+        <less-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </less-than>
+        <not><property>systems/electrical/bus-dc/volts</property></not>
+      </or>
+    </condition>
+  </animation>
+
+  <!-- Left -->
+  <animation>
+    <type>select</type>
+    <object-name>LampLeftOn</object-name>
+    <condition>
+      <and>
+        <equals>
+          <property>gear/gear[1]/position-norm</property>
+          <value>1</value>
+        </equals>
+        <greater-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampLeft</object-name>
+    <condition>
+      <or>
+        <less-than>
+          <property>gear/gear[1]/position-norm</property>
+          <value>1</value>
+        </less-than>
+        <less-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </less-than>
+        <not><property>systems/electrical/bus-dc/volts</property></not>
+      </or>
+    </condition>
+  </animation>
+
+  <!-- Right -->
+  <animation>
+    <type>select</type>
+    <object-name>LampRightOn</object-name>
+    <condition>
+      <and>
+        <equals>
+          <property>gear/gear[2]/position-norm</property>
+          <value>1</value>
+        </equals>
+        <greater-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </greater-than>
+      </and>
+    </condition>
+  </animation>
+  <animation>
+    <type>select</type>
+    <object-name>LampRight</object-name>
+    <condition>
+      <or>
+        <less-than>
+          <property>gear/gear[2]/position-norm</property>
+          <value>1</value>
+        </less-than>
+        <less-than>
+          <property>systems/electrical/bus-dc/volts</property>
+          <value>9</value>
+        </less-than>
+        <not><property>systems/electrical/bus-dc/volts</property></not>
+      </or>
+    </condition>
+  </animation>
+
+</PropertyList>
+

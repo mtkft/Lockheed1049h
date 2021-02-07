@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>oilpress.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>OilPress.FaceBack</object-name>
+    <object-name>OilPress.Needle1</object-name>
+    <object-name>OilPress.Needle2</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>OilPress.Needle1</object-name>
+    <property alias="../../oil-pressure1-psi"/>
+    <interpolation>
+      <entry><ind>  0</ind><dep>  45</dep></entry>
+      <entry><ind>100</ind><dep>   0</dep></entry>
+      <entry><ind>200</ind><dep> -45</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>-0.0251</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>OilPress.Needle2</object-name>
+    <property alias="../../oil-pressure2-psi"/>
+    <interpolation>
+      <entry><ind>  0</ind><dep>  45</dep></entry>
+      <entry><ind>100</ind><dep>   0</dep></entry>
+      <entry><ind>200</ind><dep> -45</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>0.0251</x-m>
+      <y-m>0</y-m>
+      <z-m>0</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+</PropertyList>

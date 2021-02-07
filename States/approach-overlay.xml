@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<PropertyList>
+  <name type="string" n="1">approach</name>
+  <description>
+    The plane will be in "approach" state with engines running.
+    Initial Airspeed is set to 130 knots.
+    You should also set an --altitude=... setting to start in-air
+    and an offset position to a runway to practice approaches or use the launcher to set this up.
+
+    Start this state with --state=approach.
+  </description>
+
+  <overlay>
+    <environment>
+      <overlay type="bool">true</overlay>
+    </environment>
+
+    <sim>
+      <presets>
+        <airspeed-kt type="double">130</airspeed-kt>
+      </presets>
+    </sim>
+
+    <fdm>
+      <jsbsim>
+        <running>1</running>
+        <propulsion>
+          <set-running>1</set-running>
+          <magneto_cmd>3</magneto_cmd>
+          <starter_cmd>3</starter_cmd>
+          <engine n="0">
+            <set-running>1</set-running>
+          </engine>
+          <engine n="1">
+            <set-running>1</set-running>
+          </engine>
+          <engine n="2">
+            <set-running>1</set-running>
+          </engine>
+          <engine n="3">
+            <set-running>1</set-running>
+          </engine>
+        </propulsion>
+      </jsbsim>
+    </fdm>
+    <controls>
+      <engines>
+        <engine n="0">
+          <throttle>0.5</throttle>
+          <mixture>1.0</mixture>
+          <propeller-pitch>1.0</propeller-pitch>
+          <magnetos>3</magnetos>
+          <condition>1</condition>
+        </engine>
+        <engine n="1">
+          <throttle>0.5</throttle>
+          <mixture>1.0</mixture>
+          <propeller-pitch>1.0</propeller-pitch>
+          <magnetos>3</magnetos>
+          <condition>1</condition>
+        </engine>
+        <engine n="2">
+          <throttle>0.5</throttle>
+          <mixture>1.0</mixture>
+          <propeller-pitch>1.0</propeller-pitch>
+          <magnetos>3</magnetos>
+          <condition>1</condition>
+        </engine>
+        <engine n="3">
+          <throttle>0.5</throttle>
+          <mixture>1.0</mixture>
+          <propeller-pitch>1.0</propeller-pitch>
+          <magnetos>3</magnetos>
+          <condition>1</condition>
+        </engine>
+      </engines>
+
+      <flight>
+        <elevator-trim>-0.5</elevator-trim>
+      </flight>
+    </controls>
+  </overlay>
+</PropertyList>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<!-- Gary R. Neely 'Buckaroo', Nov 2008  -->
+<!-- Wolfram Gottfried 'Yakko', Nov 2008  -->
+
+<PropertyList>
+
+  <path>rmi.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>RMI.Face</object-name>
+    <object-name>RMI.Needle1</object-name>
+    <object-name>RMI.Needle2</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>RMI.Face</object-name>
+    <property>orientation/heading-magnetic-deg</property>
+    <factor>-1</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!-- Needle 1 -->
+  <animation>
+    <type>rotate</type>
+    <object-name>RMI.Needle1</object-name>
+    <property>instrumentation/rmi-needle[0]/value</property>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!-- Needle 2 -->
+  <animation>
+    <type>rotate</type>
+    <object-name>RMI.Needle2</object-name>
+    <property>instrumentation/rmi-needle[1]/value</property>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+</PropertyList>

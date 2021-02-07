@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+
+Lockheed1049h: Instrumentation filters
+
+Copyright (c) 2015 Richard Senior
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+************************************************************************
+-->
+<PropertyList>
+
+  <!-- =============================================================== -->
+  <!-- RMI Needles                                                     -->
+  <!-- =============================================================== -->
+
+  <filter>
+    <name>RMI Needle 0</name>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <!-- VOR mode in range -->
+      <condition>
+        <and>
+          <not>
+            <property>instrumentation/rmi-needle[0]/mode</property>
+          </not>
+          <property>instrumentation/nav[0]/in-range</property>
+          <not>
+            <property>instrumentation/nav[0]/has-gs</property>
+          </not>
+        </and>
+      </condition>
+      <property>instrumentation/nav[0]/heading-deg</property>
+      <offset>
+        <property>orientation/heading-deg</property>
+        <scale>-1.0</scale>
+      </offset>
+      <period>
+        <min>-90</min>
+        <max>270</max>
+      </period>
+    </input>
+    <input>
+      <!-- ADF mode in range -->
+      <condition>
+        <and>
+          <property>instrumentation/rmi-needle[0]/mode</property>
+          <property>instrumentation/adf[0]/in-range</property>
+        </and>
+      </condition>
+      <property>instrumentation/adf[0]/indicated-bearing-deg</property>
+      <period>
+        <min>-90</min>
+        <max>270</max>
+      </period>
+    </input>
+    <input>
+      <!-- Anything else is out of range -->
+      <value>90</value>
+    </input>
+    <output>instrumentation/rmi-needle[0]/raw-value</output>
+  </filter>
+
+  <filter>
+    <name>RMI Needle 0 Smoothing Filter</name>
+    <type>double-exponential</type>
+    <filter-time>0.67</filter-time>
+    <input>instrumentation/rmi-needle[0]/raw-value</input>
+    <output>instrumentation/rmi-needle[0]/value</output>
+  </filter>
+
+  <filter>
+    <name>RMI Needle 1</name>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <!-- VOR mode in range -->
+      <condition>
+        <and>
+          <not>
+            <property>instrumentation/rmi-needle[1]/mode</property>
+          </not>
+          <property>instrumentation/nav[1]/in-range</property>
+          <not>
+            <property>instrumentation/nav[1]/has-gs</property>
+          </not>
+        </and>
+      </condition>
+      <property>instrumentation/nav[1]/heading-deg</property>
+      <offset>
+        <property>orientation/heading-deg</property>
+        <scale>-1.0</scale>
+      </offset>
+      <period>
+        <min>-270</min>
+        <max>90</max>
+      </period>
+    </input>
+    <input>
+      <!-- ADF mode in range -->
+      <condition>
+        <and>
+          <property>instrumentation/rmi-needle[1]/mode</property>
+          <property>instrumentation/adf[1]/in-range</property>
+        </and>
+      </condition>
+      <property>instrumentation/adf[1]/indicated-bearing-deg</property>
+      <period>
+        <min>-270</min>
+        <max>90</max>
+      </period>
+    </input>
+    <input>
+      <!-- Anything else is out of range -->
+      <value>-90</value>
+    </input>
+    <output>instrumentation/rmi-needle[1]/raw-value</output>
+  </filter>
+
+  <filter>
+    <name>RMI Needle 1 Smoothing Filter</name>
+    <type>double-exponential</type>
+    <filter-time>0.67</filter-time>
+    <input>instrumentation/rmi-needle[1]/raw-value</input>
+    <output>instrumentation/rmi-needle[1]/value</output>
+  </filter>
+
+  <!-- =============================================================== -->
+  <!-- Autopilot Warning Light                                         -->
+  <!-- =============================================================== -->
+
+  <logic>
+    <name>Autopilot Warning Light</name>
+    <inverted>true</inverted>
+    <input>
+      <and>
+        <equals>
+          <property>autopilot/locks/heading</property>
+          <value></value>
+        </equals>
+        <equals>
+          <property>autopilot/locks/altitude</property>
+          <value></value>
+        </equals>
+        <equals>
+          <property>autopilot/locks/speed</property>
+          <value></value>
+        </equals>
+      </and>
+    </input>
+    <output>systems/autopilot/ap-warn</output>
+  </logic>
+
+</PropertyList>

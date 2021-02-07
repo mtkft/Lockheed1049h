@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>alt_engineer.ac</path>
+
+  <animation>
+    <type>material</type>
+    <object-name>ALTeng.Face</object-name>
+    <object-name>ALTeng.FacePressure</object-name>
+    <object-name>ALTeng.Needle1</object-name>
+    <object-name>ALTeng.Needle2</object-name>
+    <object-name>ALTeng.Needle3</object-name>
+    <emission>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ALTeng.Needle1</object-name>
+    <property>instrumentation/altimeter/indicated-altitude-ft</property>
+    <factor>0.36</factor>
+    <axis>
+      <x>0</x>
+      <y>0.574</y>
+      <z>0.819</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ALTeng.Needle2</object-name>
+    <property>instrumentation/altimeter/indicated-altitude-ft</property>
+    <factor>0.036</factor>
+    <axis>
+      <x>0</x>
+      <y>0.574</y>
+      <z>0.819</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ALTeng.Needle3</object-name>
+    <property>instrumentation/altimeter/indicated-altitude-ft</property>
+    <factor>0.0036</factor>
+    <axis>
+      <x>0</x>
+      <y>0.574</y>
+      <z>0.819</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ALTeng.FacePressure</object-name>
+    <property>instrumentation/altimeter/setting-inhg</property>
+    <interpolation>
+      <entry><ind>  28</ind><dep>-200</dep></entry>
+      <entry><ind>  30</ind><dep>   0</dep></entry>
+      <entry><ind>31.3</ind><dep> 130</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>-0.574</y>
+      <z>-0.819</z>
+    </axis>
+  </animation>
+
+</PropertyList>
+
