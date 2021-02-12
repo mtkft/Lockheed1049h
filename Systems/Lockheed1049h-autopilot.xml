@@ -25,6 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <PropertyList>
 
+  <!-- dynamic bank-angle-select with airspeed __>
+  <filter>
+    <name>Dynamic bank angle</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain-->
+
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <!-- TOASTER's NAV source selectors                                  -->
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -527,7 +534,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <input>autopilot/internal/servos/aileron</input>
     <output>controls/flight/aileron</output>
     <type>noise-spike</type>
-    <max-rate-of-change>0.25</max-rate-of-change>
+    <max-rate-of-change>0.5</max-rate-of-change>
     <min>-1.0</min>
     <max>1.0</max>
   </filter>
@@ -588,8 +595,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <gain>1.0</gain>
     <input>autopilot/internal/filtered-target-bank-deg</input>
     <output>autopilot/internal/target-roll-deg</output>
-    <min>-30.0</min>
-    <max>+30.0</max>
+    <min>
+      <property>controls/autoflight/bank-angle-select</property>
+      <scale>-1.0</scale>
+    </min>
+    <max>
+      <property>controls/autoflight/bank-angle-select</property>
+      <scale>+1.0</scale>
+    </max>
   </filter>
 
   <filter>
@@ -685,9 +698,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <scale>+1.0</scale>
     </max>
   </filter>
-
+  
+  <filter>
+		<name>Roll Rate Command</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>-0.5</gain>
+		<input>/orientation/roll-deg</input>
+		<reference>/autopilot/internal/target-roll-deg</reference>
+		<output>/autopilot/internal/roll-rate</output>
+		<min>-5</min>
+		<max>5</max>
+	</filter>
+  
   <pid-controller>
-    <name>Aileron Controller</name>
+    <name>Aileron Controller (Roll Rate)</name>
     <debug>false</debug>
     <enable>
       <condition>
@@ -699,13 +724,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </not>
       </condition>
     </enable>
-    <input>orientation/roll-deg</input>
-    <reference>autopilot/internal/target-roll-deg</reference>
+    <input>orientation/roll-rate-degps</input>
+    <reference>autopilot/internal/roll-rate</reference>
     <output>autopilot/internal/servos/aileron</output>
     <config>
-      <Kp>0.012</Kp>
-      <Ti>30.0</Ti>
-      <Td>0.0002</Td>
+      <Kp><expression>
+        <table>
+          <property>/velocities/airspeed-kt</property>
+          <entry><ind>140</ind><dep>0.16</dep></entry>
+          <entry><ind>360</ind><dep>0.04</dep></entry>
+        </table>
+      </expression></Kp>
+      <Ti>0.0001</Ti>
+      <Td>0.001</Td>
       <u_min>-1.0</u_min>
       <u_max>1.0</u_max>
     </config>
