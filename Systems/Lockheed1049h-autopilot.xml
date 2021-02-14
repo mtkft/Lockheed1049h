@@ -703,7 +703,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<name>Roll Rate Command</name>
 		<debug>false</debug>
 		<type>gain</type>
-		<gain>-0.5</gain>
+		<gain>-1.0</gain>
 		<input>/orientation/roll-deg</input>
 		<reference>/autopilot/internal/target-roll-deg</reference>
 		<output>/autopilot/internal/roll-rate</output>
@@ -714,7 +714,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <pid-controller>
     <name>Aileron Controller (Roll Rate)</name>
     <debug>false</debug>
-    <enable>
+    <!--enable>
       <condition>
         <not>
           <equals>
@@ -723,7 +723,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           </equals>
         </not>
       </condition>
-    </enable>
+    </enable-->
     <input>orientation/roll-rate-degps</input>
     <reference>autopilot/internal/roll-rate</reference>
     <output>autopilot/internal/servos/aileron</output>
@@ -735,7 +735,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <entry><ind>360</ind><dep>0.04</dep></entry>
         </table>
       </expression></Kp>
-      <Ti>0.0001</Ti>
+      <Ti>5000.0</Ti>
       <Td>0.001</Td>
       <u_min>-1.0</u_min>
       <u_max>1.0</u_max>
