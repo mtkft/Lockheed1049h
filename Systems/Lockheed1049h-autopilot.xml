@@ -714,7 +714,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <pid-controller>
     <name>Aileron Controller (Roll Rate)</name>
     <debug>false</debug>
-    <!--enable>
+    <enable>
       <condition>
         <not>
           <equals>
@@ -723,7 +723,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           </equals>
         </not>
       </condition>
-    </enable-->
+    </enable>
     <input>orientation/roll-rate-degps</input>
     <reference>autopilot/internal/roll-rate</reference>
     <output>autopilot/internal/servos/aileron</output>
