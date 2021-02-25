@@ -1,5 +1,8 @@
 # FlightGear L1049H Redux #
 
+## IMPORTANT INSTALLATION NOTE ##
+For clarity about what this repo is for, I named the repo as is, but the aircraft name should remain `Lockheed1049h` as on the legacy FGADDON one. Beyond the usual "remove `-main`", please change your folder name after extraction.
+
 ## Stated Motivations and Goals ##
 - DONE: IFR with radio navaids is currently possible, but not all procedures are flyable without a DME, and being able to switch back and forth between two pre-set CDIs is convenient. DME and functionality for the `DEVIATION NAV1/NAV2` switch have been added to the top-center panel unit.
 - DONE: aileron servo commands are now rate-based à la IT-Autoflight with speed/gain function for P gain
