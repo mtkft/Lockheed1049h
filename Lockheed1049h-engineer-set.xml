@@ -90,7 +90,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <file>Nasal/mk-engineer.nas</file>
     </engineer>
     <dual_control>
-      <file>Aircraft/Generic/DualControl/copilot-dual-control.nas</file>
+      <!--file>Aircraft/Generic/DualControl/copilot-dual-control.nas</file-->
+      <file>Nasal/L1049h-dual-control.nas</file>
     </dual_control>
   </nasal>
 
