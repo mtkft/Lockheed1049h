@@ -15,5 +15,7 @@ For clarity about what this repo is for, I named the repo as is, but the aircraf
 
 ## Credits ##
 Original plane: Gary "Buckaroo" Neely
+
 DME-339F-12A from Citation II: Sascha Reißner
+
 Assistance with developing aileron PID (and speed/gain interpolator): Josh Davidson
