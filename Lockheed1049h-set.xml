@@ -30,8 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <file>Nasal/mk-crashed.nas</file>
     </engine-fire>
     <dual_control>
-      <!--file>Aircraft/Generic/DualControl/pilot-dual-control.nas</file-->
-      <file>Nasal/L1049h-dual-control.nas</file>
+      <file>Aircraft/Generic/DualControl/pilot-dual-control.nas</file>
     </dual_control>
   </nasal>
 
@@ -42,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <long-description>
       The pinnacle of piston engine techology and of pure beauty.  The
       last airliner of the Golden Age, before the jet age and before
-      mass tourism.  Welcome back to the Fifties.
+      mass tourism. Welcome back to the Fifties.
     </long-description>
     <flight-model>jsb</flight-model>
     <flight-recorder include="Systems/flight-recorder.xml"/>
@@ -52,6 +51,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <menu n="100">
           <label>Constellation</label>
           <item>
+            <label>Engineer</label>
+            <binding>
+              <command>nasal</command>
+              <script><![CDATA[
+                var node = "sim/gui/dialogs/engineer/dialog";
+                var path = "Dialogs/Lockheed1049h-engineer.xml";
+                gui.Dialog.new(node, path).open();
+              ]]></script>
+            </binding>
+          </item>
+          <!--item>
             <label>Autostart</label>
             <binding>
               <command>nasal</command>
@@ -79,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
               ]]></script>
             </binding>
-          </item>
+          </item-->
           <item>
             <label>Pushback</label>
             <name>pushback</name>

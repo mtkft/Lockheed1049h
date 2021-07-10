@@ -1,0 +1,439 @@
+<?xml version="1.0"?>
+
+<!--autoengineer's BMEP optimizer via mixture
+    sourced from Pinto's (github:l0k1) C561  -->
+
+<system name="managemix">
+  <channel name="automix0" execrate="4">
+    <!-- if increasing mix and temp is dropping, dec mix
+         if increasing mix and temp is rising, inc mix
+         if decreasing mix and temp is rising, dec mix
+         if decreasing mix and temp is dropping, inc mix
+    -->
+
+    <switch name="/autoengineer/engines/engine[0]/automix/mixdir">
+        <!-- we never want a stable mix where it doesnt change -->
+        <!-- 0 is dec, 1 is inc -->
+        <!-- use >= so if mix is at 1, then we get movement down -->
+        <default value="0"/>
+        <test logic="AND" value="1">
+            /controls/engines/engine[0]/mixture ge /engines/engine[0]/automix/lastmix
+        </test>
+        <output>/engines/engine[0]/automix/mixdir</output>
+    </switch>
+
+    <switch name="/autoengineer/engines/engine[0]/automix/bmepdir">
+        <!-- we never want a stable temp where it doesnt change -->
+        <!-- 0 is dec, 1 is inc -->
+        <default value="0"/>
+        <test logic="AND" value="1">
+            /engines/engine[0]/bmep gt /engines/engine[0]/automix/lastbmep
+        </test>
+        <output>/engines/engine[0]/automix/bmepdir</output>
+    </switch>
+
+    <!-- store the values for the next go around -->
+    <summer name="/autoengineer/engines/engine[0]/automix/lastbmep">
+        <input>/engines/engine[0]/bmep</input>
+        <output>/engines/engine[0]/automix/lastbmep</output>
+    </summer>
+
+    <summer name="/autoengineer/engines/engine[0]/automix/lastmix">
+        <input>/controls/engines/engine[0]/mixture</input>
+        <output>/engines/engine[0]/automix/lastmix</output>
+    </summer>
+
+    <fcs_function name="/autoengineer/controls/engine[0]/mix-add">
+        <function>
+            <ifthen>
+                <and>
+                    <or>
+                        <and>
+                            <!-- temp is rising and mix is rising -->
+                            <property>/engines/engine[0]/automix/mixdir</property>
+                            <property>/engines/engine[0]/automix/bmepdir</property>
+                        </and>
+                        <and>
+                            <not><property>/engines/engine[0]/automix/mixdir</property></not>
+                            <not><property>/engines/engine[0]/automix/bmepdir</property></not>
+                        </and>
+                    </or>
+                    <lt>
+                        <property>/controls/engines/engine[0]/mixture</property>
+                        <value>1.0</value>
+                    </lt>
+                    <property>/autoengineer/managemix</property>
+                </and>
+                <sum>
+                    <property>/controls/engines/engine[0]/mixture</property>
+                    <value>0.001</value>
+                </sum>
+                <property>/controls/engines/engine[0]/mixture</property>
+            </ifthen>
+        </function>
+        <clipto>
+            <min>0.0</min>
+            <max>1.0</max>
+        </clipto>
+        <output>/controls/engines/engine[0]/mixture</output>
+    </fcs_function>
+
+    <fcs_function name="/autoengineer/controls/engine[0]/mix-sub">
+        <function>
+            <ifthen>
+                <and>
+                    <or>
+                        <and>
+                            <!-- increasing mix and temp is dropping -->
+                            <property>/engines/engine[0]/automix/mixdir</property>
+                            <not><property>/engines/engine[0]/automix/bmepdir</property></not>
+                        </and>
+                        <and>
+                            <!-- decreasing mix and temp is rising -->
+                            <not><property>/engines/engine[0]/automix/mixdir</property></not>
+                            <property>/engines/engine[0]/automix/bmepdir</property>
+                        </and>
+                    </or>
+                    <property>/autoengineer/managemix</property>
+                </and>
+                <difference>
+                    <property>/controls/engines/engine[0]/mixture</property>
+                    <value>0.001</value>
+                </difference>
+                <property>/controls/engines/engine[0]/mixture</property>
+            </ifthen>
+        </function>
+        <clipto>
+            <min>0.0</min>
+            <max>1.0</max>
+        </clipto>
+        <output>/controls/engines/engine[0]/mixture</output>
+    </fcs_function>
+
+  </channel>
+
+  <channel name="automix1" execrate="4">
+    <!-- if increasing mix and temp is dropping, dec mix
+         if increasing mix and temp is rising, inc mix
+         if decreasing mix and temp is rising, dec mix
+         if decreasing mix and temp is dropping, inc mix
+    -->
+
+    <switch name="/autoengineer/engines/engine[1]/automix/mixdir">
+        <!-- we never want a stable mix where it doesnt change -->
+        <!-- 0 is dec, 1 is inc -->
+        <!-- use >= so if mix is at 1, then we get movement down -->
+        <default value="0"/>
+        <test logic="AND" value="1">
+            /controls/engines/engine[1]/mixture ge /engines/engine[1]/automix/lastmix
+        </test>
+        <output>/engines/engine[1]/automix/mixdir</output>
+    </switch>
+
+    <switch name="/autoengineer/engines/engine[1]/automix/bmepdir">
+        <!-- we never want a stable temp where it doesnt change -->
+        <!-- 0 is dec, 1 is inc -->
+        <default value="0"/>
+        <test logic="AND" value="1">
+            /engines/engine[1]/bmep gt /engines/engine[1]/automix/lastbmep
+        </test>
+        <output>/engines/engine[1]/automix/bmepdir</output>
+    </switch>
+
+    <!-- store the values for the next go around -->
+    <summer name="/autoengineer/engines/engine[1]/automix/lastbmep">
+        <input>/engines/engine[1]/bmep</input>
+        <output>/engines/engine[1]/automix/lastbmep</output>
+    </summer>
+
+    <summer name="/autoengineer/engines/engine[1]/automix/lastmix">
+        <input>/controls/engines/engine[1]/mixture</input>
+        <output>/engines/engine[1]/automix/lastmix</output>
+    </summer>
+
+    <fcs_function name="/autoengineer/controls/engine[1]/mix-add">
+        <function>
+            <ifthen>
+                <and>
+                    <or>
+                        <and>
+                            <!-- temp is rising and mix is rising -->
+                            <property>/engines/engine[1]/automix/mixdir</property>
+                            <property>/engines/engine[1]/automix/bmepdir</property>
+                        </and>
+                        <and>
+                            <not><property>/engines/engine[1]/automix/mixdir</property></not>
+                            <not><property>/engines/engine[1]/automix/bmepdir</property></not>
+                        </and>
+                    </or>
+                    <lt>
+                        <property>/controls/engines/engine[1]/mixture</property>
+                        <value>1.0</value>
+                    </lt>
+                    <property>/autoengineer/managemix</property>
+                </and>
+                <sum>
+                    <property>/controls/engines/engine[1]/mixture</property>
+                    <value>0.001</value>
+                </sum>
+                <property>/controls/engines/engine[1]/mixture</property>
+            </ifthen>
+        </function>
+        <clipto>
+            <min>0.0</min>
+            <max>1.0</max>
+        </clipto>
+        <output>/controls/engines/engine[1]/mixture</output>
+    </fcs_function>
+
+    <fcs_function name="/autoengineer/controls/engine[1]/mix-sub">
+        <function>
+            <ifthen>
+                <and>
+                    <or>
+                        <and>
+                            <!-- increasing mix and temp is dropping -->
+                            <property>/engines/engine[1]/automix/mixdir</property>
+                            <not><property>/engines/engine[1]/automix/bmepdir</property></not>
+                        </and>
+                        <and>
+                            <!-- decreasing mix and temp is rising -->
+                            <not><property>/engines/engine[1]/automix/mixdir</property></not>
+                            <property>/engines/engine[1]/automix/bmepdir</property>
+                        </and>
+                    </or>
+                    <property>/autoengineer/managemix</property>
+                </and>
+                <difference>
+                    <property>/controls/engines/engine[1]/mixture</property>
+                    <value>0.001</value>
+                </difference>
+                <property>/controls/engines/engine[1]/mixture</property>
+            </ifthen>
+        </function>
+        <clipto>
+            <min>0.0</min>
+            <max>1.0</max>
+        </clipto>
+        <output>/controls/engines/engine[1]/mixture</output>
+    </fcs_function>
+
+  </channel>
+
+  <channel name="automix2" execrate="4">
+    <!-- if increasing mix and temp is dropping, dec mix
+         if increasing mix and temp is rising, inc mix
+         if decreasing mix and temp is rising, dec mix
+         if decreasing mix and temp is dropping, inc mix
+    -->
+
+    <switch name="/autoengineer/engines/engine[2]/automix/mixdir">
+        <!-- we never want a stable mix where it doesnt change -->
+        <!-- 0 is dec, 1 is inc -->
+        <!-- use >= so if mix is at 1, then we get movement down -->
+        <default value="0"/>
+        <test logic="AND" value="1">
+            /controls/engines/engine[2]/mixture ge /engines/engine[2]/automix/lastmix
+        </test>
+        <output>/engines/engine[2]/automix/mixdir</output>
+    </switch>
+
+    <switch name="/autoengineer/engines/engine[2]/automix/bmepdir">
+        <!-- we never want a stable temp where it doesnt change -->
+        <!-- 0 is dec, 1 is inc -->
+        <default value="0"/>
+        <test logic="AND" value="1">
+            /engines/engine[2]/bmep gt /engines/engine[2]/automix/lastbmep
+        </test>
+        <output>/engines/engine[2]/automix/bmepdir</output>
+    </switch>
+
+    <!-- store the values for the next go around -->
+    <summer name="/autoengineer/engines/engine[2]/automix/lastbmep">
+        <input>/engines/engine[2]/bmep</input>
+        <output>/engines/engine[2]/automix/lastbmep</output>
+    </summer>
+
+    <summer name="/autoengineer/engines/engine[2]/automix/lastmix">
+        <input>/controls/engines/engine[2]/mixture</input>
+        <output>/engines/engine[2]/automix/lastmix</output>
+    </summer>
+
+    <fcs_function name="/autoengineer/controls/engine[2]/mix-add">
+        <function>
+            <ifthen>
+                <and>
+                    <or>
+                        <and>
+                            <!-- temp is rising and mix is rising -->
+                            <property>/engines/engine[2]/automix/mixdir</property>
+                            <property>/engines/engine[2]/automix/bmepdir</property>
+                        </and>
+                        <and>
+                            <not><property>/engines/engine[2]/automix/mixdir</property></not>
+                            <not><property>/engines/engine[2]/automix/bmepdir</property></not>
+                        </and>
+                    </or>
+                    <lt>
+                        <property>/controls/engines/engine[2]/mixture</property>
+                        <value>1.0</value>
+                    </lt>
+                    <property>/autoengineer/managemix</property>
+                </and>
+                <sum>
+                    <property>/controls/engines/engine[2]/mixture</property>
+                    <value>0.001</value>
+                </sum>
+                <property>/controls/engines/engine[2]/mixture</property>
+            </ifthen>
+        </function>
+        <clipto>
+            <min>0.0</min>
+            <max>1.0</max>
+        </clipto>
+        <output>/controls/engines/engine[2]/mixture</output>
+    </fcs_function>
+
+    <fcs_function name="/autoengineer/controls/engine[2]/mix-sub">
+        <function>
+            <ifthen>
+                <and>
+                    <or>
+                        <and>
+                            <!-- increasing mix and temp is dropping -->
+                            <property>/engines/engine[2]/automix/mixdir</property>
+                            <not><property>/engines/engine[2]/automix/bmepdir</property></not>
+                        </and>
+                        <and>
+                            <!-- decreasing mix and temp is rising -->
+                            <not><property>/engines/engine[2]/automix/mixdir</property></not>
+                            <property>/engines/engine[2]/automix/bmepdir</property>
+                        </and>
+                    </or>
+                    <property>/autoengineer/managemix</property>
+                </and>
+                <difference>
+                    <property>/controls/engines/engine[2]/mixture</property>
+                    <value>0.001</value>
+                </difference>
+                <property>/controls/engines/engine[2]/mixture</property>
+            </ifthen>
+        </function>
+        <clipto>
+            <min>0.0</min>
+            <max>1.0</max>
+        </clipto>
+        <output>/controls/engines/engine[2]/mixture</output>
+    </fcs_function>
+
+  </channel>
+
+  <channel name="automix3" execrate="4">
+    <!-- if increasing mix and temp is dropping, dec mix
+         if increasing mix and temp is rising, inc mix
+         if decreasing mix and temp is rising, dec mix
+         if decreasing mix and temp is dropping, inc mix
+    -->
+
+    <switch name="/autoengineer/engines/engine[3]/automix/mixdir">
+        <!-- we never want a stable mix where it doesnt change -->
+        <!-- 0 is dec, 1 is inc -->
+        <!-- use >= so if mix is at 1, then we get movement down -->
+        <default value="0"/>
+        <test logic="AND" value="1">
+            /controls/engines/engine[3]/mixture ge /engines/engine[3]/automix/lastmix
+        </test>
+        <output>/engines/engine[3]/automix/mixdir</output>
+    </switch>
+
+    <switch name="/autoengineer/engines/engine[3]/automix/bmepdir">
+        <!-- we never want a stable temp where it doesnt change -->
+        <!-- 0 is dec, 1 is inc -->
+        <default value="0"/>
+        <test logic="AND" value="1">
+            /engines/engine[3]/bmep gt /engines/engine[3]/automix/lastbmep
+        </test>
+        <output>/engines/engine[3]/automix/bmepdir</output>
+    </switch>
+
+    <!-- store the values for the next go around -->
+    <summer name="/autoengineer/engines/engine[3]/automix/lastbmep">
+        <input>/engines/engine[3]/bmep</input>
+        <output>/engines/engine[3]/automix/lastbmep</output>
+    </summer>
+
+    <summer name="/autoengineer/engines/engine[3]/automix/lastmix">
+        <input>/controls/engines/engine[3]/mixture</input>
+        <output>/engines/engine[3]/automix/lastmix</output>
+    </summer>
+
+    <fcs_function name="/autoengineer/controls/engine[3]/mix-add">
+        <function>
+            <ifthen>
+                <and>
+                    <or>
+                        <and>
+                            <!-- temp is rising and mix is rising -->
+                            <property>/engines/engine[3]/automix/mixdir</property>
+                            <property>/engines/engine[3]/automix/bmepdir</property>
+                        </and>
+                        <and>
+                            <not><property>/engines/engine[3]/automix/mixdir</property></not>
+                            <not><property>/engines/engine[3]/automix/bmepdir</property></not>
+                        </and>
+                    </or>
+                    <lt>
+                        <property>/controls/engines/engine[3]/mixture</property>
+                        <value>1.0</value>
+                    </lt>
+                    <property>/autoengineer/managemix</property>
+                </and>
+                <sum>
+                    <property>/controls/engines/engine[3]/mixture</property>
+                    <value>0.001</value>
+                </sum>
+                <property>/controls/engines/engine[3]/mixture</property>
+            </ifthen>
+        </function>
+        <clipto>
+            <min>0.0</min>
+            <max>1.0</max>
+        </clipto>
+        <output>/controls/engines/engine[3]/mixture</output>
+    </fcs_function>
+
+    <fcs_function name="/autoengineer/controls/engine[3]/mix-sub">
+        <function>
+            <ifthen>
+                <and>
+                    <or>
+                        <and>
+                            <!-- increasing mix and temp is dropping -->
+                            <property>/engines/engine[3]/automix/mixdir</property>
+                            <not><property>/engines/engine[3]/automix/bmepdir</property></not>
+                        </and>
+                        <and>
+                            <!-- decreasing mix and temp is rising -->
+                            <not><property>/engines/engine[3]/automix/mixdir</property></not>
+                            <property>/engines/engine[3]/automix/bmepdir</property>
+                        </and>
+                    </or>
+                    <property>/autoengineer/managemix</property>
+                </and>
+                <difference>
+                    <property>/controls/engines/engine[3]/mixture</property>
+                    <value>0.001</value>
+                </difference>
+                <property>/controls/engines/engine[3]/mixture</property>
+            </ifthen>
+        </function>
+        <clipto>
+            <min>0.0</min>
+            <max>1.0</max>
+        </clipto>
+        <output>/controls/engines/engine[3]/mixture</output>
+    </fcs_function>
+
+  </channel>  
+
+</system>

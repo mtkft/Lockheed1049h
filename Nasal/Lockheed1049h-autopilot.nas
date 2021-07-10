@@ -178,6 +178,11 @@ var toggle_autopilot_on_off = func()
 
 # Listeners for changes through the 3D cockpit
 
+# upper panel switch that controls Zero Indicator appropriated to control nav1/nav2 holds
+#setlistener("instrumentation/deviation-indicator/frequency", func() {
+#    configure_lateral_mode();
+#},0,0);
+
 setlistener("/autopilot/switches/ap", func(ap) {
     lock(func {
         configure_all_modes();

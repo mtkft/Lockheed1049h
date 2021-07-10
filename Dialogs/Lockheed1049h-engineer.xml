@@ -1,0 +1,129 @@
+<PropertyList>
+  <name>Lockheed1049h-engineer</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+
+  <group>
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+    <text>
+      <label>Flight Engineer</label>
+    </text>
+    <empty><stretch>1</stretch></empty>
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <default>1</default>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </button>
+  </group>
+  <hrule><dummy/></hrule>
+  <group>
+    <layout>hbox</layout>
+    <default-padding>10</default-padding>
+    <group>
+      <layout>vbox</layout>
+      <default-padding>5</default-padding>
+      <button>
+        <legend>Autostart</legend><halign>centered</halign>
+        <binding><command>nasal</command>
+          <script><![CDATA[
+            if (props.globals.getNode("sim/checklists/auto") == nil) {
+                setprop("sim/messages/copilot",
+                    "Autostart needs FGDATA 3.5 or higher"
+                );
+                return;
+            }
+            if (getprop("gear/gear[1]/wow")) {
+                if (Lockheed1049h.is_near_runway()) {
+                    setprop("sim/checklists/auto/completed-message",
+                        "Checklists complete, ready for takeoff"
+                    );
+                    autochecklist.complete_checklists("runway-start");
+                } else {
+                    setprop("sim/checklists/auto/completed-message",
+                        "Checklists complete, ready to taxi"
+                    );
+                    autochecklist.complete_checklists("terminal-start");
+                }
+            } else {
+                autochecklist.complete_checklists("in-air-start", 0);
+            }
+            ]]></script>
+        </binding>
+      </button>
+      <hrule><dummy/></hrule>
+      <text>
+        <halign>left</halign>
+        <label>Auto Engineer Utilities</label>
+      </text>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <text>
+          <halign>left</halign>
+          <label>Manage fuel mixture for optimal BMEP</label>
+        </text>
+        <checkbox>
+          <halign>right</halign>
+          <property>autoengineer/managemix</property>
+          <binding><command>dialog-apply</command></binding>
+        </checkbox>
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <button>
+          <legend>Captain's throttle</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script><![CDATA[
+              setprop("autoengineer/holdmp",0)
+              ]]></script>
+          </binding>
+        </button>
+        <button>
+          <legend>48" M.P.</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script><![CDATA[
+              setprop("autoengineer/holdmp",48)
+              ]]></script>
+          </binding>
+        </button>
+        <button>
+          <legend>56.5" M.P.</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script><![CDATA[
+              setprop("autoengineer/holdmp",56.5)
+              ]]></script>
+          </binding>
+        </button>
+      </group>
+      <!--group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <text>
+          <halign>left</halign>
+          <label>Allow engine relighting</label>
+        </text>
+        <checkbox>
+          <halign>right</halign>
+          <property>autoengineer/allowrelight</property>
+          <binding><command><!--dialog-apply--!>nasal</command>
+            <script><![CDATA[
+            setprop("sim/checklists/auto/completed-message", "yoooo");
+            autochecklist.complete_checklists("checklist[1]",1);
+            ]]></script>
+          </binding>
+        </checkbox>
+      </group-->
+    </group>
+  </group>
+  <hrule><dummy/></hrule>
