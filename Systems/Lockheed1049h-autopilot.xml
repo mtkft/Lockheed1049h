@@ -976,6 +976,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </pid-controller>
   
   <pid-controller>
+    <name>Cruise speed by prop</name>
+    <debug>false</debug>
+    <enable>
+      <condition>
+        <property>autoengineer/allow-speedbyprop</property>
+      </condition>
+    </enable>
+    <input>velocities/airspeed-kt</input>
+    <reference>autoengineer/speedbyprop</reference>
+    <output>
+      <property>controls/engines/engine[0]/propeller-pitch</property>
+      <property>controls/engines/engine[1]/propeller-pitch</property>
+      <property>controls/engines/engine[2]/propeller-pitch</property>
+      <property>controls/engines/engine[3]/propeller-pitch</property>
+    </output>
+    <config>
+      <Kp>0.05</Kp>
+      <Ti>20.0</Ti>
+      <Td>0.0005</Td>
+      <u_min>0.0</u_min>
+      <u_max>1.0</u_max>
+    </config>
+  </pid-controller>
+  
+  <pid-controller>
     <name>Hold manifold pressure (Engine #1)</name>
     <debug>false</debug>
     <enable>
@@ -992,8 +1017,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <property>controls/engines/engine[0]/throttle</property>
     </output>
     <config>
-      <Kp>0.15</Kp>
-      <Ti>20.0</Ti>
+      <Kp>0.5</Kp>
+      <Ti>1</Ti>
       <Td>0.0005</Td>
       <u_min>0.0</u_min>
       <u_max>1.0</u_max>
@@ -1017,8 +1042,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <property>controls/engines/engine[1]/throttle</property>
     </output>
     <config>
-      <Kp>0.15</Kp>
-      <Ti>20.0</Ti>
+      <Kp>0.5</Kp>
+      <Ti>1</Ti>
       <Td>0.0005</Td>
       <u_min>0.0</u_min>
       <u_max>1.0</u_max>
@@ -1042,8 +1067,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <property>controls/engines/engine[2]/throttle</property>
     </output>
     <config>
-      <Kp>0.15</Kp>
-      <Ti>20.0</Ti>
+      <Kp>0.5</Kp>
+      <Ti>1</Ti>
       <Td>0.0005</Td>
       <u_min>0.0</u_min>
       <u_max>1.0</u_max>
@@ -1067,8 +1092,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <property>controls/engines/engine[3]/throttle</property>
     </output>
     <config>
-      <Kp>0.15</Kp>
-      <Ti>20.0</Ti>
+      <Kp>0.5</Kp>
+      <Ti>1</Ti>
       <Td>0.0005</Td>
       <u_min>0.0</u_min>
       <u_max>1.0</u_max>

@@ -78,35 +78,175 @@
           <binding><command>dialog-apply</command></binding>
         </checkbox>
       </group>
+      <hrule><dummy/></hrule>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <text>
+          <halign>centered</halign>
+          <label>Power presets</label>
+        </text>
+      </group>
       <group>
         <layout>hbox</layout>
         <default-padding>3</default-padding>
         <button>
-          <legend>Captain's throttle</legend><halign>centered</halign>
+          <legend>Release throttle controls</legend><halign>centered</halign>
           <binding><command>nasal</command>
-            <script><![CDATA[
-              setprop("autoengineer/holdmp",0)
-              ]]></script>
-          </binding>
-        </button>
-        <button>
-          <legend>48" M.P.</legend><halign>centered</halign>
-          <binding><command>nasal</command>
-            <script><![CDATA[
-              setprop("autoengineer/holdmp",48)
-              ]]></script>
-          </binding>
-        </button>
-        <button>
-          <legend>56.5" M.P.</legend><halign>centered</halign>
-          <binding><command>nasal</command>
-            <script><![CDATA[
-              setprop("autoengineer/holdmp",56.5)
-              ]]></script>
+            <script>setprop("autoengineer/holdmp",0)</script>
           </binding>
         </button>
       </group>
-      <!--group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <button>
+          <legend>Cruise: 45" M.P.</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script>setprop("autoengineer/holdmp",45)</script>
+          </binding>
+        </button>
+        <button>
+          <legend>Climb: 48" M.P.</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script>setprop("autoengineer/holdmp",48)</script>
+          </binding>
+        </button>
+        <button>
+          <legend>Takeoff: 56.5" M.P.</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script>setprop("autoengineer/holdmp",56.5)</script>
+          </binding>
+        </button>
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <button>
+          <legend>Props 2300rpm</legend><halign>centered</halign>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[0]/propeller-pitch</property>
+            <value>0.6</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[1]/propeller-pitch</property>
+            <value>0.6</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[2]/propeller-pitch</property>
+            <value>0.6</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[3]/propeller-pitch</property>
+            <value>0.6</value>
+            <rate>0.5</rate>
+          </binding>
+        </button>
+        <button>
+          <legend>Props 2600rpm</legend><halign>centered</halign>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[0]/propeller-pitch</property>
+            <value>0.8</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[1]/propeller-pitch</property>
+            <value>0.8</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[2]/propeller-pitch</property>
+            <value>0.8</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[3]/propeller-pitch</property>
+            <value>0.8</value>
+            <rate>0.5</rate>
+          </binding>
+        </button>
+        <button>
+          <legend>Props 2900rpm</legend><halign>centered</halign>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[0]/propeller-pitch</property>
+            <value>1</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[1]/propeller-pitch</property>
+            <value>1</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[2]/propeller-pitch</property>
+            <value>1</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[3]/propeller-pitch</property>
+            <value>1</value>
+            <rate>0.5</rate>
+          </binding>
+        </button>
+        <!--spot for more buttons about pitch, peruse checklists-->
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <checkbox>
+          <halign>left</halign>
+          <property>autoengineer/allow-speedbyprop</property>
+          <binding><command>dialog-apply</command></binding>
+        </checkbox>
+        <text>
+          <halign>centered</halign>
+          <label>Cruise speed by propeller pitch (set CRZ PWR 45" first)</label>
+        </text>
+        <input>
+          <width>250</width>
+          <height>25</height>
+          <property>autoengineer/speedbyprop</property>
+        </input>
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <button>
+          <legend>Supercharger speed toggle</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+          <script>
+            mpcmd=getprop("autoengineer/holdmp");
+            setprop("autoengineer/holdmp",0);
+            setprop("controls/engines/engine[0]/throttle",0);
+            setprop("controls/engines/engine[1]/throttle",0);
+            setprop("controls/engines/engine[2]/throttle",0);
+            setprop("controls/engines/engine[3]/throttle",0);
+            var timer=maketimer(1,func() {
+            setprop("fdm/jsbsim/propulsion/engine[0]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[0]/boost-speed"));
+            setprop("fdm/jsbsim/propulsion/engine[1]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[1]/boost-speed"));
+            setprop("fdm/jsbsim/propulsion/engine[2]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[2]/boost-speed"));
+            setprop("fdm/jsbsim/propulsion/engine[3]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[3]/boost-speed"));
+            setprop("autoengineer/holdmp",mpcmd)});
+            timer.singleShot=1;
+            timer.start()
+          </script>
+      </group>
+      <!--eventual relighting controls go here><group>
         <layout>hbox</layout>
         <default-padding>3</default-padding>
         <text>
