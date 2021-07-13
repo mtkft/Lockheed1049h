@@ -1,0 +1,269 @@
+<PropertyList>
+  <name>Lockheed1049h-engineer</name>
+  <modal>false</modal>
+  <layout>vbox</layout>
+
+  <group>
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+    <text>
+      <label>Flight Engineer</label>
+    </text>
+    <empty><stretch>1</stretch></empty>
+    <button>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <legend></legend>
+      <default>1</default>
+      <keynum>27</keynum>
+      <border>2</border>
+      <binding>
+        <command>dialog-close</command>
+      </binding>
+      <binding>
+        <command>dialog-apply</command>
+      </binding>
+    </button>
+  </group>
+  <hrule><dummy/></hrule>
+  <group>
+    <layout>hbox</layout>
+    <default-padding>10</default-padding>
+    <group>
+      <layout>vbox</layout>
+      <default-padding>5</default-padding>
+      <button>
+        <legend>Autostart</legend><halign>centered</halign>
+        <binding><command>nasal</command>
+          <script><![CDATA[
+            if (props.globals.getNode("sim/checklists/auto") == nil) {
+                setprop("sim/messages/copilot",
+                    "Autostart needs FGDATA 3.5 or higher"
+                );
+                return;
+            }
+            if (getprop("gear/gear[1]/wow")) {
+                if (Lockheed1049h.is_near_runway()) {
+                    setprop("sim/checklists/auto/completed-message",
+                        "Checklists complete, ready for takeoff"
+                    );
+                    autochecklist.complete_checklists("runway-start");
+                } else {
+                    setprop("sim/checklists/auto/completed-message",
+                        "Checklists complete, ready to taxi"
+                    );
+                    autochecklist.complete_checklists("terminal-start");
+                }
+            } else {
+                autochecklist.complete_checklists("in-air-start", 0);
+            }
+            ]]></script>
+        </binding>
+      </button>
+      <hrule><dummy/></hrule>
+      <text>
+        <halign>left</halign>
+        <label>Auto Engineer Utilities</label>
+      </text>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <text>
+          <halign>left</halign>
+          <label>Manage fuel mixture for optimal BMEP</label>
+        </text>
+        <checkbox>
+          <halign>right</halign>
+          <property>autoengineer/managemix</property>
+          <binding><command>dialog-apply</command></binding>
+        </checkbox>
+      </group>
+      <hrule><dummy/></hrule>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <text>
+          <halign>centered</halign>
+          <label>Power presets</label>
+        </text>
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <button>
+          <legend>Release throttle controls</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script>setprop("autoengineer/holdmp",0)</script>
+          </binding>
+        </button>
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <button>
+          <legend>Cruise: 45" M.P.</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script>setprop("autoengineer/holdmp",45)</script>
+          </binding>
+        </button>
+        <button>
+          <legend>Climb: 48" M.P.</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script>setprop("autoengineer/holdmp",48)</script>
+          </binding>
+        </button>
+        <button>
+          <legend>Takeoff: 56.5" M.P.</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+            <script>setprop("autoengineer/holdmp",56.5)</script>
+          </binding>
+        </button>
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <button>
+          <legend>Props 2300rpm</legend><halign>centered</halign>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[0]/propeller-pitch</property>
+            <value>0.6</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[1]/propeller-pitch</property>
+            <value>0.6</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[2]/propeller-pitch</property>
+            <value>0.6</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[3]/propeller-pitch</property>
+            <value>0.6</value>
+            <rate>0.5</rate>
+          </binding>
+        </button>
+        <button>
+          <legend>Props 2600rpm</legend><halign>centered</halign>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[0]/propeller-pitch</property>
+            <value>0.8</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[1]/propeller-pitch</property>
+            <value>0.8</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[2]/propeller-pitch</property>
+            <value>0.8</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[3]/propeller-pitch</property>
+            <value>0.8</value>
+            <rate>0.5</rate>
+          </binding>
+        </button>
+        <button>
+          <legend>Props 2900rpm</legend><halign>centered</halign>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[0]/propeller-pitch</property>
+            <value>1</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[1]/propeller-pitch</property>
+            <value>1</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[2]/propeller-pitch</property>
+            <value>1</value>
+            <rate>0.5</rate>
+          </binding>
+          <binding>
+            <command>property-interpolate</command>
+            <property>controls/engines/engine[3]/propeller-pitch</property>
+            <value>1</value>
+            <rate>0.5</rate>
+          </binding>
+        </button>
+        <!--spot for more buttons about pitch, peruse checklists-->
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <checkbox>
+          <halign>left</halign>
+          <property>autoengineer/allow-speedbyprop</property>
+          <binding><command>dialog-apply</command></binding>
+        </checkbox>
+        <text>
+          <halign>centered</halign>
+          <label>Cruise speed by propeller pitch (set CRZ PWR 45" first)</label>
+        </text>
+        <input>
+          <width>250</width>
+          <height>25</height>
+          <property>autoengineer/speedbyprop</property>
+        </input>
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <button>
+          <legend>Supercharger speed toggle</legend><halign>centered</halign>
+          <binding><command>nasal</command>
+          <script>
+            mpcmd=getprop("autoengineer/holdmp");
+            setprop("autoengineer/holdmp",0);
+            setprop("controls/engines/engine[0]/throttle",0);
+            setprop("controls/engines/engine[1]/throttle",0);
+            setprop("controls/engines/engine[2]/throttle",0);
+            setprop("controls/engines/engine[3]/throttle",0);
+            var timer=maketimer(1,func() {
+            setprop("fdm/jsbsim/propulsion/engine[0]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[0]/boost-speed"));
+            setprop("fdm/jsbsim/propulsion/engine[1]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[1]/boost-speed"));
+            setprop("fdm/jsbsim/propulsion/engine[2]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[2]/boost-speed"));
+            setprop("fdm/jsbsim/propulsion/engine[3]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[3]/boost-speed"));
+            setprop("autoengineer/holdmp",mpcmd)});
+            timer.singleShot=1;
+            timer.start()
+          </script>
+      </group>
+      <!--eventual relighting controls go here><group>
+        <layout>hbox</layout>
+        <default-padding>3</default-padding>
+        <text>
+          <halign>left</halign>
+          <label>Allow engine relighting</label>
+        </text>
+        <checkbox>
+          <halign>right</halign>
+          <property>autoengineer/allowrelight</property>
+          <binding><command><!--dialog-apply--!>nasal</command>
+            <script><![CDATA[
+            setprop("sim/checklists/auto/completed-message", "yoooo");
+            autochecklist.complete_checklists("checklist[1]",1);
+            ]]></script>
+          </binding>
+        </checkbox>
+      </group-->
+    </group>
+  </group>
+  <hrule><dummy/></hrule>

@@ -69,6 +69,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </fire>
   </hazards>
 
+  <autoengineer><managemix>0</managemix></autoengineer>
+  
   <instrumentation include="Systems/Lockheed1049h-init-instrumentation.xml"/>
 
   <input>
@@ -256,7 +258,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <aircraft-version>3.0.6</aircraft-version>
 
-    <author>Gary Neely, Marc Kraus, Ludovic Brenta, Richard Senior</author>
+    <author>Gary Neely, Marc Kraus, Ludovic Brenta, Richard Senior, TOASTER, pinto</author>
     <chase-distance-m type="double" archive="y">-48.0</chase-distance-m>
 
     <checklists>

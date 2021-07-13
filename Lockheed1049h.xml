@@ -651,6 +651,8 @@ K:             0.039
       <contents unit="LBS"> 0 </contents>
     </tank>
   </propulsion>
+  
+  <system file="managemix"/>
 
   <system file="pushback"/>
   <external_reactions>

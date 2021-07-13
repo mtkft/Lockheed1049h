@@ -9,7 +9,7 @@
     <layout>hbox</layout>
     <empty><stretch>1</stretch></empty>
     <text>
-      <label>Preferences</label>
+      <label>Aircraft Preferences</label>
     </text>
     <empty><stretch>1</stretch></empty>
     <button>
