@@ -1,543 +1,233 @@
 <?xml version="1.0"?>
 
-<!--
-************************************************************************
-
-Lockheed1049h: tuned autopilot.
-
-Copyright (c) 2015 Richard Senior
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-************************************************************************
--->
+<!-- Lockheed 1049h Custom Autopilot -->
+<!-- Copyright (c) 2021 Josh Davidson (Octal450) -->
 
 <PropertyList>
-
-  <!-- dynamic bank-angle-select with airspeed __>
-  <filter>
-    <name>Dynamic bank angle</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain-->
-
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <!-- TOASTER's NAV source selectors                                  -->
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-  <filter>
-    <name>Pick heading-needle-deflection</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/heading-needle-deflection</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/heading-needle-deflection</property>
-    </input>
-    <output>instrumentation/navx/heading-needle-deflection</output>
-  </filter>
-  
-  <filter>
-    <name>Pick radials/selected-deg</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/radials/selected-deg</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/radials/selected-deg</property>
-    </input>
-    <output>instrumentation/navx/radials/selected-deg</output>
-  </filter>
-  
-  <filter>
-    <name>Pick radials/target-radial-deg</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/radials/target-radial-deg</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/radials/target-radial-deg</property>
-    </input>
-    <output>instrumentation/navx/radials/target-radial-deg</output>
-  </filter>
-  
-  <filter>
-    <name>Pick has-gs</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/has-gs</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/radials/has-gs</property>
-    </input>
-    <output>instrumentation/navx/radials/has-gs</output>
-  </filter>
-  
-  <!-- Less critical group -->
-  
-  <filter>
-    <name>Pick gs-rate-of-climb</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/gs-rate-of-climb</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/gs-rate-of-climb</property>
-    </input>
-    <output>instrumentation/navx/gs-rate-of-climb</output>
-  </filter>
-  
-  <filter>
-    <name>Pick gs-needle-deflection</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/gs-needle-deflection</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/gs-needle-deflection</property>
-    </input>
-    <output>instrumentation/navx/gs-needle-deflection</output>
-  </filter>
-  
-  <filter>
-    <name>Pick gs-in-range</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/gs-in-range</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/gs-in-range</property>
-    </input>
-    <output>instrumentation/navx/gs-in-range</output>
-  </filter>
-  
-  
-
-  <!-- =============================================================== -->
-  <!-- Filters and Calculations                                        -->
-  <!-- =============================================================== -->
-
-  <!-- Smoothes out selection of pitch with the pitch wheel -->
-  <filter>
-    <name>Pitch Select Filter</name>
-    <debug>false</debug>
-    <type>exponential</type>
-    <filter-time>0.8</filter-time>
-    <input>autopilot/settings/target-pitch-deg</input>
-    <output>autopilot/internal/filtered-target-pitch-deg</output>
-  </filter>
-
-  <!-- Smoothes out selection of bank with the bank wheel -->
-  <filter>
-    <name>Bank Select Filter</name>
-    <debug>false</debug>
-    <type>exponential</type>
-    <filter-time>2.0</filter-time>
-    <input>autopilot/settings/target-bank-deg</input>
-    <output>autopilot/internal/filtered-target-bank-deg</output>
-  </filter>
-
-  <!-- Copies the heading bug selection from the autopilot dialog to the DG -->
-  <filter>
-    <name>Heading Bug Property Copy</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>autopilot/settings/heading-bug-deg</input>
-    <output>instrumentation/heading-indicator/heading-bug-deg</output>
-  </filter>
-
-  <!-- Smoothes out the CDI needle, especially around a VOR station -->
-  <filter>
-    <name>CDI Filter (VOR)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <not>
-          <property>autopilot/settings/localizer</property>
-        </not>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/heading-needle-deflection</input>
-    <output>instrumentation/navx/filtered-heading-needle-deflection</output>
-    <type>noise-spike</type>
-    <max-rate-of-change>1.0</max-rate-of-change>
-  </filter>
-
-  <filter>
-    <name>CDI Filter (LOC)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <property>autopilot/settings/localizer</property>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/heading-needle-deflection</input>
-    <output>instrumentation/navx/filtered-heading-needle-deflection</output>
-    <type>noise-spike</type>
-    <max-rate-of-change>1.0</max-rate-of-change>
-  </filter>
-
-  <!-- Calculate a course error from the CDI needle deflection -->
-  <pi-simple-controller>
-    <name>CDI Integrator (VHF)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <not>
-            <property>autopilot/settings/localizer</property>
-          </not>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-          <less-than-equals>
-            <expression>
-              <fabs>
-                <property>instrumentation/navx/filtered-heading-needle-deflection</property>
-              </fabs>
-            </expression>
-            <value>1.0</value>
-          </less-than-equals>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/filtered-heading-needle-deflection</input>
-    <output>autopilot/internal/nav-course-error-deg</output>
-    <config>
-      <Kp>4.5</Kp>
-      <Ki>0.05</Ki>
-    </config>
-    <min>-45.0</min>
-    <max>45.0</max>
-  </pi-simple-controller>
-
-  <pi-simple-controller>
-    <name>CDI Integrator Anti-Windup (VHF)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <not>
-            <property>autopilot/settings/localizer</property>
-          </not>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-          <greater-than>
-            <expression>
-              <fabs>
-                <property>instrumentation/navx/filtered-heading-needle-deflection</property>
-              </fabs>
-            </expression>
-            <value>1.0</value>
-          </greater-than>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/filtered-heading-needle-deflection</input>
-    <output>autopilot/internal/nav-course-error-deg</output>
-    <config>
-      <Kp>4.5</Kp>
-      <Ki>0.01</Ki>
-    </config>
-    <min>-45.0</min>
-    <max>45.0</max>
-  </pi-simple-controller>
-
-  <pi-simple-controller>
-    <name>CDI Integrator (LOC)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <property>autopilot/settings/localizer</property>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-          <less-than-equals>
-            <expression>
-              <fabs>
-                <property>instrumentation/navx/filtered-heading-needle-deflection</property>
-              </fabs>
-            </expression>
-            <value>2.0</value>
-          </less-than-equals>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/filtered-heading-needle-deflection</input>
-    <output>autopilot/internal/nav-course-error-deg</output>
-    <config>
-      <Kp>2.25</Kp>
-      <Ki>0.02</Ki>
-    </config>
-    <min>-22.5</min>
-    <max>22.5</max>
-  </pi-simple-controller>
-
-  <pi-simple-controller>
-    <name>CDI Integrator Anti Windup (LOC)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <property>autopilot/settings/localizer</property>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-          <greater-than>
-            <expression>
-              <fabs>
-                <property>instrumentation/navx/filtered-heading-needle-deflection</property>
-              </fabs>
-            </expression>
-            <value>2.0</value>
-          </greater-than>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/filtered-heading-needle-deflection</input>
-    <output>autopilot/internal/nav-course-error-deg</output>
-    <config>
-      <Kp>2.25</Kp>
-      <Ki>0.005</Ki>
-    </config>
-    <min>-22.5</min>
-    <max>+22.5</max>
-  </pi-simple-controller>
-
-  <!-- Calculate an intercept heading from the localizer and course error -->
-  <filter>
-    <name>Intercept Heading Computer</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/navx/has-gs</property>
-        </not>
-      </condition>
-      <property>instrumentation/navx/radials/selected-deg</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/navx/has-gs</property>
-      </condition>
-      <property>instrumentation/navx/radials/target-radial-deg</property>
-      <offset>
-        <property>environment/magnetic-variation-deg</property>
-        <scale>-1.0</scale>
-      </offset>
-    </input>
-    <reference>autopilot/internal/nav-course-error-deg</reference>
-    <output>autopilot/internal/intercept-heading-deg</output>
-  </filter>
-
-  <!-- Calculate the error between the current heading and the intercept -->
-  <filter>
-    <name>NAV1 Intercept Error Computer</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>autopilot/internal/intercept-heading-deg</input>
-    <reference>instrumentation/heading-indicator/indicated-heading-deg</reference>
-    <output>autopilot/internal/nav1-intercept-error-deg</output>
-  </filter>
-
-  <!-- Create a flag to indicate that the glideslope has been captured -->
-  <flipflop>
-    <name>Glideslope Capture</name>
-    <type>SR</type>
-    <debug>false</debug>
-    <S>
-      <and>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>gs1-hold</value>
-        </equals>
-        <property>instrumentation/navx/gs-in-range</property>
-        <less-than>
-          <property>instrumentation/navx/gs-needle-deflection</property>
-          <value>0.0</value>
-        </less-than>
-      </and>
-    </S>
-    <R>
-      <or>
-        <not>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value>gs1-hold</value>
-          </equals>
-        </not>
-        <not>
-          <property>instrumentation/navx/gs-in-range</property>
-        </not>
-      </or>
-    </R>
-    <output>autopilot/internal/gs-captured</output>
-  </flipflop>
-
-  <!-- Create a flag to indicate wing leveler should hold heading -->
-  <flipflop>
-    <name>Wing Leveler Heading Hold</name>
-    <type>SR</type>
-    <debug>false</debug>
-    <S>
-      <and>
-        <equals>
-          <property>autopilot/locks/heading</property>
-          <value>wing-leveler</value>
-        </equals>
-        <less-than>
-          <expression>
-            <fabs>
-              <property>autopilot/settings/target-bank-deg</property>
-            </fabs>
-          </expression>
-          <value>1.0</value>
-        </less-than>
-        <less-than>
-          <expression>
-            <fabs>
-              <property>orientation/roll-deg</property>
-            </fabs>
-          </expression>
-          <value>1.0</value>
-        </less-than>
-      </and>
-    </S>
-    <R>
-      <or>
-        <not-equals>
-          <property>autopilot/locks/heading</property>
-          <value>wing-leveler</value>
-        </not-equals>
-        <greater-than-equals>
-          <expression>
-            <fabs>
-              <property>autopilot/settings/target-bank-deg</property>
-            </fabs>
-          </expression>
-          <value>1.0</value>
-        </greater-than-equals>
-      </or>
-    </R>
-    <output>autopilot/internal/wing-leveler-heading-hold</output>
-  </flipflop>
+	
+	<!-- Drivers -->
+	<filter>
+		<name>Heading Error Deg</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>
+			<property>/autopilot/settings/heading-bug-deg</property>
+			<offset>
+				<property>/orientation/heading-magnetic-deg</property>
+				<scale>-1.0</scale>
+			</offset>
+		</input>
+		<output>/autopilot/internal/heading-error-deg</output>
+		<period>
+			<min>-180</min>
+			<max>180</max>
+		</period>
+	</filter>
+	
+	<flipflop> <!-- Author: Richard Senior -->
+		<name>Wing Leveler Heading Hold</name>
+		<debug>false</debug>
+		<type>SR</type>
+		<S>
+			<and>
+				<equals>
+					<property>/autopilot/locks/heading</property>
+					<value>wing-leveler</value>
+				</equals>
+				<less-than>
+					<expression>
+						<abs><property>/autopilot/settings/target-bank-deg</property></abs>
+					</expression>
+					<value>1.0</value>
+				</less-than>
+				<less-than>
+					<expression>
+						<abs><property>/orientation/roll-deg</property></abs>
+					</expression>
+					<value>1.0</value>
+				</less-than>
+			</and>
+		</S>
+		<R>
+			<or>
+				<not-equals>
+					<property>/autopilot/locks/heading</property>
+					<value>wing-leveler</value>
+				</not-equals>
+				<greater-than-equals>
+					<expression>
+						<abs><property>/autopilot/settings/target-bank-deg</property></abs>
+					</expression>
+					<value>1.0</value>
+				</greater-than-equals>
+			</or>
+		</R>
+		<output>/autopilot/internal/wing-leveler-heading-hold</output>
+	</flipflop>
+	
+	<!-- Roll Axis -->
+	<filter>
+		<name>IT-CONTROLLER: Bank Angle Select</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<and>
+					<equals>
+						<property>/autopilot/locks/heading</property>
+						<value>wing-leveler</value>
+					</equals>
+					<not><property>/autopilot/internal/wing-leveler-heading-hold</property></not>
+				</and>
+			</condition>
+		</enable>
+		<input>/autopilot/settings/target-bank-deg</input>
+		<output>/autopilot/internal/target-roll-deg</output>
+	</filter>
+	
+	<filter>
+		<name>IT-CONTROLLER: Heading/LNAV</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>
+			<expression>
+				<table>
+					<property>/velocities/airspeed-kt</property>
+					<entry><ind>130</ind><dep>0.8</dep></entry>
+					<entry><ind>300</ind><dep>2.5</dep></entry>
+				</table>
+			</expression>
+		</gain>
+		<enable>
+			<condition>
+				<or>
+					<equals>
+						<property>/autopilot/locks/heading</property>
+						<value>dg-heading-hold</value>
+					</equals>
+					<property>/autopilot/internal/wing-leveler-heading-hold</property>
+				</or>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/heading-error-deg</input>
+		<reference>0</reference>
+		<output>/autopilot/internal/target-roll-deg</output>
+		<min>
+			<property>/controls/autoflight/bank-angle-select</property>
+			<scale>-1.0</scale>
+		</min>
+		<max>/controls/autoflight/bank-angle-select</max>
+	</filter>
+	
+	<filter>
+		<name>System Command: Roll Target Inactive Sync</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>autopilot/locks/heading</property>
+					<value></value>
+				</equals>
+			</condition>
+		</enable>
+		<input>/orientation/roll-deg</input>
+		<output>/autopilot/internal/target-roll-deg</output>
+		<min>
+			<property>/controls/autoflight/bank-angle-select</property>
+			<scale>-1.0</scale>
+		</min>
+		<max>/controls/autoflight/bank-angle-select</max>
+	</filter>
+	
+	<filter>
+		<name>System Command: Target Roll Filter</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<input>/autopilot/internal/target-roll-deg</input>
+		<output>/autopilot/internal/target-roll</output>
+		<max-rate-of-change>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/heading</property>
+					<value></value>
+				</not-equals>
+			</condition>
+			<value>6</value>
+		</max-rate-of-change>
+		<max-rate-of-change>50</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Roll Rate Target</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>-0.6</gain>
+		<input>/orientation/roll-deg</input>
+		<reference>/autopilot/internal/target-roll</reference>
+		<output>/autopilot/internal/roll-rate</output>
+		<min>-4</min>
+		<max>4</max>
+	</filter>
+	
+	<pid-controller>
+		<name>System Command: Aileron</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/heading</property>
+					<value></value>
+				</not-equals>
+			</condition>
+		</enable>
+		<input>/orientation/roll-rate-degps</input>
+		<reference>/autopilot/internal/roll-rate</reference>
+		<output>/autopilot/internal/aileron-cmd</output>
+		<config>
+			<Kp>
+				<expression>
+					<table>
+						<property>/velocities/airspeed-kt</property>
+						<entry><ind>130</ind><dep>0.08</dep></entry>
+						<entry><ind>300</ind><dep>0.02</dep></entry>
+					</table>
+				</expression>
+			</Kp>
+			<Ti>1.0</Ti>
+			<Td>0.0001</Td>
+			<u_min>-1.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Aileron Filter</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<feedback-if-disabled>true</feedback-if-disabled>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/heading</property>
+					<value></value>
+				</not-equals>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/aileron-cmd</input>
+		<output>/controls/flight/aileron</output>
+		<max-rate-of-change>1.2</max-rate-of-change>
+	</filter>
+	
+	<!-- END REWORK 2021 BY JOSH DAVIDSON (OCTAL450) -->
 
   <!-- =============================================================== -->
   <!-- Servos                                                          -->
   <!-- =============================================================== -->
-
-  <filter>
-    <name>Aileron Servo</name>
-    <debug>false</debug>
-    <feedback-if-disabled>true</feedback-if-disabled>
-    <enable>
-      <condition>
-        <not>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value></value>
-          </equals>
-        </not>
-      </condition>
-    </enable>
-    <input>autopilot/internal/servos/aileron</input>
-    <output>controls/flight/aileron</output>
-    <type>noise-spike</type>
-    <max-rate-of-change>0.5</max-rate-of-change>
-    <min>-1.0</min>
-    <max>1.0</max>
-  </filter>
 
   <filter>
     <name>Elevator Trim Servo</name>
@@ -560,187 +250,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <min>-1.0</min>
     <max>1.0</max>
   </filter>
-
-  <!-- =============================================================== -->
-  <!-- Roll Axis Modes                                                 -->
-  <!-- =============================================================== -->
-
-  <filter>
-    <name>Wing Leveler and Bank Angle Select</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <or>
-          <greater-than-equals>
-            <expression>
-              <fabs>
-                <property>autopilot/internal/filtered-target-bank-deg</property>
-              </fabs>
-            </expression>
-            <value>1.0</value>
-          </greater-than-equals>
-          <and>
-            <equals>
-              <property>autopilot/locks/heading</property>
-              <value>wing-leveler</value>
-            </equals>
-            <not>
-              <property>autopilot/internal/wing-leveler-heading-hold</property>
-            </not>
-          </and>
-        </or>
-      </condition>
-    </enable>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>autopilot/internal/filtered-target-bank-deg</input>
-    <output>autopilot/internal/target-roll-deg</output>
-    <min>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>-1.0</scale>
-    </min>
-    <max>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>+1.0</scale>
-    </max>
-  </filter>
-
-  <filter>
-    <name>DG Heading Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <or>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>dg-heading-hold</value>
-          </equals>
-          <property>autopilot/internal/wing-leveler-heading-hold</property>
-        </or>
-      </condition>
-    </enable>
-    <type>gain</type>
-    <gain>2.0</gain>
-    <input>autopilot/internal/heading-bug-error-deg</input>
-    <output>autopilot/internal/target-roll-deg</output>
-    <min>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>-1.0</scale>
-    </min>
-    <max>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>+1.0</scale>
-    </max>
-  </filter>
-
-  <filter>
-    <name>True Heading Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/heading</property>
-          <value>true-heading-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <type>gain</type>
-    <gain>2.0</gain>
-    <input>autopilot/internal/true-heading-error-deg</input>
-    <output>autopilot/internal/target-roll-deg</output>
-    <min>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>-1.0</scale>
-    </min>
-    <max>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>+1.0</scale>
-    </max>
-  </filter>
-
-  <filter>
-    <name>NAV Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <less-than>
-            <expression>
-              <fabs>
-                <property>autopilot/internal/filtered-target-bank-deg</property>
-              </fabs>
-            </expression>
-            <value>1.0</value>
-          </less-than>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-        </and>
-      </condition>
-    </enable>
-    <type>gain</type>
-    <gain>2.0</gain>
-    <input>
-      <property>autopilot/internal/nav1-intercept-error-deg</property>
-      <period>
-        <min>-180</min>
-        <max>180</max>
-      </period>
-    </input>
-    <output>autopilot/internal/target-roll-deg</output>
-    <min>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>-1.0</scale>
-    </min>
-    <max>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>+1.0</scale>
-    </max>
-  </filter>
-  
-  <filter>
-		<name>Roll Rate Command</name>
-		<debug>false</debug>
-		<type>gain</type>
-		<gain>-1.0</gain>
-		<input>/orientation/roll-deg</input>
-		<reference>/autopilot/internal/target-roll-deg</reference>
-		<output>/autopilot/internal/roll-rate</output>
-		<min>-5</min>
-		<max>5</max>
-	</filter>
-  
-  <pid-controller>
-    <name>Aileron Controller (Roll Rate)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <not>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value></value>
-          </equals>
-        </not>
-      </condition>
-    </enable>
-    <input>orientation/roll-rate-degps</input>
-    <reference>autopilot/internal/roll-rate</reference>
-    <output>autopilot/internal/servos/aileron</output>
-    <config>
-      <Kp><expression>
-        <table>
-          <property>/velocities/airspeed-kt</property>
-          <entry><ind>140</ind><dep>0.16</dep></entry>
-          <entry><ind>360</ind><dep>0.04</dep></entry>
-        </table>
-      </expression></Kp>
-      <Ti>5000.0</Ti>
-      <Td>0.001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
 
   <!-- =============================================================== -->
   <!-- Pitch Axis Modes                                                -->

@@ -258,7 +258,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <aircraft-version>3.0.6</aircraft-version>
 
-    <author>Gary Neely, Marc Kraus, Ludovic Brenta, Richard Senior, TOASTER, pinto</author>
+    <author>Gary Neely, Marc Kraus, Ludovic Brenta, Richard Senior, TOASTER, pinto, Josh Davidson</author>
     <chase-distance-m type="double" archive="y">-48.0</chase-distance-m>
 
     <checklists>

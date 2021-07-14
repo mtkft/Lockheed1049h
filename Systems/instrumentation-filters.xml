@@ -165,4 +165,174 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <output>systems/autopilot/ap-warn</output>
   </logic>
 
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- TOASTER's NAV source selectors                                  -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <filter>
+    <name>Pick heading-needle-deflection</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>instrumentation/deviation-indicator/frequency</property>
+        </not>
+      </condition>
+      <property>instrumentation/nav/heading-needle-deflection</property>
+    </input>
+    <input>
+      <condition>
+        <property>instrumentation/deviation-indicator/frequency</property>
+      </condition>
+      <property>instrumentation/nav[1]/heading-needle-deflection</property>
+    </input>
+    <output>instrumentation/navx/heading-needle-deflection</output>
+  </filter>
+  
+  <filter>
+    <name>Pick radials/selected-deg</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>instrumentation/deviation-indicator/frequency</property>
+        </not>
+      </condition>
+      <property>instrumentation/nav/radials/selected-deg</property>
+    </input>
+    <input>
+      <condition>
+        <property>instrumentation/deviation-indicator/frequency</property>
+      </condition>
+      <property>instrumentation/nav[1]/radials/selected-deg</property>
+    </input>
+    <output>instrumentation/navx/radials/selected-deg</output>
+  </filter>
+  
+  <filter>
+    <name>Pick radials/target-radial-deg</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>instrumentation/deviation-indicator/frequency</property>
+        </not>
+      </condition>
+      <property>instrumentation/nav/radials/target-radial-deg</property>
+    </input>
+    <input>
+      <condition>
+        <property>instrumentation/deviation-indicator/frequency</property>
+      </condition>
+      <property>instrumentation/nav[1]/radials/target-radial-deg</property>
+    </input>
+    <output>instrumentation/navx/radials/target-radial-deg</output>
+  </filter>
+  
+  <filter>
+    <name>Pick has-gs</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>instrumentation/deviation-indicator/frequency</property>
+        </not>
+      </condition>
+      <property>instrumentation/nav/has-gs</property>
+    </input>
+    <input>
+      <condition>
+        <property>instrumentation/deviation-indicator/frequency</property>
+      </condition>
+      <property>instrumentation/nav[1]/radials/has-gs</property>
+    </input>
+    <output>instrumentation/navx/radials/has-gs</output>
+  </filter>
+  
+  <!-- Less critical group -->
+  
+  <filter>
+    <name>Pick gs-rate-of-climb</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>instrumentation/deviation-indicator/frequency</property>
+        </not>
+      </condition>
+      <property>instrumentation/nav/gs-rate-of-climb</property>
+    </input>
+    <input>
+      <condition>
+        <property>instrumentation/deviation-indicator/frequency</property>
+      </condition>
+      <property>instrumentation/nav[1]/gs-rate-of-climb</property>
+    </input>
+    <output>instrumentation/navx/gs-rate-of-climb</output>
+  </filter>
+  
+  <filter>
+    <name>Pick gs-needle-deflection</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>instrumentation/deviation-indicator/frequency</property>
+        </not>
+      </condition>
+      <property>instrumentation/nav/gs-needle-deflection</property>
+    </input>
+    <input>
+      <condition>
+        <property>instrumentation/deviation-indicator/frequency</property>
+      </condition>
+      <property>instrumentation/nav[1]/gs-needle-deflection</property>
+    </input>
+    <output>instrumentation/navx/gs-needle-deflection</output>
+  </filter>
+  
+  <filter>
+    <name>Pick gs-in-range</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>instrumentation/deviation-indicator/frequency</property>
+        </not>
+      </condition>
+      <property>instrumentation/nav/gs-in-range</property>
+    </input>
+    <input>
+      <condition>
+        <property>instrumentation/deviation-indicator/frequency</property>
+      </condition>
+      <property>instrumentation/nav[1]/gs-in-range</property>
+    </input>
+    <output>instrumentation/navx/gs-in-range</output>
+  </filter>
+
+	<!-- Copies the heading bug selection from the autopilot dialog to the DG -->
+	<filter>
+		<name>Heading Bug Property Copy</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>autopilot/settings/heading-bug-deg</input>
+		<output>instrumentation/heading-indicator/heading-bug-deg</output>
+	</filter>
+
 </PropertyList>
