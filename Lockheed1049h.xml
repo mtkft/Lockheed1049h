@@ -671,10 +671,16 @@ K:             0.039
   </external_reactions>
 
   <flight_control name="Lockheed1049-54">
+	
     <channel name="Pitch">
 
+	  <lag_filter name="fcs/elevator-cmd-lag">
+	    <input>fcs/elevator-cmd-norm</input>
+	    <c1>20</c1>
+	  </lag_filter>
+
       <summer name="Pitch Trim Sum">
-        <input>fcs/elevator-cmd-norm</input>
+        <input>fcs/elevator-cmd-lag</input>
         <input>fcs/pitch-trim-cmd-norm</input>
         <clipto>
           <min>-1</min>
@@ -706,8 +712,13 @@ K:             0.039
     </channel>
     <channel name="Roll">
 
+	  <lag_filter name="fcs/aileron-cmd-lag">
+	    <input>fcs/aileron-cmd-norm</input>
+	    <c1>20</c1>
+	  </lag_filter>
+
       <summer name="Roll Trim Sum">
-        <input>fcs/aileron-cmd-norm</input>
+        <input>fcs/aileron-cmd-lag</input>
         <input>fcs/roll-trim-cmd-norm</input>
         <clipto>
           <min>-1</min>
@@ -760,8 +771,13 @@ K:             0.039
     </channel>
     <channel name="Yaw">
 
+	  <lag_filter name="fcs/rudder-cmd-lag">
+	    <input>fcs/rudder-cmd-norm</input>
+	    <c1>20</c1>
+	  </lag_filter>
+
       <summer name="Rudder Command Sum">
-        <input>fcs/rudder-cmd-norm</input>
+        <input>fcs/rudder-cmd-lag</input>
         <input>fcs/yaw-trim-cmd-norm</input>
         <clipto>
           <min>-1</min>
@@ -867,6 +883,81 @@ K:             0.039
         <output>fcs/speedbrake-pos-norm</output>
       </kinematic>
     </channel>
+	<channel name="Engine">
+
+      <lag_filter name="fcs/advance-pos-lag[0]">
+        <input>fcs/advance-cmd-norm[0]</input>
+        <c1>20</c1>
+        <output>fcs/advance-pos-norm[0]</output>
+      </lag_filter>
+
+      <lag_filter name="fcs/advance-pos-lag[1]">
+        <input>fcs/advance-cmd-norm[1]</input>
+        <c1>20</c1>
+        <output>fcs/advance-pos-norm[1]</output>
+      </lag_filter>
+      
+      <lag_filter name="fcs/advance-pos-lag[2]">
+        <input>fcs/advance-cmd-norm[2]</input>
+        <c1>20</c1>
+        <output>fcs/advance-pos-norm[2]</output>
+      </lag_filter>
+      
+      <lag_filter name="fcs/advance-pos-lag[3]">
+        <input>fcs/advance-cmd-norm[3]</input>
+        <c1>20</c1>
+        <output>fcs/advance-pos-norm[3]</output>
+      </lag_filter>
+
+      <lag_filter name="fcs/mixture-pos-lag[0]">
+        <input>fcs/mixture-cmd-norm[0]</input>
+        <c1>20</c1>
+        <output>fcs/mixture-pos-norm[0]</output>
+      </lag_filter>
+
+      <lag_filter name="fcs/mixture-pos-lag[1]">
+        <input>fcs/mixture-cmd-norm[1]</input>
+        <c1>20</c1>
+        <output>fcs/mixture-pos-norm[1]</output>
+      </lag_filter>
+      
+      <lag_filter name="fcs/mixture-pos-lag[2]">
+        <input>fcs/mixture-cmd-norm[2]</input>
+        <c1>20</c1>
+        <output>fcs/mixture-pos-norm[2]</output>
+      </lag_filter>
+      
+      <lag_filter name="fcs/mixture-pos-lag[3]">
+        <input>fcs/mixture-cmd-norm[3]</input>
+        <c1>20</c1>
+        <output>fcs/mixture-pos-norm[3]</output>
+      </lag_filter>
+
+      <lag_filter name="fcs/throttle-pos-lag[0]">
+        <input>fcs/throttle-cmd-norm[0]</input>
+        <c1>20</c1>
+        <output>fcs/throttle-pos-norm[0]</output>
+      </lag_filter>
+
+      <lag_filter name="fcs/throttle-pos-lag[1]">
+        <input>fcs/throttle-cmd-norm[1]</input>
+        <c1>20</c1>
+        <output>fcs/throttle-pos-norm[1]</output>
+      </lag_filter>
+      
+      <lag_filter name="fcs/throttle-pos-lag[2]">
+        <input>fcs/throttle-cmd-norm[2]</input>
+        <c1>20</c1>
+        <output>fcs/throttle-pos-norm[2]</output>
+      </lag_filter>
+      
+      <lag_filter name="fcs/throttle-pos-lag[3]">
+        <input>fcs/throttle-cmd-norm[3]</input>
+        <c1>20</c1>
+        <output>fcs/throttle-pos-norm[3]</output>
+      </lag_filter>
+
+	</channel>
   </flight_control>
   <aerodynamics>
     <documentation>
