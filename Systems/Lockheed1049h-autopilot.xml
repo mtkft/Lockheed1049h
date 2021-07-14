@@ -12,13 +12,44 @@
 		<type>gain</type>
 		<gain>1.0</gain>
 		<input>
+			<condition>
+				<equals>
+					<property>/autopilot/locks/heading</property>
+					<value>nav1-hold</value>
+				</equals>
+			</condition>
+			<property>/instrumentation/navx/radials/target-auto-hdg-deg</property>
+			<offset>
+				<property>/orientation/heading-deg</property>
+				<scale>-1.0</scale>
+			</offset>
+		</input>
+		<input>
 			<property>/autopilot/settings/heading-bug-deg</property>
 			<offset>
-				<property>/orientation/heading-magnetic-deg</property>
+				<property>/instrumentation/heading-indicator/indicated-heading-deg</property>
 				<scale>-1.0</scale>
 			</offset>
 		</input>
 		<output>/autopilot/internal/heading-error-deg</output>
+		<period>
+			<min>-180</min>
+			<max>180</max>
+		</period>
+	</filter>
+	
+	<filter>
+		<name>Nav Course Error</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>
+			<property>/instrumentation/navx/radials/selected-deg</property>
+			<offset>
+				<property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+				<scale>-1.0</scale>
+			</offset>
+		</input>
+		<output>/autopilot/internal/nav-course-error</output>
 		<period>
 			<min>-180</min>
 			<max>180</max>
@@ -88,7 +119,7 @@
 	</filter>
 	
 	<filter>
-		<name>IT-CONTROLLER: Heading/LNAV</name>
+		<name>IT-CONTROLLER: Heading/VOR/LOC</name>
 		<debug>false</debug>
 		<type>gain</type>
 		<gain>
@@ -108,6 +139,10 @@
 						<value>dg-heading-hold</value>
 					</equals>
 					<property>/autopilot/internal/wing-leveler-heading-hold</property>
+					<equals>
+						<property>/autopilot/locks/heading</property>
+						<value>nav1-hold</value>
+					</equals>
 				</or>
 			</condition>
 		</enable>

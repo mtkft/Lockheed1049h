@@ -367,7 +367,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </sound>
 
     <systems>
-      <autopilot>
+      <autopilot n="0">
+        <path>Systems/instrumentation-filters.xml</path>
+      </autopilot>
+      <autopilot n="1">
         <path>Systems/Lockheed1049h-autopilot.xml</path>
       </autopilot>
       <electrical>
@@ -378,9 +381,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </property-rule>
       <property-rule n="101">
         <path>Systems/load-factor-filters.xml</path>
-      </property-rule>
-      <property-rule n="102">
-        <path>Systems/instrumentation-filters.xml</path>
       </property-rule>
     </systems>
 
