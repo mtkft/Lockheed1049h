@@ -56,6 +56,46 @@
 		</period>
 	</filter>
 	
+	<filter>
+		<name>Internal Vertical Speed</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>/instrumentation/gps/indicated-vertical-speed</input>
+		<output>/autopilot/internal/vert-speed-fpm</output>
+	</filter>
+	
+	<filter>
+		<name>Vertical Speed Filter</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<feedback-if-disabled>true</feedback-if-disabled>
+		<initialize-to>output</initialize-to>
+		<input>/autopilot/settings/vertical-speed-fpm</input>
+		<output>/autopilot/internal/vertical-speed-fpm</output>
+		<max-rate-of-change>
+			<condition>
+				<equals>
+					<property>/autopilot/locks/altitude</property>
+					<value>vertical-speed-hold</value>
+				</equals>
+			</condition>
+			<value>300</value>
+		</max-rate-of-change>
+		<max-rate-of-change>2000</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>Nav G/S FPM Calc</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>/instrumentation/navx/gs-rate-of-climb-fpm</input>
+		<output>/autopilot/internal/nav-rate-of-climb-fpm</output>
+		<min>-1200</min>
+		<max>0</max>
+	</filter>
+	
 	<flipflop> <!-- Author: Richard Senior -->
 		<name>Wing Leveler Heading Hold</name>
 		<debug>false</debug>
@@ -95,6 +135,35 @@
 			</or>
 		</R>
 		<output>/autopilot/internal/wing-leveler-heading-hold</output>
+	</flipflop>
+	
+	<flipflop> <!-- Author: Richard Senior -->
+		<name>Glideslope Capture</name>
+		<type>SR</type>
+		<debug>false</debug>
+		<S>
+			<and>
+				<equals>
+					<property>/autopilot/locks/altitude</property>
+					<value>gs1-hold</value>
+				</equals>
+				<property>/instrumentation/navx/gs-in-range</property>
+				<less-than-equals> <!-- Modified by Josh, smoother capture -->
+					<property>/instrumentation/navx/gs-needle-deflection</property>
+					<value>0.2</value>
+				</less-than-equals>
+			</and>
+		</S>
+		<R>
+			<or>
+				<not-equals>
+					<property>/autopilot/locks/altitude</property>
+					<value>gs1-hold</value>
+				</not-equals>
+				<not><property>/instrumentation/navx/gs-in-range</property></not>
+			</or>
+		</R>
+		<output>/autopilot/internal/gs-captured</output>
 	</flipflop>
 	
 	<!-- Roll Axis -->
@@ -258,234 +327,274 @@
 		<max-rate-of-change>1.2</max-rate-of-change>
 	</filter>
 	
+	<!-- Pitch Axis -->
+	<filter>
+		<name>IT-CONTROLLER: Pitch Angle Select</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>/autopilot/locks/altitude</property>
+					<value>pitch-hold</value>
+				</equals>
+			</condition>
+		</enable>
+		<input>/autopilot/settings/target-pitch-deg</input>
+		<output>/autopilot/internal/target-pitch-deg</output>
+	</filter>
+	
+	<filter>
+		<name>IT-CONTROLLER: Altitude Capture/Hold</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>-5</gain>
+		<input>
+			<expression>
+				<sum>
+					<property>/instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>-2</value>
+				</sum>
+			</expression>
+		</input>
+		<reference>/autopilot/settings/target-altitude-ft</reference>
+		<output>/autopilot/internal/target-fpm-alt</output>
+		<min>-500</min>
+		<max>500</max>
+	</filter>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: FPM Hold</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<or>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>altitude-hold</value>
+					</equals>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>gs1-hold</value>
+					</equals>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>vertical-speed-hold</value>
+					</equals>
+				</or>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/vert-speed-fpm</input>
+		<reference>
+			<condition>
+				<and>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>gs1-hold</value>
+					</equals>
+					<property>/autopilot/internal/gs-captured</property>
+				</and>
+			</condition>
+			<property>/autopilot/internal/nav-rate-of-climb-fpm</property>
+		</reference>
+		<reference>
+			<condition>
+				<or>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>altitude-hold</value>
+					</equals>
+					<and>
+						<equals>
+							<property>/autopilot/locks/altitude</property>
+							<value>gs1-hold</value>
+						</equals>
+						<not><property>/autopilot/internal/gs-captured</property></not>
+					</and>
+				</or>
+			</condition>
+			<property>/autopilot/internal/target-fpm-alt</property>
+		</reference>
+		<reference>/autopilot/internal/vertical-speed-fpm</reference>
+		<output>/autopilot/internal/target-pitch-deg</output>
+		<config>
+			<Kp>
+				<expression>
+					<table>
+						<property>/velocities/airspeed-kt</property>
+						<entry><ind>140</ind><dep>0.0029</dep></entry>
+						<entry><ind>360</ind><dep>0.0009</dep></entry>
+					</table>
+				</expression>
+			</Kp>
+			<Ti>2.5</Ti>
+			<Td>0.0001</Td>
+			<u_min>
+				<expression>
+					<max>
+						<dif>
+							<property>/orientation/pitch-deg</property>
+							<value>5</value>
+						</dif>
+						<value>-10</value>
+					</max>
+				</expression>
+			</u_min>
+			<u_max>
+				<expression>
+					<min>
+						<sum>
+							<property>/orientation/pitch-deg</property>
+							<value>5</value>
+						</sum>
+						<value>20</value>
+					</min>
+				</expression>
+			</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Pitch Target Inactive Sync</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value></value>
+				</equals>
+			</condition>
+		</enable>
+		<input>/orientation/pitch-deg</input>
+		<output>/autopilot/internal/target-pitch-deg</output>
+		<min>-10</min>
+		<max>20</max>
+	</filter>
+	
+	<filter>
+		<name>System Command: Pitch Rate Target</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>-0.4</gain>
+		<input>/orientation/pitch-deg</input>
+		<reference>/autopilot/internal/target-pitch-deg</reference>
+		<output>/autopilot/internal/pitch-rate</output>
+		<min>-1.25</min>
+		<max>1.25</max>
+	</filter>
+	
+	<pid-controller>
+		<name>System Command: Elevator</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/altitude</property>
+					<value></value>
+				</not-equals>
+			</condition>
+		</enable>
+		<input>/orientation/pitch-rate-degps</input>
+		<reference>/autopilot/internal/pitch-rate</reference>
+		<output>/autopilot/internal/elevator-cmd</output>
+		<config>
+			<Kp>
+				<expression>
+					<table>
+						<property>/velocities/airspeed-kt</property>
+						<entry><ind>130</ind><dep>-0.16</dep></entry>
+						<entry><ind>300</ind><dep>-0.04</dep></entry>
+					</table>
+				</expression>
+			</Kp>
+			<Ti>0.5</Ti>
+			<Td>0.001</Td>
+			<u_min>-1.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Elevator Filter</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<feedback-if-disabled>true</feedback-if-disabled>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/altitude</property>
+					<value></value>
+				</not-equals>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/elevator-cmd</input>
+		<output>/controls/flight/elevator</output>
+		<max-rate-of-change>1.2</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Elevator Trim</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<feedback-if-disabled>true</feedback-if-disabled>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<and>
+					<not-equals>
+						<property>autopilot/locks/altitude</property>
+						<value></value>
+					</not-equals>
+					<or>
+						<greater-than>
+							<property>/autopilot/internal/elevator-cmd</property>
+							<value>0.02</value>
+						</greater-than>
+						<less-than>
+							<property>/autopilot/internal/elevator-cmd</property>
+							<value>-0.02</value>
+						</less-than>
+					</or>
+				</and>
+			</condition>
+		</enable>
+		<input>
+			<condition>
+				<greater-than>
+					<property>/autopilot/internal/elevator-cmd</property>
+					<value>0.02</value>
+				</greater-than>
+			</condition>
+			<value>1</value>
+		</input>
+		<input>
+			<condition>
+				<less-than>
+					<property>/autopilot/internal/elevator-cmd</property>
+					<value>-0.02</value>
+				</less-than>
+			</condition>
+			<value>-1</value>
+		</input>
+		<output>/controls/flight/elevator-trim</output>
+		<min>-1.0</min>
+		<max>1.0</max>
+		<max-rate-of-change>
+			<expression>
+				<table>
+					<abs><property>/autopilot/internal/elevator-cmd</property></abs>
+					<entry><ind>0.02</ind><dep>0.001</dep></entry>
+					<entry><ind>0.10</ind><dep>0.010</dep></entry>
+				</table>
+			</expression>
+		</max-rate-of-change>
+	</filter>
+	
 	<!-- END REWORK 2021 BY JOSH DAVIDSON (OCTAL450) -->
-
-  <!-- =============================================================== -->
-  <!-- Servos                                                          -->
-  <!-- =============================================================== -->
-
-  <filter>
-    <name>Elevator Trim Servo</name>
-    <debug>false</debug>
-    <feedback-if-disabled>true</feedback-if-disabled>
-    <enable>
-      <condition>
-        <not>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value></value>
-          </equals>
-        </not>
-      </condition>
-    </enable>
-    <input>autopilot/internal/servos/elevator-trim</input>
-    <output>controls/flight/elevator-trim</output>
-    <type>noise-spike</type>
-    <max-rate-of-change>0.25</max-rate-of-change>
-    <min>-1.0</min>
-    <max>1.0</max>
-  </filter>
-
-  <!-- =============================================================== -->
-  <!-- Pitch Axis Modes                                                -->
-  <!-- =============================================================== -->
-
-  <pid-controller>
-    <name>Pitch hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>pitch-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>orientation/pitch-deg</input>
-    <reference>autopilot/internal/filtered-target-pitch-deg</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.2</Kp>
-      <Ti>40.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pid-controller>
-    <name>Vertical Speed Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>vertical-speed-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>velocities/vertical-speed-fps</input>
-    <reference>
-      <property>autopilot/settings/vertical-speed-fpm</property>
-      <scale>0.01667</scale>
-    </reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.01</Kp>
-      <Ti>40.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pi-simple-controller>
-    <name>Climb Rate Computer (not route-manager)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <or>
-            <equals>
-              <property>autopilot/locks/altitude</property>
-              <value>altitude-hold</value>
-            </equals>
-            <and>
-              <equals>
-                <property>autopilot/locks/altitude</property>
-                <value>gs1-hold</value>
-              </equals>
-              <equals>
-                <property>autopilot/internal/gs-captured</property>
-                <value>0</value>
-              </equals>
-            </and>
-          </or>
-          <not-equals>
-            <property>autopilot/locks/heading</property>
-            <value>true-heading-hold</value>
-          </not-equals>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/altimeter/indicated-altitude-ft</input>
-    <reference>autopilot/settings/target-altitude-ft</reference>
-    <output>autopilot/internal/target-climb-rate-fps</output>
-    <config>
-      <Kp>0.15</Kp>
-      <Ki>0.005</Ki>
-      <min>-6.67</min>
-      <max>6.67</max>
-    </config>
-  </pi-simple-controller>
-
-  <pi-simple-controller>
-    <name>Climb Rate Computer (route-manager)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <or>
-            <equals>
-              <property>autopilot/locks/altitude</property>
-              <value>altitude-hold</value>
-            </equals>
-            <and>
-              <equals>
-                <property>autopilot/locks/altitude</property>
-                <value>gs1-hold</value>
-              </equals>
-              <equals>
-                <property>autopilot/internal/gs-captured</property>
-                <value>0</value>
-              </equals>
-            </and>
-          </or>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>true-heading-hold</value>
-          </equals>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/altimeter/indicated-altitude-ft</input>
-    <reference>autopilot/settings/target-altitude-ft</reference>
-    <output>autopilot/internal/target-climb-rate-fps</output>
-    <config>
-      <Kp>0.12</Kp>
-      <Ki>0.005</Ki>
-      <min>-16.67</min>
-      <max>16.67</max>
-    </config>
-  </pi-simple-controller>
-
-  <pid-controller>
-    <name>Altitude Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <or>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value>altitude-hold</value>
-          </equals>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value>agl-hold</value>
-          </equals>
-          <and>
-            <equals>
-              <property>autopilot/locks/altitude</property>
-              <value>gs1-hold</value>
-            </equals>
-            <equals>
-              <property>autopilot/internal/gs-captured</property>
-              <value>0</value>
-            </equals>
-          </and>
-        </or>
-      </condition>
-    </enable>
-    <input>velocities/vertical-speed-fps</input>
-    <reference>autopilot/internal/target-climb-rate-fps</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.01</Kp>
-      <Ti>30.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pid-controller>
-    <name>Glideslope Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value>gs1-hold</value>
-          </equals>
-          <equals>
-            <property>autopilot/internal/gs-captured</property>
-            <value>1</value>
-          </equals>
-        </and>
-      </condition>
-    </enable>
-    <input>velocities/vertical-speed-fps</input>
-    <reference>instrumentation/navx/gs-rate-of-climb</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.01</Kp>
-      <Ti>40.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
 
   <!-- =============================================================== -->
   <!-- Velocity Modes                                                  -->
@@ -640,102 +749,6 @@
       <Ti>1</Ti>
       <Td>0.0005</Td>
       <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-
-  <!-- =============================================================== -->
-  <!-- Untested                                                        -->
-  <!-- =============================================================== -->
-
-  <pi-simple-controller>
-    <name>AGL Hold Stage 1</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>agl-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>position/altitude-agl-ft</input>
-    <reference>autopilot/settings/target-agl-ft</reference>
-    <output>autopilot/internal/target-climb-rate-fps</output>
-    <config>
-      <Kp>0.12</Kp>
-      <Ki>0.0</Ki>
-      <u_min>-16.6667</u_min>
-      <u_max>16.6667</u_max>
-    </config>
-  </pi-simple-controller>
-
-  <pid-controller>
-    <name>AOA hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>aoa-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>orientation/alpha-deg</input>
-    <reference>autopilot/settings/target-aoa-deg</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.05</Kp>
-      <Ti>0.5</Ti>
-      <Td>0.00001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pid-controller>
-    <name>Speed Pitch Trim Stage 1</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>speed-with-pitch-trim</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>velocities/airspeed-kt</input>
-    <reference>autopilot/settings/target-speed-kt</reference>
-    <output>autopilot/settings/target-pitch-deg</output>
-    <config>
-      <Kp>-0.1</Kp>
-      <Ti>30.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-5.0</u_min>
-      <u_max>5.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pid-controller>
-    <name>Speed Pitch Trim Stage 2</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>speed-with-pitch-trim</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>orientation/pitch-deg</input>
-    <reference>autopilot/settings/target-pitch-deg</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.05</Kp>
-      <Ti>1.0</Ti>
-      <Td>0.00001</Td>
-      <u_min>-1.0</u_min>
       <u_max>1.0</u_max>
     </config>
   </pid-controller>

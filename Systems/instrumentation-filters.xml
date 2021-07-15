@@ -279,8 +279,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <output>instrumentation/navx/radials/has-gs</output>
   </filter>
   
-  <!-- Less critical group -->
-  
   <filter>
     <name>Pick gs-rate-of-climb</name>
     <debug>false</debug>
@@ -301,6 +299,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <property>instrumentation/nav[1]/gs-rate-of-climb</property>
     </input>
     <output>instrumentation/navx/gs-rate-of-climb</output>
+  </filter>
+  
+  <filter>
+    <name>Pick gs-rate-of-climb-fpm</name>
+    <debug>false</debug>
+    <type>gain</type>
+    <gain>1.0</gain>
+    <input>
+      <condition>
+        <not>
+          <property>instrumentation/deviation-indicator/frequency</property>
+        </not>
+      </condition>
+      <property>instrumentation/nav/gs-rate-of-climb-fpm</property>
+    </input>
+    <input>
+      <condition>
+        <property>instrumentation/deviation-indicator/frequency</property>
+      </condition>
+      <property>instrumentation/nav[1]/gs-rate-of-climb-fpm</property>
+    </input>
+    <output>instrumentation/navx/gs-rate-of-climb-fpm</output>
   </filter>
   
   <filter>
