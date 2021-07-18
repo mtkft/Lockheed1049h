@@ -37,7 +37,6 @@ LockheedMain.savedata = func {
 # global variables in Lockheed1049h namespace, for call by XML
 LockheedMain.instantiate = func {
    #globals.Lockheed1049h.autopilotsystem = Autopilot.new();
-   globals.Lockheed1049h.menusystem = Menu.new();
 }
 
 LockheedMain.init = func {

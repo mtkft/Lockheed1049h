@@ -115,7 +115,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <file>Aircraft/Generic/autochecklist.nas</file>
     </autochecklist>
     <Lockheed1049h>
-      <file>Nasal/Lockheed1049h-menu.nas</file>
       <file>Nasal/Lockheed1049h-lights.nas</file>
       <file>Nasal/Lockheed1049h-doors.nas</file>
       <file>Nasal/Lockheed1049h-prop_reverse.nas</file>

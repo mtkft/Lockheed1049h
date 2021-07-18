@@ -1,6 +1,7 @@
+<?xml version="1.0"?>
+
 <PropertyList>
-  <name>Lockheed1049h-engineer</name>
-  <modal>false</modal>
+  <name>engineer</name>
   <layout>vbox</layout>
 
   <group>
@@ -58,6 +59,9 @@
                 autochecklist.complete_checklists("in-air-start", 0);
             }
             ]]></script>
+        </binding>
+        <binding>
+          <command>dialog-close</command>
         </binding>
       </button>
       <hrule><dummy/></hrule>
@@ -228,25 +232,29 @@
         <default-padding>3</default-padding>
         <button>
           <legend>Supercharger speed toggle</legend><halign>centered</halign>
-          <binding><command>nasal</command>
-          <script>
-            mpcmd=getprop("autoengineer/holdmp");
-            setprop("autoengineer/holdmp",0);
-            setprop("controls/engines/engine[0]/throttle",0);
-            setprop("controls/engines/engine[1]/throttle",0);
-            setprop("controls/engines/engine[2]/throttle",0);
-            setprop("controls/engines/engine[3]/throttle",0);
-            var timer=maketimer(1,func() {
-            setprop("fdm/jsbsim/propulsion/engine[0]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[0]/boost-speed"));
-            setprop("fdm/jsbsim/propulsion/engine[1]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[1]/boost-speed"));
-            setprop("fdm/jsbsim/propulsion/engine[2]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[2]/boost-speed"));
-            setprop("fdm/jsbsim/propulsion/engine[3]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[3]/boost-speed"));
-            setprop("autoengineer/holdmp",mpcmd)});
-            timer.singleShot=1;
-            timer.start()
-          </script>
+          <binding>
+            <command>nasal</command>
+            <script>
+              mpcmd=getprop("autoengineer/holdmp");
+              setprop("autoengineer/holdmp",0);
+              setprop("controls/engines/engine[0]/throttle",0);
+              setprop("controls/engines/engine[1]/throttle",0);
+              setprop("controls/engines/engine[2]/throttle",0);
+              setprop("controls/engines/engine[3]/throttle",0);
+              var timer=maketimer(1,func() {
+              setprop("fdm/jsbsim/propulsion/engine[0]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[0]/boost-speed"));
+              setprop("fdm/jsbsim/propulsion/engine[1]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[1]/boost-speed"));
+              setprop("fdm/jsbsim/propulsion/engine[2]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[2]/boost-speed"));
+              setprop("fdm/jsbsim/propulsion/engine[3]/boost-speed",1-getprop("fdm/jsbsim/propulsion/engine[3]/boost-speed"));
+              setprop("autoengineer/holdmp",mpcmd)});
+              timer.singleShot=1;
+              timer.start()
+            </script>
+		  </binding>
+		</button>
       </group>
-      <!--eventual relighting controls go here><group>
+      <!-- eventual relighting controls go here -->
+      <!--group>
         <layout>hbox</layout>
         <default-padding>3</default-padding>
         <text>
@@ -256,7 +264,7 @@
         <checkbox>
           <halign>right</halign>
           <property>autoengineer/allowrelight</property>
-          <binding><command><!--dialog-apply--!>nasal</command>
+          <binding><command>nasal</command>
             <script><![CDATA[
             setprop("sim/checklists/auto/completed-message", "yoooo");
             autochecklist.complete_checklists("checklist[1]",1);
@@ -266,4 +274,5 @@
       </group-->
     </group>
   </group>
-  <hrule><dummy/></hrule>
+
+</PropertyList>

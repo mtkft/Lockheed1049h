@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-  <name>Lockheed1049h-menu</name>
-  <modal>false</modal>
+  <name>preferences</name>
   <layout>vbox</layout>
 
   <group>
