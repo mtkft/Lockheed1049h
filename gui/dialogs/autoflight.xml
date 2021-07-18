@@ -30,7 +30,7 @@
 	</group>
 	
 	<hrule/>
-
+	
 	<group>
 		<layout>hbox</layout>
 		
@@ -285,5 +285,41 @@
 			</binding>
 		</slider>
 	</group>
+	
+	<group>
+		<layout>hbox</layout>
+
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+		<text>
+			<label>Flight Path</label>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+	
+	<group>
+		<layout>hbox</layout>
+		
+		<slider>
+			<halign>center</halign>
+			<pref-width>215</pref-width>
+			<property>/autopilot/settings/flight-path</property>
+			<step>1</step>
+			<min>0</min>
+			<max>3</max>
+			<live>true</live>
+			<binding>
+				<command>dialog-apply</command>
+			</binding>
+		</slider>
+	</group>
+	
+	<text>
+		<halign>center</halign>
+		<label> OFF     VHF RANGE     LOC       LOC/GS</label>
+	</text>
 
 </PropertyList>

@@ -594,13 +594,176 @@
 		</max-rate-of-change>
 	</filter>
 	
-	<!-- END REWORK 2021 BY JOSH DAVIDSON (OCTAL450) -->
-
-  <!-- =============================================================== -->
-  <!-- Velocity Modes                                                  -->
-  <!-- =============================================================== -->
-
-  <pid-controller>
+	<!-- Auto Engineer Throttle Controls -->
+	<pid-controller>
+		<name>IT-CONTROLLER: Manifold Pressure 1</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+			</condition>
+		</enable>
+		<input>/engines/engine[0]/mp-inhg</input>
+		<reference>/autoengineer/holdmp</reference>
+		<output>/autopilot/internal/throttle-cmd[0]</output>
+		<config>
+			<Kp>0.01</Kp>
+			<Ti>1.5</Ti>
+			<Td>0.01</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Manifold Pressure 2</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+			</condition>
+		</enable>
+		<input>/engines/engine[1]/mp-inhg</input>
+		<reference>/autoengineer/holdmp</reference>
+		<output>/autopilot/internal/throttle-cmd[1]</output>
+		<config>
+			<Kp>0.01</Kp>
+			<Ti>1.5</Ti>
+			<Td>0.01</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Manifold Pressure 3</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+			</condition>
+		</enable>
+		<input>/engines/engine[2]/mp-inhg</input>
+		<reference>/autoengineer/holdmp</reference>
+		<output>/autopilot/internal/throttle-cmd[2]</output>
+		<config>
+			<Kp>0.01</Kp>
+			<Ti>1.5</Ti>
+			<Td>0.01</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Manifold Pressure 4</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+			</condition>
+		</enable>
+		<input>/engines/engine[3]/mp-inhg</input>
+		<reference>/autoengineer/holdmp</reference>
+		<output>/autopilot/internal/throttle-cmd[3]</output>
+		<config>
+			<Kp>0.01</Kp>
+			<Ti>1.5</Ti>
+			<Td>0.01</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<logic>
+		<input>
+			<or>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+				<equals>
+					<property>autopilot/locks/speed</property>
+					<value>speed-with-throttle</value>
+				</equals>
+			</or>
+		</input>
+		<output>/autopilot/internal/throttle-active</output>
+	</logic>
+	
+	<filter>
+		<name>System Command: Throttle 1</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/throttle-cmd[0]</input>
+		<output>/controls/engines/engine[0]/throttle</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Throttle 2</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/throttle-cmd[1]</input>
+		<output>/controls/engines/engine[1]/throttle</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Throttle 3</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/throttle-cmd[2]</input>
+		<output>/controls/engines/engine[2]/throttle</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Throttle 4</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/throttle-cmd[3]</input>
+		<output>/controls/engines/engine[3]/throttle</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
+	
+  <!--pid-controller>
     <name>Auto Throttle</name>
     <debug>false</debug>
     <enable>
@@ -651,106 +814,6 @@
       <u_min>0.0</u_min>
       <u_max>1.0</u_max>
     </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Hold manifold pressure (Engine #1)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <greater-than>
-          <expression><property>autoengineer/holdmp</property></expression>
-          <value>0</value>
-        </greater-than>
-      </condition>
-    </enable>
-    <input>engines/engine[0]/mp-inhg</input>
-    <reference>autoengineer/holdmp</reference>
-    <output>
-      <property>controls/engines/engine[0]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.5</Kp>
-      <Ti>1</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Hold manifold pressure (Engine #2)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <greater-than>
-          <expression><property>autoengineer/holdmp</property></expression>
-          <value>0</value>
-        </greater-than>
-      </condition>
-    </enable>
-    <input>engines/engine[1]/mp-inhg</input>
-    <reference>autoengineer/holdmp</reference>
-    <output>
-      <property>controls/engines/engine[1]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.5</Kp>
-      <Ti>1</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Hold manifold pressure (Engine #3)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <greater-than>
-          <expression><property>autoengineer/holdmp</property></expression>
-          <value>0</value>
-        </greater-than>
-      </condition>
-    </enable>
-    <input>engines/engine[2]/mp-inhg</input>
-    <reference>autoengineer/holdmp</reference>
-    <output>
-      <property>controls/engines/engine[2]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.5</Kp>
-      <Ti>1</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Hold manifold pressure (Engine #4)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <greater-than>
-          <expression><property>autoengineer/holdmp</property></expression>
-          <value>0</value>
-        </greater-than>
-      </condition>
-    </enable>
-    <input>engines/engine[3]/mp-inhg</input>
-    <reference>autoengineer/holdmp</reference>
-    <output>
-      <property>controls/engines/engine[3]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.5</Kp>
-      <Ti>1</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
+  </pid-controller-->
 
 </PropertyList>
