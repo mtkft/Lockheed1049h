@@ -857,7 +857,8 @@
     <type>knob</type>
     <object-name>APKnobPitch</object-name>
     <property>autopilot/settings/target-pitch-deg</property>
-    <factor>-3</factor>
+    <factor>-30</factor>
+    <drag-direction>vertical</drag-direction>
     <center>
       <x-m>-15.2501</x-m>
       <y-m>  0.0</y-m>
@@ -877,7 +878,7 @@
         </condition>
         <command>property-adjust</command>
         <property>autopilot/settings/target-pitch-deg</property>
-        <factor>0.1</factor>
+        <factor>-0.1</factor>
         <min>-20</min>
         <max>20</max>
         <wrap>0</wrap>

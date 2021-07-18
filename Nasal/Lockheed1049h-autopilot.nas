@@ -82,6 +82,7 @@ var configure_vertical_mode = func()
                 capture_altitude();
             } else {
                 setprop("autopilot/locks/altitude", "pitch-hold");
+				setprop("autopilot/settings/target-pitch-deg", math.clamp(math.round(getprop("orientation/pitch-deg"), 0.1), -20, 20));
             }
         }
     } else {
@@ -240,7 +241,10 @@ setlistener("/sim/signals/reinit", func(status) {
         setprop("autopilot/switches/alt", 0);
         setprop("autopilot/settings/flight-path", 0);
         setprop("autopilot/settings/target-bank-deg", 0);
+        setprop("autopilot/settings/target-bank-deg-formatted", 0);
         setprop("autopilot/settings/target-pitch-deg", 4.0);
+        setprop("autopilot/settings/target-pitch-deg-formatted", 4.0);
+        setprop("autopilot/settings/target-pitch-deg-inv", -4.0);
         setprop("autopilot/internal/wing-leveler-heading-hold", 0);
     }
 }, startup = 1, runtime = 0);
@@ -350,3 +354,15 @@ var trim_loop = maketimer (8.2, func{
 });
 
 trim_loop.start();
+
+# For autopilot gui
+var pitch = 0;
+setlistener("/autopilot/settings/target-pitch-deg", func() {
+	pitch = getprop("/autopilot/settings/target-pitch-deg");
+	setprop("/autopilot/settings/target-pitch-deg-inv", pitch * -1);
+	setprop("/autopilot/settings/target-pitch-deg-formatted", math.round(pitch, 0.1));
+}, 0, 0);
+
+setlistener("/autopilot/settings/target-bank-deg", func() {
+	setprop("/autopilot/settings/target-bank-deg-formatted", math.round(getprop("/autopilot/settings/target-bank-deg")));
+}, 0, 0);

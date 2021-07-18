@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+
+<!-- Lockheed 1049h Autopilot Control Dialog -->
+<!-- Copyright (c) 2021 Josh Davidson (Octal450) -->
+
+<PropertyList>
+	
+	<name>autopilot</name>
+	<layout>vbox</layout>
+	<pref-width>260</pref-width>
+	
+	<group>
+		<layout>hbox</layout>
+		
+		<text>
+			<halign>left</halign>
+			<label>Autoflight</label>
+		</text>
+		
+		<button>
+			<halign>right</halign>
+			<pref-width>20</pref-width>
+			<pref-height>20</pref-height>
+			<legend>X</legend>
+			<key>Esc</key>
+			<binding>
+				<command>dialog-close</command>
+			</binding>
+		</button>
+	</group>
+	
+	<hrule/>
+
+	<group>
+		<layout>hbox</layout>
+		
+		<checkbox>
+			<label>AUTO PILOT</label>
+			<halign>center</halign>
+			<property>/autopilot/switches/ap</property>
+			<binding>
+				<command>nasal</command>
+				<script>Lockheed1049h.toggle_autopilot_on_off()</script>
+			</binding>
+			<live>true</live>
+		</checkbox>
+		<checkbox>
+			<label>ALT CONTROL</label>
+			<halign>center</halign>
+			<property>/autopilot/switches/alt</property>
+			<binding>
+				<command>property-toggle</command>
+				<property>/autopilot/switches/alt</property>
+			</binding>
+			<live>true</live>
+		</checkbox>
+	</group>
+	
+	<group>
+		<layout>hbox</layout>
+
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+		<text>
+			<label>Bank and Pitch</label>
+		</text>
+		<hrule>
+			<stretch>true</stretch>
+		</hrule>
+	</group>
+	
+	<group>
+		<layout>hbox</layout>
+		
+		<group>
+			<layout>vbox</layout>
+			
+			<button>
+				<legend>Level</legend>
+				<pref-width>100</pref-width>
+				<pref-height>20</pref-height>
+				<binding>
+					<command>property-assign</command>
+					<property>/autopilot/settings/target-bank-deg</property>
+					<value>0</value>
+				</binding>
+			</button>
+			
+			<text>
+				<label>99</label>
+				<halign>center</halign>
+				<property>/autopilot/settings/target-bank-deg-formatted</property>
+				<live>1</live>
+			</text>
+			
+			<dial>
+				<pref-height>100</pref-height>
+				<pref-width>100</pref-width>
+				<property>/autopilot/settings/target-bank-deg</property>
+				<resolution>1</resolution>
+				<min>-30</min>
+				<max>30</max>
+				<wrap>false</wrap>
+				<live>true</live>
+				<binding>
+					<command>dialog-apply</command>
+				</binding>
+				<binding>
+					<command>nasal</command>
+					<script>setprop("/autopilot/settings/target-bank-deg", math.round(getprop("/autopilot/settings/target-bank-deg")));</script>
+				</binding>
+			</dial>
+		</group>
+		
+		<vrule/>
+		
+		<group>
+			<layout>vbox</layout>
+			
+			<button>
+				<pref-width>50</pref-width>
+				<pref-height>20</pref-height>
+				<legend>-DN-</legend>
+				<binding>
+					<condition>
+						<not><property>autopilot/switches/alt</property></not>
+					</condition>
+					<command>property-adjust</command>
+					<property>/autopilot/settings/target-pitch-deg</property>
+					<min>-20</min>
+					<max>20</max>
+					<step>-1.0</step>
+					<wrap>false</wrap>
+				</binding>
+				<binding>
+					<condition>
+						<and>
+							<property>/autopilot/switches/alt</property>
+							<not-equals>
+								<property>sim/messages/pilot</property>
+								<value>Pitch wheel is locked when altitude control switch is on</value>
+							</not-equals>
+						</and>
+					</condition>
+					<command>property-assign</command>
+					<property>/sim/messages/pilot</property>
+					<value>Pitch wheel is locked when altitude control switch is on</value>
+				</binding>
+			</button>
+			<button>
+				<pref-width>50</pref-width>
+				<pref-height>20</pref-height>
+				<legend>DN</legend>
+				<binding>
+					<condition>
+						<not><property>autopilot/switches/alt</property></not>
+					</condition>
+					<command>property-adjust</command>
+					<property>/autopilot/settings/target-pitch-deg</property>
+					<min>-20</min>
+					<max>20</max>
+					<step>-0.1</step>
+					<wrap>false</wrap>
+				</binding>
+				<binding>
+					<condition>
+						<and>
+							<property>/autopilot/switches/alt</property>
+							<not-equals>
+								<property>sim/messages/pilot</property>
+								<value>Pitch wheel is locked when altitude control switch is on</value>
+							</not-equals>
+						</and>
+					</condition>
+					<command>property-assign</command>
+					<property>/sim/messages/pilot</property>
+					<value>Pitch wheel is locked when altitude control switch is on</value>
+				</binding>
+			</button>
+			
+			<text>
+				<label>999</label>
+				<halign>center</halign>
+				<property>/autopilot/settings/target-pitch-deg-formatted</property>
+				<live>1</live>
+			</text>
+			
+			<button>
+				<pref-width>50</pref-width>
+				<pref-height>20</pref-height>
+				<legend>UP</legend>
+				<binding>
+					<condition>
+						<not><property>autopilot/switches/alt</property></not>
+					</condition>
+					<command>property-adjust</command>
+					<property>/autopilot/settings/target-pitch-deg</property>
+					<min>-20</min>
+					<max>20</max>
+					<step>0.1</step>
+					<wrap>false</wrap>
+				</binding>
+				<binding>
+					<condition>
+						<and>
+							<property>/autopilot/switches/alt</property>
+							<not-equals>
+								<property>sim/messages/pilot</property>
+								<value>Pitch wheel is locked when altitude control switch is on</value>
+							</not-equals>
+						</and>
+					</condition>
+					<command>property-assign</command>
+					<property>/sim/messages/pilot</property>
+					<value>Pitch wheel is locked when altitude control switch is on</value>
+				</binding>
+			</button>
+			<button>
+				<pref-width>50</pref-width>
+				<pref-height>20</pref-height>
+				<legend>+UP+</legend>
+				<binding>
+					<condition>
+						<not><property>autopilot/switches/alt</property></not>
+					</condition>
+					<command>property-adjust</command>
+					<property>/autopilot/settings/target-pitch-deg</property>
+					<min>-20</min>
+					<max>20</max>
+					<step>1.0</step>
+					<wrap>false</wrap>
+				</binding>
+				<binding>
+					<condition>
+						<and>
+							<property>/autopilot/switches/alt</property>
+							<not-equals>
+								<property>sim/messages/pilot</property>
+								<value>Pitch wheel is locked when altitude control switch is on</value>
+							</not-equals>
+						</and>
+					</condition>
+					<command>property-assign</command>
+					<property>/sim/messages/pilot</property>
+					<value>Pitch wheel is locked when altitude control switch is on</value>
+				</binding>
+			</button>
+		</group>
+		
+		<slider>
+			<pref-height>150</pref-height>
+			<vertical>true</vertical>
+			<property>/autopilot/settings/target-pitch-deg-inv</property>
+			<min>-20</min>
+			<max>20</max>
+			<step>0.1</step>
+			<live>true</live>
+			<binding>
+				<condition>
+					<not><property>autopilot/switches/alt</property></not>
+				</condition>
+				<command>dialog-apply</command>
+			</binding>
+			<binding>
+				<condition>
+					<not><property>autopilot/switches/alt</property></not>
+				</condition>
+				<command>nasal</command>
+				<script>setprop("/autopilot/settings/target-pitch-deg", getprop("/autopilot/settings/target-pitch-deg-inv") * -1);</script>
+			</binding>
+			<binding>
+				<condition>
+					<and>
+						<property>/autopilot/switches/alt</property>
+						<not-equals>
+							<property>sim/messages/pilot</property>
+							<value>Pitch wheel is locked when altitude control switch is on</value>
+						</not-equals>
+					</and>
+				</condition>
+				<command>property-assign</command>
+				<property>/sim/messages/pilot</property>
+				<value>Pitch wheel is locked when altitude control switch is on</value>
+			</binding>
+		</slider>
+	</group>
+
+</PropertyList>
