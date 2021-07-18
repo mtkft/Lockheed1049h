@@ -595,18 +595,92 @@
 	</filter>
 	
 	<!-- Auto Engineer Throttle Controls -->
+	<logic>
+		<input>
+			<and>
+				<property>/autoengineer/allow-speedbythrottle</property>
+				<equals>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</equals>
+			</and>
+		</input>
+		<output>/autopilot/internal/speed-on-throttle-active</output>
+	</logic>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Speed On Throttle</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+		</enable>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<reference>/autopilot/settings/target-speed-kt</reference>
+		<output>/autopilot/internal/target-mp-inhg</output>
+		<config>
+			<Kp>3.5</Kp>
+			<Ti>7.5</Ti>
+			<Td>0.001</Td>
+			<u_min>10</u_min>
+			<u_max>65</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Manifold Pressure Target Inactive Sync</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<not><property>/autopilot/internal/speed-on-throttle-active</property></not>
+			</condition>
+		</enable>
+		<input>
+			<expression>
+				<max>
+					<property>/engines/engine[0]/mp-inhg</property>
+					<property>/engines/engine[1]/mp-inhg</property>
+					<property>/engines/engine[2]/mp-inhg</property>
+					<property>/engines/engine[3]/mp-inhg</property>
+				</max>
+			</expression>
+		</input>
+		<output>/autopilot/internal/target-mp-inhg</output>
+		<min>10</min>
+		<max>65</max>
+	</filter>
+	
+	<logic>
+		<input>
+			<or>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+				<property>/autoengineer/allow-speedbythrottle</property>
+			</or>
+		</input>
+		<output>/autopilot/internal/throttle-active</output>
+	</logic>
+	
 	<pid-controller>
 		<name>IT-CONTROLLER: Manifold Pressure 1</name>
 		<debug>false</debug>
 		<enable>
 			<condition>
-				<greater-than>
-					<property>/autoengineer/holdmp</property>
-					<value>0</value>
-				</greater-than>
+				<property>/autopilot/internal/throttle-active</property>
 			</condition>
 		</enable>
 		<input>/engines/engine[0]/mp-inhg</input>
+		<reference>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+			<property>/autopilot/internal/target-mp-inhg</property>
+		</reference>
 		<reference>/autoengineer/holdmp</reference>
 		<output>/autopilot/internal/throttle-cmd[0]</output>
 		<config>
@@ -623,13 +697,16 @@
 		<debug>false</debug>
 		<enable>
 			<condition>
-				<greater-than>
-					<property>/autoengineer/holdmp</property>
-					<value>0</value>
-				</greater-than>
+				<property>/autopilot/internal/throttle-active</property>
 			</condition>
 		</enable>
 		<input>/engines/engine[1]/mp-inhg</input>
+		<reference>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+			<property>/autopilot/internal/target-mp-inhg</property>
+		</reference>
 		<reference>/autoengineer/holdmp</reference>
 		<output>/autopilot/internal/throttle-cmd[1]</output>
 		<config>
@@ -646,13 +723,16 @@
 		<debug>false</debug>
 		<enable>
 			<condition>
-				<greater-than>
-					<property>/autoengineer/holdmp</property>
-					<value>0</value>
-				</greater-than>
+				<property>/autopilot/internal/throttle-active</property>
 			</condition>
 		</enable>
 		<input>/engines/engine[2]/mp-inhg</input>
+		<reference>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+			<property>/autopilot/internal/target-mp-inhg</property>
+		</reference>
 		<reference>/autoengineer/holdmp</reference>
 		<output>/autopilot/internal/throttle-cmd[2]</output>
 		<config>
@@ -669,13 +749,16 @@
 		<debug>false</debug>
 		<enable>
 			<condition>
-				<greater-than>
-					<property>/autoengineer/holdmp</property>
-					<value>0</value>
-				</greater-than>
+				<property>/autopilot/internal/throttle-active</property>
 			</condition>
 		</enable>
 		<input>/engines/engine[3]/mp-inhg</input>
+		<reference>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+			<property>/autopilot/internal/target-mp-inhg</property>
+		</reference>
 		<reference>/autoengineer/holdmp</reference>
 		<output>/autopilot/internal/throttle-cmd[3]</output>
 		<config>
@@ -686,22 +769,6 @@
 			<u_max>1.0</u_max>
 		</config>
 	</pid-controller>
-	
-	<logic>
-		<input>
-			<or>
-				<greater-than>
-					<property>/autoengineer/holdmp</property>
-					<value>0</value>
-				</greater-than>
-				<equals>
-					<property>autopilot/locks/speed</property>
-					<value>speed-with-throttle</value>
-				</equals>
-			</or>
-		</input>
-		<output>/autopilot/internal/throttle-active</output>
-	</logic>
 	
 	<filter>
 		<name>System Command: Throttle 1</name>
@@ -763,57 +830,55 @@
 		<max-rate-of-change>0.3</max-rate-of-change>
 	</filter>
 	
-  <!--pid-controller>
-    <name>Auto Throttle</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/speed</property>
-          <value>speed-with-throttle</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>velocities/airspeed-kt</input>
-    <reference>autopilot/settings/target-speed-kt</reference>
-    <output>
-      <property>controls/engines/engine[0]/throttle</property>
-      <property>controls/engines/engine[1]/throttle</property>
-      <property>controls/engines/engine[2]/throttle</property>
-      <property>controls/engines/engine[3]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.05</Kp>
-      <Ti>20.0</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Cruise speed by prop</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <property>autoengineer/allow-speedbyprop</property>
-      </condition>
-    </enable>
-    <input>velocities/airspeed-kt</input>
-    <reference>autoengineer/speedbyprop</reference>
-    <output>
-      <property>controls/engines/engine[0]/propeller-pitch</property>
-      <property>controls/engines/engine[1]/propeller-pitch</property>
-      <property>controls/engines/engine[2]/propeller-pitch</property>
-      <property>controls/engines/engine[3]/propeller-pitch</property>
-    </output>
-    <config>
-      <Kp>0.05</Kp>
-      <Ti>20.0</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller-->
+	<logic>
+		<input>
+			<and>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+				<property>/autoengineer/allow-speedbyprop</property>
+			</and>
+		</input>
+		<output>/autopilot/internal/propeller-pitch-active</output>
+	</logic>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Speed On Prop Pitch</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/propeller-pitch-active</property>
+			</condition>
+		</enable>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<reference>/autopilot/settings/target-speed-kt</reference>
+		<output>/autopilot/internal/propeller-pitch-cmd</output>
+		<config>
+			<Kp>0.3</Kp>
+			<Ti>10</Ti>
+			<Td>0.1</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Propeller Pitch 1</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/propeller-pitch-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/propeller-pitch-cmd</input>
+		<output>/controls/engines/engine[0]/propeller-pitch</output>
+		<output>/controls/engines/engine[1]/propeller-pitch</output>
+		<output>/controls/engines/engine[2]/propeller-pitch</output>
+		<output>/controls/engines/engine[3]/propeller-pitch</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
 
 </PropertyList>

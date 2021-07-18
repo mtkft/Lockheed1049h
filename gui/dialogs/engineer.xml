@@ -96,8 +96,20 @@
         <default-padding>3</default-padding>
         <button>
           <legend>Release throttle controls</legend><halign>centered</halign>
-          <binding><command>nasal</command>
-            <script>setprop("autoengineer/holdmp",0)</script>
+          <binding>
+            <command>property-assign</command>
+            <property>autoengineer/allow-speedbythrottle</property>
+            <value>0</value>
+          </binding>
+          <binding>
+            <command>property-assign</command>
+            <property>autoengineer/allow-speedbyprop</property>
+            <value>0</value>
+          </binding>
+          <binding>
+            <command>property-assign</command>
+            <property>autoengineer/holdmp</property>
+            <value>0</value>
           </binding>
         </button>
       </group>
@@ -212,19 +224,46 @@
       <group>
         <layout>hbox</layout>
         <default-padding>3</default-padding>
-        <checkbox>
-          <halign>left</halign>
-          <property>autoengineer/allow-speedbyprop</property>
-          <binding><command>dialog-apply</command></binding>
-        </checkbox>
-        <text>
-          <halign>centered</halign>
-          <label>Cruise speed by propeller pitch (set CRZ PWR 45" first)</label>
-        </text>
+        <group>
+          <layout>vbox</layout>
+          <checkbox>
+            <live>true</live>
+            <halign>left</halign>
+            <label>Cruise speed by propeller pitch (set CRZ PWR 45" first)</label>
+            <property>autoengineer/allow-speedbyprop</property>
+            <binding><command>dialog-apply</command></binding>
+            <binding>
+              <command>property-assign</command>
+              <property>autoengineer/allow-speedbythrottle</property>
+              <value>0</value>
+            </binding>
+          </checkbox>
+          <checkbox>
+            <live>true</live>
+            <halign>left</halign>
+            <label>Cruise speed by throttle</label>
+            <property>autoengineer/allow-speedbythrottle</property>
+            <binding><command>dialog-apply</command></binding>
+            <binding>
+              <command>property-assign</command>
+              <property>autoengineer/allow-speedbyprop</property>
+              <value>0</value>
+            </binding>
+            <binding>
+              <command>property-assign</command>
+              <property>autoengineer/holdmp</property>
+              <value>0</value>
+            </binding>
+          </checkbox>
+        </group>
         <input>
           <width>250</width>
           <height>25</height>
-          <property>autoengineer/speedbyprop</property>
+          <property>autopilot/settings/target-speed-kt</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
         </input>
       </group>
       <group>
