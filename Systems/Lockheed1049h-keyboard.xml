@@ -21,14 +21,6 @@
     </binding>
   </key>
   
-  <key n="4">
-    <name>Ctrl+D</name>
-    <binding>
-      <command>nasal</command>
-      <script>Lockheed1049h.door_crew.toggle()</script>
-    </binding>
-  </key>
-  
   <key n="5">
     <name>Ctrl+E</name>
     <binding>
