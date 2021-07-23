@@ -448,7 +448,7 @@
   <animation>
     <type>knob</type>
     <object-name>PropPitch</object-name>
-    <property>controls/engines/engine[0]/propeller-pitch</property>
+    <property>fdm/jsbsim/fcs/advance-pos-norm[0]</property>
     <factor>-47</factor>
     <offset-deg>47</offset-deg>   
     <center>
@@ -585,7 +585,7 @@
     <type>rotate</type>
     <object-name>MainThrottle1</object-name>
     <object-name>ReverseThrottle1</object-name>
-    <property>controls/engines/engine[0]/throttle</property>
+    <property>fdm/jsbsim/fcs/throttle-pos-norm[0]</property>
     <factor>-50</factor>
     <center>
       <x-m>-15.496</x-m>
@@ -615,7 +615,7 @@
     <type>rotate</type>
     <object-name>MainThrottle2</object-name>
     <object-name>ReverseThrottle2</object-name>
-    <property>controls/engines/engine[1]/throttle</property>
+    <property>fdm/jsbsim/fcs/throttle-pos-norm[1]</property>
     <factor>-50</factor>
     <center>
       <x-m>-15.496</x-m>
@@ -645,7 +645,7 @@
     <type>rotate</type>
     <object-name>MainThrottle3</object-name>
     <object-name>ReverseThrottle3</object-name>
-    <property>controls/engines/engine[2]/throttle</property>
+    <property>fdm/jsbsim/fcs/throttle-pos-norm[2]</property>
     <factor>-50</factor>
     <center>
       <x-m>-15.496</x-m>
@@ -675,7 +675,7 @@
     <type>rotate</type>
     <object-name>MainThrottle4</object-name>
     <object-name>ReverseThrottle4</object-name>
-    <property>controls/engines/engine[3]/throttle</property>
+    <property>fdm/jsbsim/fcs/throttle-pos-norm[3]</property>
     <factor>-50</factor>
     <center>
       <x-m>-15.496</x-m>
@@ -857,7 +857,8 @@
     <type>knob</type>
     <object-name>APKnobPitch</object-name>
     <property>autopilot/settings/target-pitch-deg</property>
-    <factor>-3</factor>
+    <factor>-30</factor>
+    <drag-direction>vertical</drag-direction>
     <center>
       <x-m>-15.2501</x-m>
       <y-m>  0.0</y-m>
@@ -877,7 +878,7 @@
         </condition>
         <command>property-adjust</command>
         <property>autopilot/settings/target-pitch-deg</property>
-        <factor>0.1</factor>
+        <factor>-0.1</factor>
         <min>-20</min>
         <max>20</max>
         <wrap>0</wrap>

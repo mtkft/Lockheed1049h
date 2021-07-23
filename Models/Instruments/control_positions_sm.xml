@@ -22,8 +22,8 @@
   <animation>
     <type>translate</type>
     <object-name>Controls.NeedleEl</object-name>
-    <property>controls/flight/elevator</property>
-    <factor>0.0085</factor>
+    <property>fdm/jsbsim/fcs/elevator-cmd-lag</property>
+    <factor>0.005</factor>
     <axis>
       <x>0</x>
       <y>0</y>
@@ -34,8 +34,8 @@
   <animation>
     <type>translate</type>
     <object-name>Controls.NeedleRud</object-name>
-    <property>controls/flight/rudder</property>
-    <factor>0.0085</factor>
+    <property>fdm/jsbsim/fcs/rudder-cmd-lag</property>
+    <factor>-0.005</factor>
     <axis>
       <x>0</x>
       <y>1</y>
@@ -46,7 +46,7 @@
   <animation>
     <type>rotate</type>
     <object-name>Controls.NeedleAil</object-name>
-    <property>controls/flight/aileron</property>
+    <property>fdm/jsbsim/fcs/aileron-cmd-lag</property>
     <interpolation>
       <entry><ind>-1</ind><dep>-30</dep></entry>
       <entry><ind> 0</ind><dep>  0</dep></entry>

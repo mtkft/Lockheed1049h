@@ -1,1199 +1,884 @@
 <?xml version="1.0"?>
 
-<!--
-************************************************************************
-
-Lockheed1049h: tuned autopilot.
-
-Copyright (c) 2015 Richard Senior
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-************************************************************************
--->
+<!-- Lockheed 1049h Custom Autopilot -->
+<!-- Copyright (c) 2021 Josh Davidson (Octal450) -->
 
 <PropertyList>
-
-  <!-- dynamic bank-angle-select with airspeed __>
-  <filter>
-    <name>Dynamic bank angle</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain-->
-
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <!-- TOASTER's NAV source selectors                                  -->
-  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-  <filter>
-    <name>Pick heading-needle-deflection</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/heading-needle-deflection</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/heading-needle-deflection</property>
-    </input>
-    <output>instrumentation/navx/heading-needle-deflection</output>
-  </filter>
-  
-  <filter>
-    <name>Pick radials/selected-deg</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/radials/selected-deg</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/radials/selected-deg</property>
-    </input>
-    <output>instrumentation/navx/radials/selected-deg</output>
-  </filter>
-  
-  <filter>
-    <name>Pick radials/target-radial-deg</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/radials/target-radial-deg</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/radials/target-radial-deg</property>
-    </input>
-    <output>instrumentation/navx/radials/target-radial-deg</output>
-  </filter>
-  
-  <filter>
-    <name>Pick has-gs</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/has-gs</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/radials/has-gs</property>
-    </input>
-    <output>instrumentation/navx/radials/has-gs</output>
-  </filter>
-  
-  <!-- Less critical group -->
-  
-  <filter>
-    <name>Pick gs-rate-of-climb</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/gs-rate-of-climb</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/gs-rate-of-climb</property>
-    </input>
-    <output>instrumentation/navx/gs-rate-of-climb</output>
-  </filter>
-  
-  <filter>
-    <name>Pick gs-needle-deflection</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/gs-needle-deflection</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/gs-needle-deflection</property>
-    </input>
-    <output>instrumentation/navx/gs-needle-deflection</output>
-  </filter>
-  
-  <filter>
-    <name>Pick gs-in-range</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/deviation-indicator/frequency</property>
-        </not>
-      </condition>
-      <property>instrumentation/nav/gs-in-range</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/deviation-indicator/frequency</property>
-      </condition>
-      <property>instrumentation/nav[1]/gs-in-range</property>
-    </input>
-    <output>instrumentation/navx/gs-in-range</output>
-  </filter>
-  
-  
-
-  <!-- =============================================================== -->
-  <!-- Filters and Calculations                                        -->
-  <!-- =============================================================== -->
-
-  <!-- Smoothes out selection of pitch with the pitch wheel -->
-  <filter>
-    <name>Pitch Select Filter</name>
-    <debug>false</debug>
-    <type>exponential</type>
-    <filter-time>0.8</filter-time>
-    <input>autopilot/settings/target-pitch-deg</input>
-    <output>autopilot/internal/filtered-target-pitch-deg</output>
-  </filter>
-
-  <!-- Smoothes out selection of bank with the bank wheel -->
-  <filter>
-    <name>Bank Select Filter</name>
-    <debug>false</debug>
-    <type>exponential</type>
-    <filter-time>2.0</filter-time>
-    <input>autopilot/settings/target-bank-deg</input>
-    <output>autopilot/internal/filtered-target-bank-deg</output>
-  </filter>
-
-  <!-- Copies the heading bug selection from the autopilot dialog to the DG -->
-  <filter>
-    <name>Heading Bug Property Copy</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>autopilot/settings/heading-bug-deg</input>
-    <output>instrumentation/heading-indicator/heading-bug-deg</output>
-  </filter>
-
-  <!-- Smoothes out the CDI needle, especially around a VOR station -->
-  <filter>
-    <name>CDI Filter (VOR)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <not>
-          <property>autopilot/settings/localizer</property>
-        </not>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/heading-needle-deflection</input>
-    <output>instrumentation/navx/filtered-heading-needle-deflection</output>
-    <type>noise-spike</type>
-    <max-rate-of-change>1.0</max-rate-of-change>
-  </filter>
-
-  <filter>
-    <name>CDI Filter (LOC)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <property>autopilot/settings/localizer</property>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/heading-needle-deflection</input>
-    <output>instrumentation/navx/filtered-heading-needle-deflection</output>
-    <type>noise-spike</type>
-    <max-rate-of-change>1.0</max-rate-of-change>
-  </filter>
-
-  <!-- Calculate a course error from the CDI needle deflection -->
-  <pi-simple-controller>
-    <name>CDI Integrator (VHF)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <not>
-            <property>autopilot/settings/localizer</property>
-          </not>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-          <less-than-equals>
-            <expression>
-              <fabs>
-                <property>instrumentation/navx/filtered-heading-needle-deflection</property>
-              </fabs>
-            </expression>
-            <value>1.0</value>
-          </less-than-equals>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/filtered-heading-needle-deflection</input>
-    <output>autopilot/internal/nav-course-error-deg</output>
-    <config>
-      <Kp>4.5</Kp>
-      <Ki>0.05</Ki>
-    </config>
-    <min>-45.0</min>
-    <max>45.0</max>
-  </pi-simple-controller>
-
-  <pi-simple-controller>
-    <name>CDI Integrator Anti-Windup (VHF)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <not>
-            <property>autopilot/settings/localizer</property>
-          </not>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-          <greater-than>
-            <expression>
-              <fabs>
-                <property>instrumentation/navx/filtered-heading-needle-deflection</property>
-              </fabs>
-            </expression>
-            <value>1.0</value>
-          </greater-than>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/filtered-heading-needle-deflection</input>
-    <output>autopilot/internal/nav-course-error-deg</output>
-    <config>
-      <Kp>4.5</Kp>
-      <Ki>0.01</Ki>
-    </config>
-    <min>-45.0</min>
-    <max>45.0</max>
-  </pi-simple-controller>
-
-  <pi-simple-controller>
-    <name>CDI Integrator (LOC)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <property>autopilot/settings/localizer</property>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-          <less-than-equals>
-            <expression>
-              <fabs>
-                <property>instrumentation/navx/filtered-heading-needle-deflection</property>
-              </fabs>
-            </expression>
-            <value>2.0</value>
-          </less-than-equals>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/filtered-heading-needle-deflection</input>
-    <output>autopilot/internal/nav-course-error-deg</output>
-    <config>
-      <Kp>2.25</Kp>
-      <Ki>0.02</Ki>
-    </config>
-    <min>-22.5</min>
-    <max>22.5</max>
-  </pi-simple-controller>
-
-  <pi-simple-controller>
-    <name>CDI Integrator Anti Windup (LOC)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <property>autopilot/settings/localizer</property>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-          <greater-than>
-            <expression>
-              <fabs>
-                <property>instrumentation/navx/filtered-heading-needle-deflection</property>
-              </fabs>
-            </expression>
-            <value>2.0</value>
-          </greater-than>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/navx/filtered-heading-needle-deflection</input>
-    <output>autopilot/internal/nav-course-error-deg</output>
-    <config>
-      <Kp>2.25</Kp>
-      <Ki>0.005</Ki>
-    </config>
-    <min>-22.5</min>
-    <max>+22.5</max>
-  </pi-simple-controller>
-
-  <!-- Calculate an intercept heading from the localizer and course error -->
-  <filter>
-    <name>Intercept Heading Computer</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>
-      <condition>
-        <not>
-          <property>instrumentation/navx/has-gs</property>
-        </not>
-      </condition>
-      <property>instrumentation/navx/radials/selected-deg</property>
-    </input>
-    <input>
-      <condition>
-        <property>instrumentation/navx/has-gs</property>
-      </condition>
-      <property>instrumentation/navx/radials/target-radial-deg</property>
-      <offset>
-        <property>environment/magnetic-variation-deg</property>
-        <scale>-1.0</scale>
-      </offset>
-    </input>
-    <reference>autopilot/internal/nav-course-error-deg</reference>
-    <output>autopilot/internal/intercept-heading-deg</output>
-  </filter>
-
-  <!-- Calculate the error between the current heading and the intercept -->
-  <filter>
-    <name>NAV1 Intercept Error Computer</name>
-    <debug>false</debug>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>autopilot/internal/intercept-heading-deg</input>
-    <reference>instrumentation/heading-indicator/indicated-heading-deg</reference>
-    <output>autopilot/internal/nav1-intercept-error-deg</output>
-  </filter>
-
-  <!-- Create a flag to indicate that the glideslope has been captured -->
-  <flipflop>
-    <name>Glideslope Capture</name>
-    <type>SR</type>
-    <debug>false</debug>
-    <S>
-      <and>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>gs1-hold</value>
-        </equals>
-        <property>instrumentation/navx/gs-in-range</property>
-        <less-than>
-          <property>instrumentation/navx/gs-needle-deflection</property>
-          <value>0.0</value>
-        </less-than>
-      </and>
-    </S>
-    <R>
-      <or>
-        <not>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value>gs1-hold</value>
-          </equals>
-        </not>
-        <not>
-          <property>instrumentation/navx/gs-in-range</property>
-        </not>
-      </or>
-    </R>
-    <output>autopilot/internal/gs-captured</output>
-  </flipflop>
-
-  <!-- Create a flag to indicate wing leveler should hold heading -->
-  <flipflop>
-    <name>Wing Leveler Heading Hold</name>
-    <type>SR</type>
-    <debug>false</debug>
-    <S>
-      <and>
-        <equals>
-          <property>autopilot/locks/heading</property>
-          <value>wing-leveler</value>
-        </equals>
-        <less-than>
-          <expression>
-            <fabs>
-              <property>autopilot/settings/target-bank-deg</property>
-            </fabs>
-          </expression>
-          <value>1.0</value>
-        </less-than>
-        <less-than>
-          <expression>
-            <fabs>
-              <property>orientation/roll-deg</property>
-            </fabs>
-          </expression>
-          <value>1.0</value>
-        </less-than>
-      </and>
-    </S>
-    <R>
-      <or>
-        <not-equals>
-          <property>autopilot/locks/heading</property>
-          <value>wing-leveler</value>
-        </not-equals>
-        <greater-than-equals>
-          <expression>
-            <fabs>
-              <property>autopilot/settings/target-bank-deg</property>
-            </fabs>
-          </expression>
-          <value>1.0</value>
-        </greater-than-equals>
-      </or>
-    </R>
-    <output>autopilot/internal/wing-leveler-heading-hold</output>
-  </flipflop>
-
-  <!-- =============================================================== -->
-  <!-- Servos                                                          -->
-  <!-- =============================================================== -->
-
-  <filter>
-    <name>Aileron Servo</name>
-    <debug>false</debug>
-    <feedback-if-disabled>true</feedback-if-disabled>
-    <enable>
-      <condition>
-        <not>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value></value>
-          </equals>
-        </not>
-      </condition>
-    </enable>
-    <input>autopilot/internal/servos/aileron</input>
-    <output>controls/flight/aileron</output>
-    <type>noise-spike</type>
-    <max-rate-of-change>0.5</max-rate-of-change>
-    <min>-1.0</min>
-    <max>1.0</max>
-  </filter>
-
-  <filter>
-    <name>Elevator Trim Servo</name>
-    <debug>false</debug>
-    <feedback-if-disabled>true</feedback-if-disabled>
-    <enable>
-      <condition>
-        <not>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value></value>
-          </equals>
-        </not>
-      </condition>
-    </enable>
-    <input>autopilot/internal/servos/elevator-trim</input>
-    <output>controls/flight/elevator-trim</output>
-    <type>noise-spike</type>
-    <max-rate-of-change>0.25</max-rate-of-change>
-    <min>-1.0</min>
-    <max>1.0</max>
-  </filter>
-
-  <!-- =============================================================== -->
-  <!-- Roll Axis Modes                                                 -->
-  <!-- =============================================================== -->
-
-  <filter>
-    <name>Wing Leveler and Bank Angle Select</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <or>
-          <greater-than-equals>
-            <expression>
-              <fabs>
-                <property>autopilot/internal/filtered-target-bank-deg</property>
-              </fabs>
-            </expression>
-            <value>1.0</value>
-          </greater-than-equals>
-          <and>
-            <equals>
-              <property>autopilot/locks/heading</property>
-              <value>wing-leveler</value>
-            </equals>
-            <not>
-              <property>autopilot/internal/wing-leveler-heading-hold</property>
-            </not>
-          </and>
-        </or>
-      </condition>
-    </enable>
-    <type>gain</type>
-    <gain>1.0</gain>
-    <input>autopilot/internal/filtered-target-bank-deg</input>
-    <output>autopilot/internal/target-roll-deg</output>
-    <min>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>-1.0</scale>
-    </min>
-    <max>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>+1.0</scale>
-    </max>
-  </filter>
-
-  <filter>
-    <name>DG Heading Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <or>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>dg-heading-hold</value>
-          </equals>
-          <property>autopilot/internal/wing-leveler-heading-hold</property>
-        </or>
-      </condition>
-    </enable>
-    <type>gain</type>
-    <gain>2.0</gain>
-    <input>autopilot/internal/heading-bug-error-deg</input>
-    <output>autopilot/internal/target-roll-deg</output>
-    <min>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>-1.0</scale>
-    </min>
-    <max>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>+1.0</scale>
-    </max>
-  </filter>
-
-  <filter>
-    <name>True Heading Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/heading</property>
-          <value>true-heading-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <type>gain</type>
-    <gain>2.0</gain>
-    <input>autopilot/internal/true-heading-error-deg</input>
-    <output>autopilot/internal/target-roll-deg</output>
-    <min>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>-1.0</scale>
-    </min>
-    <max>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>+1.0</scale>
-    </max>
-  </filter>
-
-  <filter>
-    <name>NAV Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <less-than>
-            <expression>
-              <fabs>
-                <property>autopilot/internal/filtered-target-bank-deg</property>
-              </fabs>
-            </expression>
-            <value>1.0</value>
-          </less-than>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>nav1-hold</value>
-          </equals>
-        </and>
-      </condition>
-    </enable>
-    <type>gain</type>
-    <gain>2.0</gain>
-    <input>
-      <property>autopilot/internal/nav1-intercept-error-deg</property>
-      <period>
-        <min>-180</min>
-        <max>180</max>
-      </period>
-    </input>
-    <output>autopilot/internal/target-roll-deg</output>
-    <min>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>-1.0</scale>
-    </min>
-    <max>
-      <property>controls/autoflight/bank-angle-select</property>
-      <scale>+1.0</scale>
-    </max>
-  </filter>
-  
-  <filter>
-		<name>Roll Rate Command</name>
+	
+	<!-- Drivers -->
+	<filter>
+		<name>Heading Error Deg</name>
 		<debug>false</debug>
 		<type>gain</type>
-		<gain>-1.0</gain>
-		<input>/orientation/roll-deg</input>
-		<reference>/autopilot/internal/target-roll-deg</reference>
-		<output>/autopilot/internal/roll-rate</output>
-		<min>-5</min>
-		<max>5</max>
+		<gain>1.0</gain>
+		<input>
+			<condition>
+				<equals>
+					<property>/autopilot/locks/heading</property>
+					<value>nav1-hold</value>
+				</equals>
+			</condition>
+			<property>/instrumentation/navx/radials/target-auto-hdg-deg</property>
+			<offset>
+				<property>/orientation/heading-deg</property>
+				<scale>-1.0</scale>
+			</offset>
+		</input>
+		<input>
+			<property>/autopilot/settings/heading-bug-deg</property>
+			<offset>
+				<property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+				<scale>-1.0</scale>
+			</offset>
+		</input>
+		<output>/autopilot/internal/heading-error-deg</output>
+		<period>
+			<min>-180</min>
+			<max>180</max>
+		</period>
 	</filter>
-  
-  <pid-controller>
-    <name>Aileron Controller (Roll Rate)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <not>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value></value>
-          </equals>
-        </not>
-      </condition>
-    </enable>
-    <input>orientation/roll-rate-degps</input>
-    <reference>autopilot/internal/roll-rate</reference>
-    <output>autopilot/internal/servos/aileron</output>
-    <config>
-      <Kp><expression>
-        <table>
-          <property>/velocities/airspeed-kt</property>
-          <entry><ind>140</ind><dep>0.16</dep></entry>
-          <entry><ind>360</ind><dep>0.04</dep></entry>
-        </table>
-      </expression></Kp>
-      <Ti>5000.0</Ti>
-      <Td>0.001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <!-- =============================================================== -->
-  <!-- Pitch Axis Modes                                                -->
-  <!-- =============================================================== -->
-
-  <pid-controller>
-    <name>Pitch hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>pitch-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>orientation/pitch-deg</input>
-    <reference>autopilot/internal/filtered-target-pitch-deg</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.2</Kp>
-      <Ti>40.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pid-controller>
-    <name>Vertical Speed Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>vertical-speed-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>velocities/vertical-speed-fps</input>
-    <reference>
-      <property>autopilot/settings/vertical-speed-fpm</property>
-      <scale>0.01667</scale>
-    </reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.01</Kp>
-      <Ti>40.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pi-simple-controller>
-    <name>Climb Rate Computer (not route-manager)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <or>
-            <equals>
-              <property>autopilot/locks/altitude</property>
-              <value>altitude-hold</value>
-            </equals>
-            <and>
-              <equals>
-                <property>autopilot/locks/altitude</property>
-                <value>gs1-hold</value>
-              </equals>
-              <equals>
-                <property>autopilot/internal/gs-captured</property>
-                <value>0</value>
-              </equals>
-            </and>
-          </or>
-          <not-equals>
-            <property>autopilot/locks/heading</property>
-            <value>true-heading-hold</value>
-          </not-equals>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/altimeter/indicated-altitude-ft</input>
-    <reference>autopilot/settings/target-altitude-ft</reference>
-    <output>autopilot/internal/target-climb-rate-fps</output>
-    <config>
-      <Kp>0.15</Kp>
-      <Ki>0.005</Ki>
-      <min>-6.67</min>
-      <max>6.67</max>
-    </config>
-  </pi-simple-controller>
-
-  <pi-simple-controller>
-    <name>Climb Rate Computer (route-manager)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <or>
-            <equals>
-              <property>autopilot/locks/altitude</property>
-              <value>altitude-hold</value>
-            </equals>
-            <and>
-              <equals>
-                <property>autopilot/locks/altitude</property>
-                <value>gs1-hold</value>
-              </equals>
-              <equals>
-                <property>autopilot/internal/gs-captured</property>
-                <value>0</value>
-              </equals>
-            </and>
-          </or>
-          <equals>
-            <property>autopilot/locks/heading</property>
-            <value>true-heading-hold</value>
-          </equals>
-        </and>
-      </condition>
-    </enable>
-    <input>instrumentation/altimeter/indicated-altitude-ft</input>
-    <reference>autopilot/settings/target-altitude-ft</reference>
-    <output>autopilot/internal/target-climb-rate-fps</output>
-    <config>
-      <Kp>0.12</Kp>
-      <Ki>0.005</Ki>
-      <min>-16.67</min>
-      <max>16.67</max>
-    </config>
-  </pi-simple-controller>
-
-  <pid-controller>
-    <name>Altitude Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <or>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value>altitude-hold</value>
-          </equals>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value>agl-hold</value>
-          </equals>
-          <and>
-            <equals>
-              <property>autopilot/locks/altitude</property>
-              <value>gs1-hold</value>
-            </equals>
-            <equals>
-              <property>autopilot/internal/gs-captured</property>
-              <value>0</value>
-            </equals>
-          </and>
-        </or>
-      </condition>
-    </enable>
-    <input>velocities/vertical-speed-fps</input>
-    <reference>autopilot/internal/target-climb-rate-fps</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.01</Kp>
-      <Ti>30.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pid-controller>
-    <name>Glideslope Hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <and>
-          <equals>
-            <property>autopilot/locks/altitude</property>
-            <value>gs1-hold</value>
-          </equals>
-          <equals>
-            <property>autopilot/internal/gs-captured</property>
-            <value>1</value>
-          </equals>
-        </and>
-      </condition>
-    </enable>
-    <input>velocities/vertical-speed-fps</input>
-    <reference>instrumentation/navx/gs-rate-of-climb</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.01</Kp>
-      <Ti>40.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <!-- =============================================================== -->
-  <!-- Velocity Modes                                                  -->
-  <!-- =============================================================== -->
-
-  <pid-controller>
-    <name>Auto Throttle</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/speed</property>
-          <value>speed-with-throttle</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>velocities/airspeed-kt</input>
-    <reference>autopilot/settings/target-speed-kt</reference>
-    <output>
-      <property>controls/engines/engine[0]/throttle</property>
-      <property>controls/engines/engine[1]/throttle</property>
-      <property>controls/engines/engine[2]/throttle</property>
-      <property>controls/engines/engine[3]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.05</Kp>
-      <Ti>20.0</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Cruise speed by prop</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <property>autoengineer/allow-speedbyprop</property>
-      </condition>
-    </enable>
-    <input>velocities/airspeed-kt</input>
-    <reference>autoengineer/speedbyprop</reference>
-    <output>
-      <property>controls/engines/engine[0]/propeller-pitch</property>
-      <property>controls/engines/engine[1]/propeller-pitch</property>
-      <property>controls/engines/engine[2]/propeller-pitch</property>
-      <property>controls/engines/engine[3]/propeller-pitch</property>
-    </output>
-    <config>
-      <Kp>0.05</Kp>
-      <Ti>20.0</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Hold manifold pressure (Engine #1)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <greater-than>
-          <expression><property>autoengineer/holdmp</property></expression>
-          <value>0</value>
-        </greater-than>
-      </condition>
-    </enable>
-    <input>engines/engine[0]/mp-inhg</input>
-    <reference>autoengineer/holdmp</reference>
-    <output>
-      <property>controls/engines/engine[0]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.5</Kp>
-      <Ti>1</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Hold manifold pressure (Engine #2)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <greater-than>
-          <expression><property>autoengineer/holdmp</property></expression>
-          <value>0</value>
-        </greater-than>
-      </condition>
-    </enable>
-    <input>engines/engine[1]/mp-inhg</input>
-    <reference>autoengineer/holdmp</reference>
-    <output>
-      <property>controls/engines/engine[1]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.5</Kp>
-      <Ti>1</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Hold manifold pressure (Engine #3)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <greater-than>
-          <expression><property>autoengineer/holdmp</property></expression>
-          <value>0</value>
-        </greater-than>
-      </condition>
-    </enable>
-    <input>engines/engine[2]/mp-inhg</input>
-    <reference>autoengineer/holdmp</reference>
-    <output>
-      <property>controls/engines/engine[2]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.5</Kp>
-      <Ti>1</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-  <pid-controller>
-    <name>Hold manifold pressure (Engine #4)</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <greater-than>
-          <expression><property>autoengineer/holdmp</property></expression>
-          <value>0</value>
-        </greater-than>
-      </condition>
-    </enable>
-    <input>engines/engine[3]/mp-inhg</input>
-    <reference>autoengineer/holdmp</reference>
-    <output>
-      <property>controls/engines/engine[3]/throttle</property>
-    </output>
-    <config>
-      <Kp>0.5</Kp>
-      <Ti>1</Ti>
-      <Td>0.0005</Td>
-      <u_min>0.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-  
-
-  <!-- =============================================================== -->
-  <!-- Untested                                                        -->
-  <!-- =============================================================== -->
-
-  <pi-simple-controller>
-    <name>AGL Hold Stage 1</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>agl-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>position/altitude-agl-ft</input>
-    <reference>autopilot/settings/target-agl-ft</reference>
-    <output>autopilot/internal/target-climb-rate-fps</output>
-    <config>
-      <Kp>0.12</Kp>
-      <Ki>0.0</Ki>
-      <u_min>-16.6667</u_min>
-      <u_max>16.6667</u_max>
-    </config>
-  </pi-simple-controller>
-
-  <pid-controller>
-    <name>AOA hold</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>aoa-hold</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>orientation/alpha-deg</input>
-    <reference>autopilot/settings/target-aoa-deg</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.05</Kp>
-      <Ti>0.5</Ti>
-      <Td>0.00001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pid-controller>
-    <name>Speed Pitch Trim Stage 1</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>speed-with-pitch-trim</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>velocities/airspeed-kt</input>
-    <reference>autopilot/settings/target-speed-kt</reference>
-    <output>autopilot/settings/target-pitch-deg</output>
-    <config>
-      <Kp>-0.1</Kp>
-      <Ti>30.0</Ti>
-      <Td>0.0001</Td>
-      <u_min>-5.0</u_min>
-      <u_max>5.0</u_max>
-    </config>
-  </pid-controller>
-
-  <pid-controller>
-    <name>Speed Pitch Trim Stage 2</name>
-    <debug>false</debug>
-    <enable>
-      <condition>
-        <equals>
-          <property>autopilot/locks/altitude</property>
-          <value>speed-with-pitch-trim</value>
-        </equals>
-      </condition>
-    </enable>
-    <input>orientation/pitch-deg</input>
-    <reference>autopilot/settings/target-pitch-deg</reference>
-    <output>autopilot/internal/servos/elevator-trim</output>
-    <config>
-      <Kp>-0.05</Kp>
-      <Ti>1.0</Ti>
-      <Td>0.00001</Td>
-      <u_min>-1.0</u_min>
-      <u_max>1.0</u_max>
-    </config>
-  </pid-controller>
+	
+	<filter>
+		<name>Nav Course Error</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>
+			<property>/instrumentation/navx/radials/selected-deg</property>
+			<offset>
+				<property>/instrumentation/heading-indicator/indicated-heading-deg</property>
+				<scale>-1.0</scale>
+			</offset>
+		</input>
+		<output>/autopilot/internal/nav-course-error</output>
+		<period>
+			<min>-180</min>
+			<max>180</max>
+		</period>
+	</filter>
+	
+	<filter>
+		<name>Internal Vertical Speed</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>/instrumentation/gps/indicated-vertical-speed</input>
+		<output>/autopilot/internal/vert-speed-fpm</output>
+	</filter>
+	
+	<filter>
+		<name>Vertical Speed Filter</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<feedback-if-disabled>true</feedback-if-disabled>
+		<initialize-to>output</initialize-to>
+		<input>/autopilot/settings/vertical-speed-fpm</input>
+		<output>/autopilot/internal/vertical-speed-fpm</output>
+		<max-rate-of-change>
+			<condition>
+				<equals>
+					<property>/autopilot/locks/altitude</property>
+					<value>vertical-speed-hold</value>
+				</equals>
+			</condition>
+			<value>300</value>
+		</max-rate-of-change>
+		<max-rate-of-change>2000</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>Nav G/S FPM Calc</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>/instrumentation/navx/gs-rate-of-climb-fpm</input>
+		<output>/autopilot/internal/nav-rate-of-climb-fpm</output>
+		<min>-1200</min>
+		<max>0</max>
+	</filter>
+	
+	<flipflop> <!-- Author: Richard Senior -->
+		<name>Wing Leveler Heading Hold</name>
+		<debug>false</debug>
+		<type>SR</type>
+		<S>
+			<and>
+				<equals>
+					<property>/autopilot/locks/heading</property>
+					<value>wing-leveler</value>
+				</equals>
+				<less-than>
+					<expression>
+						<abs><property>/autopilot/settings/target-bank-deg</property></abs>
+					</expression>
+					<value>1.0</value>
+				</less-than>
+				<less-than>
+					<expression>
+						<abs><property>/orientation/roll-deg</property></abs>
+					</expression>
+					<value>1.0</value>
+				</less-than>
+			</and>
+		</S>
+		<R>
+			<or>
+				<not-equals>
+					<property>/autopilot/locks/heading</property>
+					<value>wing-leveler</value>
+				</not-equals>
+				<greater-than-equals>
+					<expression>
+						<abs><property>/autopilot/settings/target-bank-deg</property></abs>
+					</expression>
+					<value>1.0</value>
+				</greater-than-equals>
+			</or>
+		</R>
+		<output>/autopilot/internal/wing-leveler-heading-hold</output>
+	</flipflop>
+	
+	<flipflop> <!-- Author: Richard Senior -->
+		<name>Glideslope Capture</name>
+		<type>SR</type>
+		<debug>false</debug>
+		<S>
+			<and>
+				<equals>
+					<property>/autopilot/locks/altitude</property>
+					<value>gs1-hold</value>
+				</equals>
+				<property>/instrumentation/navx/gs-in-range</property>
+				<less-than-equals> <!-- Modified by Josh, smoother capture -->
+					<property>/instrumentation/navx/gs-needle-deflection</property>
+					<value>0.2</value>
+				</less-than-equals>
+			</and>
+		</S>
+		<R>
+			<or>
+				<not-equals>
+					<property>/autopilot/locks/altitude</property>
+					<value>gs1-hold</value>
+				</not-equals>
+				<not><property>/instrumentation/navx/gs-in-range</property></not>
+			</or>
+		</R>
+		<output>/autopilot/internal/gs-captured</output>
+	</flipflop>
+	
+	<!-- Roll Axis -->
+	<filter>
+		<name>IT-CONTROLLER: Bank Angle Select</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<and>
+					<equals>
+						<property>/autopilot/locks/heading</property>
+						<value>wing-leveler</value>
+					</equals>
+					<not><property>/autopilot/internal/wing-leveler-heading-hold</property></not>
+				</and>
+			</condition>
+		</enable>
+		<input>/autopilot/settings/target-bank-deg</input>
+		<output>/autopilot/internal/target-roll-deg</output>
+	</filter>
+	
+	<filter>
+		<name>IT-CONTROLLER: Heading/VOR/LOC</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>
+			<expression>
+				<table>
+					<property>/velocities/airspeed-kt</property>
+					<entry><ind>130</ind><dep>0.8</dep></entry>
+					<entry><ind>300</ind><dep>2.5</dep></entry>
+				</table>
+			</expression>
+		</gain>
+		<enable>
+			<condition>
+				<or>
+					<equals>
+						<property>/autopilot/locks/heading</property>
+						<value>dg-heading-hold</value>
+					</equals>
+					<property>/autopilot/internal/wing-leveler-heading-hold</property>
+					<equals>
+						<property>/autopilot/locks/heading</property>
+						<value>nav1-hold</value>
+					</equals>
+				</or>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/heading-error-deg</input>
+		<reference>0</reference>
+		<output>/autopilot/internal/target-roll-deg</output>
+		<min>
+			<property>/controls/autoflight/bank-angle-select</property>
+			<scale>-1.0</scale>
+		</min>
+		<max>/controls/autoflight/bank-angle-select</max>
+	</filter>
+	
+	<filter>
+		<name>System Command: Roll Target Inactive Sync</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>autopilot/locks/heading</property>
+					<value></value>
+				</equals>
+			</condition>
+		</enable>
+		<input>/orientation/roll-deg</input>
+		<output>/autopilot/internal/target-roll-deg</output>
+		<min>
+			<property>/controls/autoflight/bank-angle-select</property>
+			<scale>-1.0</scale>
+		</min>
+		<max>/controls/autoflight/bank-angle-select</max>
+	</filter>
+	
+	<filter>
+		<name>System Command: Target Roll Filter</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<input>/autopilot/internal/target-roll-deg</input>
+		<output>/autopilot/internal/target-roll</output>
+		<max-rate-of-change>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/heading</property>
+					<value></value>
+				</not-equals>
+			</condition>
+			<value>6</value>
+		</max-rate-of-change>
+		<max-rate-of-change>50</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Roll Rate Target</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>-0.6</gain>
+		<input>/orientation/roll-deg</input>
+		<reference>/autopilot/internal/target-roll</reference>
+		<output>/autopilot/internal/roll-rate</output>
+		<min>-4</min>
+		<max>4</max>
+	</filter>
+	
+	<pid-controller>
+		<name>System Command: Aileron</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/heading</property>
+					<value></value>
+				</not-equals>
+			</condition>
+		</enable>
+		<input>/orientation/roll-rate-degps</input>
+		<reference>/autopilot/internal/roll-rate</reference>
+		<output>/autopilot/internal/aileron-cmd</output>
+		<config>
+			<Kp>
+				<expression>
+					<table>
+						<property>/velocities/airspeed-kt</property>
+						<entry><ind>130</ind><dep>0.08</dep></entry>
+						<entry><ind>300</ind><dep>0.02</dep></entry>
+					</table>
+				</expression>
+			</Kp>
+			<Ti>1.0</Ti>
+			<Td>0.0001</Td>
+			<u_min>-1.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Aileron Filter</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<feedback-if-disabled>true</feedback-if-disabled>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/heading</property>
+					<value></value>
+				</not-equals>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/aileron-cmd</input>
+		<output>/controls/flight/aileron</output>
+		<max-rate-of-change>1.2</max-rate-of-change>
+	</filter>
+	
+	<!-- Pitch Axis -->
+	<filter>
+		<name>IT-CONTROLLER: Pitch Angle Select</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>/autopilot/locks/altitude</property>
+					<value>pitch-hold</value>
+				</equals>
+			</condition>
+		</enable>
+		<input>/autopilot/settings/target-pitch-deg</input>
+		<output>/autopilot/internal/target-pitch-deg</output>
+	</filter>
+	
+	<filter>
+		<name>IT-CONTROLLER: Altitude Capture/Hold</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>-5</gain>
+		<input>
+			<expression>
+				<sum>
+					<property>/instrumentation/altimeter/indicated-altitude-ft</property>
+					<value>-2</value>
+				</sum>
+			</expression>
+		</input>
+		<reference>/autopilot/settings/target-altitude-ft</reference>
+		<output>/autopilot/internal/target-fpm-alt</output>
+		<min>-500</min>
+		<max>500</max>
+	</filter>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: FPM Hold</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<or>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>altitude-hold</value>
+					</equals>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>gs1-hold</value>
+					</equals>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>vertical-speed-hold</value>
+					</equals>
+				</or>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/vert-speed-fpm</input>
+		<reference>
+			<condition>
+				<and>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>gs1-hold</value>
+					</equals>
+					<property>/autopilot/internal/gs-captured</property>
+				</and>
+			</condition>
+			<property>/autopilot/internal/nav-rate-of-climb-fpm</property>
+		</reference>
+		<reference>
+			<condition>
+				<or>
+					<equals>
+						<property>/autopilot/locks/altitude</property>
+						<value>altitude-hold</value>
+					</equals>
+					<and>
+						<equals>
+							<property>/autopilot/locks/altitude</property>
+							<value>gs1-hold</value>
+						</equals>
+						<not><property>/autopilot/internal/gs-captured</property></not>
+					</and>
+				</or>
+			</condition>
+			<property>/autopilot/internal/target-fpm-alt</property>
+		</reference>
+		<reference>/autopilot/internal/vertical-speed-fpm</reference>
+		<output>/autopilot/internal/target-pitch-deg</output>
+		<config>
+			<Kp>
+				<expression>
+					<table>
+						<property>/velocities/airspeed-kt</property>
+						<entry><ind>140</ind><dep>0.0029</dep></entry>
+						<entry><ind>360</ind><dep>0.0009</dep></entry>
+					</table>
+				</expression>
+			</Kp>
+			<Ti>2.5</Ti>
+			<Td>0.0001</Td>
+			<u_min>
+				<expression>
+					<max>
+						<dif>
+							<property>/orientation/pitch-deg</property>
+							<value>5</value>
+						</dif>
+						<value>-10</value>
+					</max>
+				</expression>
+			</u_min>
+			<u_max>
+				<expression>
+					<min>
+						<sum>
+							<property>/orientation/pitch-deg</property>
+							<value>5</value>
+						</sum>
+						<value>20</value>
+					</min>
+				</expression>
+			</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Pitch Target Inactive Sync</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<equals>
+					<property>autopilot/locks/altitude</property>
+					<value></value>
+				</equals>
+			</condition>
+		</enable>
+		<input>/orientation/pitch-deg</input>
+		<output>/autopilot/internal/target-pitch-deg</output>
+		<min>-10</min>
+		<max>20</max>
+	</filter>
+	
+	<filter>
+		<name>System Command: Pitch Rate Target</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>-0.4</gain>
+		<input>/orientation/pitch-deg</input>
+		<reference>/autopilot/internal/target-pitch-deg</reference>
+		<output>/autopilot/internal/pitch-rate</output>
+		<min>-1.25</min>
+		<max>1.25</max>
+	</filter>
+	
+	<pid-controller>
+		<name>System Command: Elevator</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/altitude</property>
+					<value></value>
+				</not-equals>
+			</condition>
+		</enable>
+		<input>/orientation/pitch-rate-degps</input>
+		<reference>/autopilot/internal/pitch-rate</reference>
+		<output>/autopilot/internal/elevator-cmd</output>
+		<config>
+			<Kp>
+				<expression>
+					<table>
+						<property>/velocities/airspeed-kt</property>
+						<entry><ind>130</ind><dep>-0.16</dep></entry>
+						<entry><ind>300</ind><dep>-0.04</dep></entry>
+					</table>
+				</expression>
+			</Kp>
+			<Ti>0.5</Ti>
+			<Td>0.001</Td>
+			<u_min>-1.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Elevator Filter</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<feedback-if-disabled>true</feedback-if-disabled>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<not-equals>
+					<property>autopilot/locks/altitude</property>
+					<value></value>
+				</not-equals>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/elevator-cmd</input>
+		<output>/controls/flight/elevator</output>
+		<max-rate-of-change>1.2</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Elevator Trim</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<feedback-if-disabled>true</feedback-if-disabled>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<and>
+					<not-equals>
+						<property>autopilot/locks/altitude</property>
+						<value></value>
+					</not-equals>
+					<or>
+						<greater-than>
+							<property>/autopilot/internal/elevator-cmd</property>
+							<value>0.02</value>
+						</greater-than>
+						<less-than>
+							<property>/autopilot/internal/elevator-cmd</property>
+							<value>-0.02</value>
+						</less-than>
+					</or>
+				</and>
+			</condition>
+		</enable>
+		<input>
+			<condition>
+				<greater-than>
+					<property>/autopilot/internal/elevator-cmd</property>
+					<value>0.02</value>
+				</greater-than>
+			</condition>
+			<value>1</value>
+		</input>
+		<input>
+			<condition>
+				<less-than>
+					<property>/autopilot/internal/elevator-cmd</property>
+					<value>-0.02</value>
+				</less-than>
+			</condition>
+			<value>-1</value>
+		</input>
+		<output>/controls/flight/elevator-trim</output>
+		<min>-1.0</min>
+		<max>1.0</max>
+		<max-rate-of-change>
+			<expression>
+				<table>
+					<abs><property>/autopilot/internal/elevator-cmd</property></abs>
+					<entry><ind>0.02</ind><dep>0.001</dep></entry>
+					<entry><ind>0.10</ind><dep>0.010</dep></entry>
+				</table>
+			</expression>
+		</max-rate-of-change>
+	</filter>
+	
+	<!-- Auto Engineer Throttle Controls -->
+	<logic>
+		<input>
+			<and>
+				<property>/autoengineer/allow-speedbythrottle</property>
+				<equals>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</equals>
+			</and>
+		</input>
+		<output>/autopilot/internal/speed-on-throttle-active</output>
+	</logic>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Speed On Throttle</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+		</enable>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<reference>/autopilot/settings/target-speed-kt</reference>
+		<output>/autopilot/internal/target-mp-inhg</output>
+		<config>
+			<Kp>3.5</Kp>
+			<Ti>7.5</Ti>
+			<Td>0.001</Td>
+			<u_min>10</u_min>
+			<u_max>65</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Manifold Pressure Target Inactive Sync</name>
+		<debug>false</debug>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<not><property>/autopilot/internal/speed-on-throttle-active</property></not>
+			</condition>
+		</enable>
+		<input>
+			<expression>
+				<max>
+					<property>/engines/engine[0]/mp-inhg</property>
+					<property>/engines/engine[1]/mp-inhg</property>
+					<property>/engines/engine[2]/mp-inhg</property>
+					<property>/engines/engine[3]/mp-inhg</property>
+				</max>
+			</expression>
+		</input>
+		<output>/autopilot/internal/target-mp-inhg</output>
+		<min>10</min>
+		<max>65</max>
+	</filter>
+	
+	<logic>
+		<input>
+			<or>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+				<property>/autoengineer/allow-speedbythrottle</property>
+			</or>
+		</input>
+		<output>/autopilot/internal/throttle-active</output>
+	</logic>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Manifold Pressure 1</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/engines/engine[0]/mp-inhg</input>
+		<reference>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+			<property>/autopilot/internal/target-mp-inhg</property>
+		</reference>
+		<reference>/autoengineer/holdmp</reference>
+		<output>/autopilot/internal/throttle-cmd[0]</output>
+		<config>
+			<Kp>0.01</Kp>
+			<Ti>1.5</Ti>
+			<Td>0.01</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Manifold Pressure 2</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/engines/engine[1]/mp-inhg</input>
+		<reference>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+			<property>/autopilot/internal/target-mp-inhg</property>
+		</reference>
+		<reference>/autoengineer/holdmp</reference>
+		<output>/autopilot/internal/throttle-cmd[1]</output>
+		<config>
+			<Kp>0.01</Kp>
+			<Ti>1.5</Ti>
+			<Td>0.01</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Manifold Pressure 3</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/engines/engine[2]/mp-inhg</input>
+		<reference>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+			<property>/autopilot/internal/target-mp-inhg</property>
+		</reference>
+		<reference>/autoengineer/holdmp</reference>
+		<output>/autopilot/internal/throttle-cmd[2]</output>
+		<config>
+			<Kp>0.01</Kp>
+			<Ti>1.5</Ti>
+			<Td>0.01</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Manifold Pressure 4</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/engines/engine[3]/mp-inhg</input>
+		<reference>
+			<condition>
+				<property>/autopilot/internal/speed-on-throttle-active</property>
+			</condition>
+			<property>/autopilot/internal/target-mp-inhg</property>
+		</reference>
+		<reference>/autoengineer/holdmp</reference>
+		<output>/autopilot/internal/throttle-cmd[3]</output>
+		<config>
+			<Kp>0.01</Kp>
+			<Ti>1.5</Ti>
+			<Td>0.01</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Throttle 1</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/throttle-cmd[0]</input>
+		<output>/controls/engines/engine[0]/throttle</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Throttle 2</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/throttle-cmd[1]</input>
+		<output>/controls/engines/engine[1]/throttle</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Throttle 3</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/throttle-cmd[2]</input>
+		<output>/controls/engines/engine[2]/throttle</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
+	
+	<filter>
+		<name>System Command: Throttle 4</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/throttle-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/throttle-cmd[3]</input>
+		<output>/controls/engines/engine[3]/throttle</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
+	
+	<logic>
+		<input>
+			<and>
+				<greater-than>
+					<property>/autoengineer/holdmp</property>
+					<value>0</value>
+				</greater-than>
+				<property>/autoengineer/allow-speedbyprop</property>
+			</and>
+		</input>
+		<output>/autopilot/internal/propeller-pitch-active</output>
+	</logic>
+	
+	<pid-controller>
+		<name>IT-CONTROLLER: Speed On Prop Pitch</name>
+		<debug>false</debug>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/propeller-pitch-active</property>
+			</condition>
+		</enable>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<reference>/autopilot/settings/target-speed-kt</reference>
+		<output>/autopilot/internal/propeller-pitch-cmd</output>
+		<config>
+			<Kp>0.3</Kp>
+			<Ti>10</Ti>
+			<Td>0.1</Td>
+			<u_min>0.0</u_min>
+			<u_max>1.0</u_max>
+		</config>
+	</pid-controller>
+	
+	<filter>
+		<name>System Command: Propeller Pitch 1</name>
+		<debug>false</debug>
+		<type>noise-spike</type>
+		<initialize-to>output</initialize-to>
+		<enable>
+			<condition>
+				<property>/autopilot/internal/propeller-pitch-active</property>
+			</condition>
+		</enable>
+		<input>/autopilot/internal/propeller-pitch-cmd</input>
+		<output>/controls/engines/engine[0]/propeller-pitch</output>
+		<output>/controls/engines/engine[1]/propeller-pitch</output>
+		<output>/controls/engines/engine[2]/propeller-pitch</output>
+		<output>/controls/engines/engine[3]/propeller-pitch</output>
+		<max-rate-of-change>0.3</max-rate-of-change>
+	</filter>
 
 </PropertyList>

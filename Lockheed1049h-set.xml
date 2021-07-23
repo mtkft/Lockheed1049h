@@ -53,12 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <item>
             <label>Engineer</label>
             <binding>
-              <command>nasal</command>
-              <script><![CDATA[
-                var node = "sim/gui/dialogs/engineer/dialog";
-                var path = "Dialogs/Lockheed1049h-engineer.xml";
-                gui.Dialog.new(node, path).open();
-              ]]></script>
+              <command>dialog-show</command>
+              <dialog-name>engineer</dialog-name>
             </binding>
           </item>
           <!--item>
@@ -125,23 +121,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           <item>
             <label>Preferences</label>
             <binding>
-              <command>nasal</command>
-              <script><![CDATA[
-                var node = "sim/gui/dialogs/menu/dialog";
-                var path = "Dialogs/Lockheed1049h-menu.xml";
-                gui.Dialog.new(node, path).open();
-              ]]></script>
+              <command>dialog-show</command>
+              <dialog-name>preferences</dialog-name>
             </binding>
           </item>
           <item>
             <label>Refuelling</label>
             <binding>
-              <command>nasal</command>
-              <script><![CDATA[
-                var node = "sim/gui/dialogs/refuel/dialog";
-                var path = "Dialogs/Lockheed1049h-refuel.xml";
-                gui.Dialog.new(node, path).open();
-              ]]></script>
+              <command>dialog-show</command>
+              <dialog-name>refuel</dialog-name>
             </binding>
           </item>
         </menu>

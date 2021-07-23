@@ -20,6 +20,14 @@
       <script>Lockheed1049h.door_crew.toggle()</script>
     </binding>
   </key>
+  
+  <key n="5">
+    <name>Ctrl+E</name>
+    <binding>
+      <command>dialog-show</command>
+      <dialog-name>engineer</dialog-name>
+    </binding>
+  </key>
 
   <key n="12">
     <name>Ctrl-L</name>

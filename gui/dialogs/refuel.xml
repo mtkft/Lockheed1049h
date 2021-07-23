@@ -2,8 +2,7 @@
 
 <PropertyList>
 
-  <name>Lockheed1049h-menu</name>
-  <modal>false</modal>
+  <name>refuel</name>
   <layout>vbox</layout>
 
   <nasal>

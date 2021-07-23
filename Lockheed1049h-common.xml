@@ -115,7 +115,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <file>Aircraft/Generic/autochecklist.nas</file>
     </autochecklist>
     <Lockheed1049h>
-      <file>Nasal/Lockheed1049h-menu.nas</file>
       <file>Nasal/Lockheed1049h-lights.nas</file>
       <file>Nasal/Lockheed1049h-doors.nas</file>
       <file>Nasal/Lockheed1049h-prop_reverse.nas</file>
@@ -258,7 +257,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <aircraft-version>3.0.6</aircraft-version>
 
-    <author>Gary Neely, Marc Kraus, Ludovic Brenta, Richard Senior, TOASTER, pinto</author>
+    <author>Gary Neely, Marc Kraus, Ludovic Brenta, Richard Senior, TOASTER, pinto, Josh Davidson</author>
     <chase-distance-m type="double" archive="y">-48.0</chase-distance-m>
 
     <checklists>
@@ -367,7 +366,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </sound>
 
     <systems>
-      <autopilot>
+      <autopilot n="0">
+        <path>Systems/instrumentation-filters.xml</path>
+      </autopilot>
+      <autopilot n="1">
         <path>Systems/Lockheed1049h-autopilot.xml</path>
       </autopilot>
       <electrical>
@@ -378,9 +380,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       </property-rule>
       <property-rule n="101">
         <path>Systems/load-factor-filters.xml</path>
-      </property-rule>
-      <property-rule n="102">
-        <path>Systems/instrumentation-filters.xml</path>
       </property-rule>
     </systems>
 
