@@ -116,6 +116,46 @@
           </binding>
         </checkbox>
       </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>5</default-padding>
+        <text>
+          <halign>left</halign>
+          <label>Rockwell-Collins DME-40</label>
+        </text>
+        <checkbox>
+          <halign>right</halign>
+          <property>sim/model/options/show-dme</property>
+          <binding>
+            <command>property-toggle</command>
+            <property>sim/model/options/show-dme</property>
+          </binding>
+        </checkbox>
+      </group>
+      <group>
+        <layout>hbox</layout>
+        <default-padding>5</default-padding>
+        <text>
+          <halign>left</halign>
+          <label>Garmin GPS 155 TSO</label>
+        </text>
+        <checkbox>
+          <halign>right</halign>
+          <property>sim/model/options/show-gps</property>
+          <binding>
+            <command>property-toggle</command>
+            <property>sim/model/options/show-gps</property>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+                if (!getprop('/sim/model/options/show-gps')) {
+                    setprop('/instrumentation/nav[0]/slaved-to-gps', 0);
+                }
+            </script>
+          </binding>
+        </checkbox>
+      </group>
     </group>
   </group>
   <hrule><dummy/></hrule>

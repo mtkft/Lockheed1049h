@@ -423,7 +423,6 @@
     </offsets>
   </model>
 
-  <!--
   <model>
     <name>fueling_notice</name>
     <path>Aircraft/Lockheed1049h/Models/Instruments/fueling_notice.xml</path>
@@ -433,7 +432,30 @@
       <z-m>1.150</z-m>
     </offsets>
   </model>
-  -->
+
+  <animation>
+    <type>select</type>
+    <object-name>swplate_gpsslave</object-name>
+    <condition>
+      <property>/sim/model/options/show-gps</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>fueling_notice</object-name>
+    <condition>
+      <not><property>/sim/model/options/show-gps</property></not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>dme40</object-name>
+    <condition>
+      <property>/sim/model/options/show-dme</property>
+    </condition>
+  </animation>
 
   <model>
     <name>autopilot_warn</name>

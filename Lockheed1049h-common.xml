@@ -253,6 +253,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <path>fdm/jsbsim/inertia/pointmass-weight-lbs[17]</path>
       <path>fdm/jsbsim/inertia/pointmass-weight-lbs[18]</path>
       <path>fdm/jsbsim/inertia/pointmass-weight-lbs[19]</path>
+      <path>sim/model/options</path>
     </aircraft-data>
 
     <aircraft-version>3.0.6</aircraft-version>
@@ -335,6 +336,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <hide-yokes type="bool" archive="y">false</hide-yokes>
         <show-heading-bug type="bool" archive="y">false</show-heading-bug>
         <refuel-error-pct type="double" archive="y">1.0</refuel-error-pct>
+        <show-gps type="bool" archive="y">false</show-gps>
+        <show-dme type="bool" archive="y">false</show-dme>
       </options>
       <pushback>
         <kp type="double">460</kp>
