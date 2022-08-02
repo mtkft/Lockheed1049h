@@ -31,8 +31,8 @@
     <object-name>SwSlaveGPS</object-name>
     <property>instrumentation/nav[0]/slaved-to-gps</property>
     <interpolation>
-      <entry><ind>0</ind><dep>-25</dep></entry>
-      <entry><ind>1</ind><dep> 25</dep></entry>
+      <entry><ind>0</ind><dep> 25</dep></entry>
+      <entry><ind>1</ind><dep>-25</dep></entry>
     </interpolation>
     <center>
       <x-m>-0.002</x-m>
