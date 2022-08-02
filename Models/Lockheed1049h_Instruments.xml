@@ -33,6 +33,7 @@
     <object-name>rpm_L</object-name>
     <object-name>rpm_R</object-name>
     <object-name>swplate_voradf</object-name>
+    <object-name>swplate_gpsslave</object-name>
     <object-name>compass</object-name>
     <object-name>fuzzy dice</object-name>
     <object-name>fueling_notice</object-name>
@@ -413,6 +414,17 @@
   </model>
 
   <model>
+    <name>swplate_gpsslave</name>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/swplate_gpsslave.xml</path>
+    <offsets>
+      <x-m>-15.460</x-m>
+      <y-m>0</y-m>
+      <z-m>1.130</z-m>
+    </offsets>
+  </model>
+
+  <!--
+  <model>
     <name>fueling_notice</name>
     <path>Aircraft/Lockheed1049h/Models/Instruments/fueling_notice.xml</path>
     <offsets>
@@ -421,6 +433,7 @@
       <z-m>1.150</z-m>
     </offsets>
   </model>
+  -->
 
   <model>
     <name>autopilot_warn</name>
