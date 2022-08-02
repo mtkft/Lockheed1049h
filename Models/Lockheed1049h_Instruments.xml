@@ -105,7 +105,7 @@
         <power>systems/electrical/outputs/dme[0]</power>
         <switch-mode>instrumentation/dme[0]/switch-position</switch-mode>
         <switch-nav>instrumentation/dme[0]/switch-nav</switch-nav>
-        <dim>instrumentation/dme[0]/dim</dim>
+        <dim>/controls/lighting/panel-norm</dim>
         <in-range>instrumentation/dme[0]/in-range</in-range>
         <distance-nm>instrumentation/dme[0]/indicated-distance-nm</distance-nm>
         <time-min>instrumentation/dme[0]/indicated-time-min</time-min>
