@@ -449,8 +449,8 @@
     <type>knob</type>
     <object-name>PropPitch</object-name>
     <property>fdm/jsbsim/fcs/advance-pos-norm[0]</property>
-    <factor>-47</factor>
-    <offset-deg>47</offset-deg>   
+    <factor>-94</factor>
+    <offset-deg>94</offset-deg>
     <center>
       <x-m>-15.496</x-m>
       <y-m>0.0</y-m>
