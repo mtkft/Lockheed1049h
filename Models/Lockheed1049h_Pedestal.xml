@@ -55,9 +55,9 @@
     <object-name>PedestalShelfText</object-name>
   </animation>
 
-  <!-- see my cockpit in darkness --> 
+  <!-- see my cockpit in darkness -->
   <animation>
-    <type>material</type> 
+    <type>material</type>
     <object-name>ParkingBrakeTubeL</object-name>
     <object-name>ParkingBrakeTubeR</object-name>
     <object-name>ParkingBrakeLeverL</object-name>
@@ -114,7 +114,7 @@
 
   <animation>
     <type>material</type>
-    <object-name>PedestalShelfText</object-name>  
+    <object-name>PedestalShelfText</object-name>
     <condition>
       <not><property>sim/rendering/rembrandt/enabled</property></not>
     </condition>
@@ -169,7 +169,7 @@
   </animation>
   <animation>
     <type>pick</type>
-    <object-name>ParkingBrakeLeverL</object-name>  
+    <object-name>ParkingBrakeLeverL</object-name>
     <object-name>ParkingBrakeLeverR</object-name>
     <action>
       <button>0</button>
@@ -449,8 +449,8 @@
     <type>knob</type>
     <object-name>PropPitch</object-name>
     <property>fdm/jsbsim/fcs/advance-pos-norm[0]</property>
-    <factor>-47</factor>
-    <offset-deg>47</offset-deg>   
+    <factor>-94</factor>
+    <offset-deg>94</offset-deg>
     <center>
       <x-m>-15.496</x-m>
       <y-m>0.0</y-m>
@@ -961,5 +961,5 @@
       </binding>
     </action>
   </animation>
-  
+
 </PropertyList>
