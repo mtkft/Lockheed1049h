@@ -37,6 +37,8 @@ var nav1sbykhz	= props.globals.getNode("/instrumentation/nav[0]/frequencies/disp
 var nav2sbystr	= props.globals.getNode("/instrumentation/nav[1]/frequencies/standby-mhz-fmt");
 var nav2sbymhz	= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sby-mhz");
 var nav2sbykhz	= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sby-khz");
+var nav1radial  = props.globals.getNode("/instrumentation/nav[0]/radials/selected-deg");
+var nav2radial  = props.globals.getNode("/instrumentation/nav[1]/radials/selected-deg");
 
 							# This initializes the values
 var navtemp = split(".",nav1selstr.getValue());
@@ -116,6 +118,15 @@ setlistener(comm2sby, func {
   var commtemp = split(".",commstr);
   comm2sbymhz.setValue(commtemp[0]);
   comm2sbykhz.setValue(commtemp[1]);
+});
+
+# When slaved to GPS, the NAV1 radial can be fractional, but when switching
+# back to regular VOR mode, we need to undo this and round to the nearest
+# integer.
+setlistener('/instrumentation/nav[0]/slaved-to-gps', func (node) {
+    if (!node.getBoolValue()) {
+        nav1radial.setValue(math.floor(nav1radial.getValue() or 0));
+    }
 });
 
 							# Set comm support vars to startups
