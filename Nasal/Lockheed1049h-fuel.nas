@@ -488,8 +488,9 @@ setlistener ("/sim/speed-up", func (speedup) {
 });
 
 var fuelcalltimer = maketimer(60, func {
-  setprop("sim/messages/copilot",getprop("sim/time/local-time-string")~"--"~"Total fuel remaining: "~getprop("consumables/fuel/total-fuel-lbs")~" lb.");
-  logprint(3,getprop("sim/time/local-time-string")~"--"~"Total fuel remaining: "~getprop("consumables/fuel/total-fuel-lbs")~" lb.")
+  logstr = "FUEL CALL--"~getprop("sim/time/local-time-string")~"--"~"fuel remaining: "~getprop("consumables/fuel/total-fuel-lbs")~"--"~"gross weight: "~getprop("fdm/jsbsim/inertia/weight-lbs");
+  setprop("sim/messages/copilot",logstr);
+  logprint(3,logstr)
 });
 fuelcalltimer.simulatedTime = 1;
 
