@@ -82,6 +82,42 @@
           <binding><command>dialog-apply</command></binding>
         </checkbox>
       </group>
+      <group>
+	<layout>hbox</layout>
+	<default-padding>3</default-padding>
+        <text>
+          <halign>left</halign>
+          <label>Report fuel quantity every</label>
+        </text>
+	<input>
+          <width>250</width>
+          <height>25</height>
+          <property>autoengineer/fuel-report-rate</property>
+	  <label>min</label>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </input>
+	<button>
+	  <legend>Start</legend>
+	  <binding>
+	    <command>nasal</command>
+	    <script>
+	      Lockheed1049h.startCallingFuel()
+	    </script>
+	  </binding>
+	</button>
+	<button>
+	  <legend>Stop</legend>
+	  <binding>
+	    <command>nasal</command>
+	    <script>
+	      Lockheed1049h.stopCallingFuel()
+	    </script>
+	  </binding>
+	</button>
+      </group>
       <hrule><dummy/></hrule>
       <group>
         <layout>hbox</layout>

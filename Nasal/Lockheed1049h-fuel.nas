@@ -486,3 +486,22 @@ setlistener ("/sim/speed-up", func (speedup) {
     fuel_totalizer.restart (10.0 / speedup.getValue());
   }
 });
+
+var fuelcalltimer = maketimer(60, func {
+  setprop("sim/messages/copilot",getprop("sim/time/local-time-string")~"--"~"Total fuel remaining: "~getprop("consumables/fuel/total-fuel-lbs")~" lb.");
+  logprint(3,getprop("sim/time/local-time-string")~"--"~"Total fuel remaining: "~getprop("consumables/fuel/total-fuel-lbs")~" lb.")
+});
+fuelcalltimer.simulatedTime = 1;
+
+var startCallingFuel = func {
+  interval=getprop("autoengineer/fuel-report-rate")*60.0;
+  if (interval) {
+    fuelcalltimer.restart(interval)
+  } else {
+  setprop("sim/messages/copilot","Interval must be nonzero!")
+  }
+}
+
+var stopCallingFuel = func {
+  fuelcalltimer.stop()
+}
