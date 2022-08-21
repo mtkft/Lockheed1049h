@@ -71,7 +71,7 @@ Most simply, assume a fuel burn of 400 gallons (2400 pounds) per hour. This cert
 
 More advanced estimations of fuel burn can be made using a known function of instantaneous fuel burn versus instantaneous gross weight. Generally, for a zero-fuel weight Z and a flight time T, the fuel quantity to load follows
 F = Z * ( e^[-KT] - 1 )
-where K has units lb/h / h => h^-1 (from dividing fuel burn by gross weight). Develop your own data from flight logging or use a rough datum calculated September 2021 by TOASTER: K = -0.0289434551812329
+where K has units lb/h / h => h^-1 (from dividing fuel burn by gross weight). Develop your own data from flight logging or use a K calculated August 2022 by TOASTER: K = -0.0245020341394753
 
 Calculus explanation of the above (for nerds):
 
@@ -81,6 +81,7 @@ This first-order differential equation resolves to the form
 W = W(0) * e^[KT]
 where W(0) is the gross weight before any flight time elapses (T=0).
 Some more algebra reveals that
-W(0) = W / e^[-KT]
+W(0) = W * e^[-KT]
 If the gross weight before flying is defined to be the zero-fuel weight plus that of the block fuel (W(0) = Z + F), then
-F = ( Z / e^[-KT] ) - Z = Z * ( e^[-KT] - 1 )
+F = ( Z * e^[-KT] ) - Z
+  = Z * ( e^[-KT] - 1 )
