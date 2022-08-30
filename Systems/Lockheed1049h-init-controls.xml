@@ -88,8 +88,18 @@
       <enabled type="bool">0</enabled>
       <state type="bool">0</state>
     </beacon>
+
     <cabin type="double">0</cabin>
-    <chart type="double">0</chart>
+
+    <dome type="double">0</dome>
+    <dome-brightness type="double">0</dome-brightness>
+    <chart type="bool">0</chart>
+    <chart-brightness type="double">0</chart-brightness>
+    <panel-switch type="bool">0</panel-switch>
+    <panel-brightness-main type="double">0</panel-brightness-main>
+    <panel-brightness-ohp type="double">0</panel-brightness-ohp>
+    <engineer-brightness type="double">0</engineer-brightness>
+    <engineer-color type="bool">0</engineer-color>
   </lighting>
 
   <switches>

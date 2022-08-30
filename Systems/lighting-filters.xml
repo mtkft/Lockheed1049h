@@ -1,0 +1,59 @@
+<PropertyList>
+    <filter>
+        <type>gain</type>
+        <gain>1</gain>
+        <input>
+            <condition>
+                <property>/controls/lighting/panel-switch</property>
+            </condition>
+            <property>/controls/lighting/panel-brightness-main</property>
+        </input>
+        <output>/controls/lighting/panel-norm-main</output>
+        <output>/controls/lighting/panel-norm</output>
+    </filter>
+
+    <filter>
+        <type>gain</type>
+        <gain>1</gain>
+        <input>
+            <condition>
+                <property>/controls/lighting/panel-switch</property>
+            </condition>
+            <property>/controls/lighting/panel-brightness-ohp</property>
+        </input>
+        <output>/controls/lighting/panel-norm-ohp</output>
+    </filter>
+
+    <filter>
+        <type>gain</type>
+        <gain>1</gain>
+        <input>
+            <condition>
+                <property>/controls/lighting/panel-switch</property>
+            </condition>
+            <property>/controls/lighting/panel-brightness-engineer</property>
+        </input>
+        <output>/controls/lighting/panel-norm-engineer</output>
+    </filter>
+
+    <filter>
+        <type>gain</type>
+        <gain>1</gain>
+        <input>
+            <condition>
+                <property>/controls/lighting/chart</property>
+            </condition>
+            <property>/controls/lighting/chart-brightness</property>
+        </input>
+        <output>/controls/lighting/chart-norm</output>
+    </filter>
+
+    <filter>
+        <type>gain</type>
+        <gain>1</gain>
+        <input>
+            <property>/controls/lighting/dome</property>
+        </input>
+        <output>/controls/lighting/dome-norm</output>
+    </filter>
+</PropertyList>

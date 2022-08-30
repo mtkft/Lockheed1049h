@@ -18,6 +18,184 @@
     <path>Aircraft/Lockheed1049h/Models/Lockheed1049h_Pedestal.xml</path>
   </model>
 
+  <light>
+    <type>spot</type>
+    <name>DomeLight</name>
+    <position>
+        <x-m>-13.5</x-m>
+        <y-m>0</y-m>
+        <z-m>1.88</z-m>
+    </position>
+    <direction>
+        <heading-deg>8</heading-deg>
+        <roll-deg>0</roll-deg>
+        <pitch-deg>9.5</pitch-deg>
+    </direction>
+    <ambient>
+        <r>1.0</r>
+        <g>0.75</g>
+        <b>0.3</b>
+        <a>1.0</a>
+    </ambient>
+    <diffuse>
+        <r>1.0</r>
+        <g>0.75</g>
+        <b>0.3</b>
+        <a>0.7</a>
+    </diffuse>
+    <specular>
+        <r>1.0</r>
+        <g>0.75</g>
+        <b>0.3</b>
+        <a>0.7</a>
+    </specular>
+    <dim-factor>
+        <property>controls/lighting/dome-norm</property>
+        <factor>1</factor>
+        <offset>0</offset>
+        <min>0</min>
+        <max>1</max>
+    </dim-factor>
+    <attenuation>
+        <c>2</c>
+        <l>0.01</l>
+        <q>0.01</q>
+    </attenuation>
+    <spot-exponent>3</spot-exponent>
+    <spot-cutoff>60</spot-cutoff>
+    <range-m>3</range-m>
+    <near-m>0.01</near-m>
+    <far-m>3</far-m>
+  </light>
+  <animation>
+    <type>select</type>
+    <object-name>DomeLight</object-name>
+    <condition>
+      <property>sim/current-view/internal</property>
+    </condition>
+  </animation>
+
+  <light>
+    <type>spot</type>
+    <name>EngineerLightWhite</name>
+    <position>
+        <x-m>-14.5</x-m>
+        <y-m>0.95</y-m>
+        <z-m>0.9</z-m>
+    </position>
+    <direction>
+        <heading-deg>-30</heading-deg>
+        <roll-deg>0</roll-deg>
+        <pitch-deg>-45</pitch-deg>
+    </direction>
+    <attenuation>
+        <c>1</c>
+        <l>0.5</l>
+        <q>5</q>
+    </attenuation>
+    <spot-exponent>6</spot-exponent>
+    <spot-cutoff>60</spot-cutoff>
+    <range-m>3</range-m>
+    <near-m>0.01</near-m>
+    <far-m>10</far-m>
+    <ambient>
+        <r>1.0</r>
+        <g>0.9</g>
+        <b>0.6</b>
+        <a>1.0</a>
+    </ambient>
+    <diffuse>
+        <r>1.0</r>
+        <g>0.9</g>
+        <b>0.6</b>
+        <a>0.7</a>
+    </diffuse>
+    <specular>
+        <r>1.0</r>
+        <g>0.9</g>
+        <b>0.6</b>
+        <a>0.7</a>
+    </specular>
+    <dim-factor>
+        <property>controls/lighting/engineer-brightness</property>
+        <factor>1</factor>
+        <offset>0</offset>
+        <min>0</min>
+        <max>1</max>
+    </dim-factor>
+  </light>
+  <animation>
+    <type>select</type>
+    <object-name>EngineerLightWhite</object-name>
+    <condition>
+      <and>
+        <property>sim/current-view/internal</property>
+        <property>controls/lighting/engineer-color</property>
+      </and>
+    </condition>
+  </animation>
+
+  <light>
+    <type>spot</type>
+    <name>EngineerLightRed</name>
+    <position>
+        <x-m>-14.5</x-m>
+        <y-m>0.95</y-m>
+        <z-m>0.9</z-m>
+    </position>
+    <direction>
+        <heading-deg>-30</heading-deg>
+        <roll-deg>0</roll-deg>
+        <pitch-deg>-45</pitch-deg>
+    </direction>
+    <attenuation>
+        <c>1</c>
+        <l>0.5</l>
+        <q>5</q>
+    </attenuation>
+    <spot-exponent>6</spot-exponent>
+    <spot-cutoff>60</spot-cutoff>
+    <range-m>3</range-m>
+    <near-m>0.01</near-m>
+    <far-m>10</far-m>
+    <ambient>
+        <r>1.0</r>
+        <g>0.05</g>
+        <b>0.0</b>
+        <a>1.0</a>
+    </ambient>
+    <diffuse>
+        <r>1.0</r>
+        <g>0.05</g>
+        <b>0.0</b>
+        <a>0.7</a>
+    </diffuse>
+    <specular>
+        <r>1.0</r>
+        <g>0.05</g>
+        <b>0.0</b>
+        <a>0.7</a>
+    </specular>
+    <dim-factor>
+        <property>controls/lighting/engineer-brightness</property>
+        <factor>1</factor>
+        <offset>0</offset>
+        <min>0</min>
+        <max>1</max>
+    </dim-factor>
+  </light>
+  <animation>
+    <type>select</type>
+    <object-name>EngineerLightRed</object-name>
+    <condition>
+      <and>
+        <property>sim/current-view/internal</property>
+        <not><property>controls/lighting/engineer-color</property></not>
+      </and>
+    </condition>
+  </animation>
+
+
   <!-- Special Shaders -->
 
   <animation>
@@ -82,12 +260,21 @@
   <animation>
     <type>material</type>
     <object-name>ConsolePilotGlow</object-name>
-    <object-name>PanelOHSwitchesGlow</object-name>  
     <emission>
       <red>0.7</red>
       <green>0.2</green>
       <blue>0.1</blue>
       <factor-prop>/controls/lighting/panel-norm</factor-prop>
+    </emission>
+  </animation>
+  <animation>
+    <type>material</type>
+    <object-name>PanelOHSwitchesGlow</object-name>  
+    <emission>
+      <red>0.7</red>
+      <green>0.2</green>
+      <blue>0.1</blue>
+      <factor-prop>/controls/lighting/panel-norm-ohp</factor-prop>
     </emission>
   </animation>
 
@@ -144,10 +331,10 @@
     <object-name>YokeCP</object-name>
     <object-name>YokeP</object-name>
     <emission>
-      <red>0.2</red>
-      <green>0.2</green>
+      <red>0.3</red>
+      <green>0.28</green>
       <blue>0.2</blue>
-      <factor-prop>/controls/lighting/chart</factor-prop>
+      <factor-prop>/controls/lighting/dome-norm</factor-prop>
     </emission>
   </animation>
 
@@ -186,10 +373,10 @@
     <object-name>EngFuelSelect3</object-name>
     <object-name>EngFuelSelect4</object-name>
     <emission>
-      <red>0.2</red>
-      <green>0.2</green>
+      <red>0.3</red>
+      <green>0.28</green>
       <blue>0.2</blue>
-      <factor-prop>/controls/lighting/chart</factor-prop>
+      <factor-prop>/controls/lighting/dome-norm</factor-prop>
     </emission>
   </animation>
 
@@ -204,7 +391,7 @@
       <red>0.1</red>
       <green>0.05</green>
       <blue>0.025</blue>
-      <factor-prop>/controls/lighting/chart</factor-prop>
+      <factor-prop>/controls/lighting/dome-norm</factor-prop>
     </emission>
   </animation>
 
@@ -241,10 +428,10 @@
     <object-name>Switch.Magneto3</object-name>
     <object-name>Switch.Magneto4</object-name>
     <emission>
-      <red>0.15</red>
-      <green>0.15</green>
-      <blue>0.15</blue>
-      <factor-prop>/controls/lighting/chart</factor-prop>
+      <red>0.16</red>
+      <green>0.08</green>
+      <blue>0.04</blue>
+      <factor-prop>/controls/lighting/dome-norm</factor-prop>
     </emission>
   </animation>
 
@@ -378,7 +565,7 @@
   <animation>
     <type>knob</type>
     <object-name>KnobOHPanelLights</object-name>
-    <property>controls/lighting/panel-norm</property>
+    <property>controls/lighting/panel-brightness-ohp</property>
     <factor>300</factor>
     <axis>
       <x1-m>-14.832</x1-m>
@@ -391,7 +578,7 @@
     <action>
       <binding>
         <command>property-adjust</command>
-        <property>controls/lighting/panel-norm</property>
+        <property>controls/lighting/panel-brightness-ohp</property>
         <factor>0.1</factor>
         <min>0</min>
         <max>1</max>
@@ -520,7 +707,7 @@
   <animation>
     <type>knob</type>
     <object-name>KnobPPPanelLight</object-name>
-    <property>controls/lighting/panel-norm</property>
+    <property>controls/lighting/panel-brightness-main</property>
     <factor>300</factor>
     <axis>
       <x1-m>-15.212</x1-m>
@@ -533,7 +720,7 @@
     <action>
       <binding>
         <command>property-adjust</command>
-        <property>controls/lighting/panel-norm</property>
+        <property>controls/lighting/panel-brightness-main</property>
         <factor>0.1</factor>
         <min>0</min>
         <max>1</max>
@@ -545,7 +732,7 @@
   <animation>
     <type>knob</type>
     <object-name>KnobPPChartLight</object-name>
-    <property>controls/lighting/chart</property>
+    <property>controls/lighting/chart-brightness</property>
     <offset-deg>90</offset-deg> <!-- compensate for the model being mis-oriented -->
     <factor>300</factor>
     <axis>
@@ -559,7 +746,7 @@
     <action>
       <binding>
         <command>property-adjust</command>
-        <property>controls/lighting/chart</property>
+        <property>controls/lighting/chart-brightness</property>
         <factor>0.1</factor>
         <min>0</min>
         <max>1</max>
@@ -673,6 +860,72 @@
       <binding>
         <command>property-toggle</command>
         <property>controls/lighting/taxi</property>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>knob</type>
+    <object-name>SwPPTSL</object-name>
+    <property>controls/lighting/dome</property>
+    <factor>35</factor>
+    <axis>
+      <x1-m>-15.229</x1-m>
+      <y1-m>-0.859</y1-m>
+      <z1-m>0.853</z1-m>
+      <x2-m>-15.067</x2-m>
+      <y2-m>-0.903</y2-m>
+      <z2-m>0.854</z2-m>
+    </axis>
+    <action>
+      <binding>
+        <command>property-cycle</command>
+        <property>controls/lighting/dome</property>
+        <value>0</value>
+        <value>0.5</value>
+        <value>1</value>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>knob</type>
+    <object-name>SwPPCL</object-name>
+    <property>controls/lighting/chart</property>
+    <factor>35</factor>
+    <axis>
+      <x1-m>-15.229</x1-m>
+      <y1-m>-0.859</y1-m>
+      <z1-m>0.853</z1-m>
+      <x2-m>-15.067</x2-m>
+      <y2-m>-0.903</y2-m>
+      <z2-m>0.854</z2-m>
+    </axis>
+    <action>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/lighting/chart</property>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>knob</type>
+    <object-name>SwPPPL</object-name>
+    <property>controls/lighting/panel-switch</property>
+    <factor>35</factor>
+    <axis>
+      <x1-m>-15.229</x1-m>
+      <y1-m>-0.859</y1-m>
+      <z1-m>0.853</z1-m>
+      <x2-m>-15.067</x2-m>
+      <y2-m>-0.903</y2-m>
+      <z2-m>0.854</z2-m>
+    </axis>
+    <action>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/lighting/panel-switch</property>
       </binding>
     </action>
   </animation>
@@ -1663,7 +1916,7 @@
   <animation>
     <type>knob</type>
     <object-name>KnobEngDeskDim</object-name>
-    <property>controls/lighting/panel-norm</property>
+    <property>controls/lighting/engineer-brightness</property>
     <factor>300</factor>
     <axis>
       <x1-m>-14.636</x1-m>
@@ -1676,11 +1929,36 @@
     <action>
       <binding>
         <command>property-adjust</command>
-        <property>controls/lighting/panel-norm</property>
+        <property>controls/lighting/engineer-brightness</property>
         <factor>0.1</factor>
         <min>0</min>
         <max>1</max>
         <wrap>0</wrap>
+      </binding>
+    </action>
+  </animation>
+  <animation>
+    <type>knob</type>
+    <object-name>SwEngDeskLtCol</object-name>
+    <property>controls/lighting/engineer-color</property>
+    <interpolation>
+      <entry><ind>0</ind><dep> 0</dep></entry>
+      <entry><ind>1</ind><dep>50</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>-14.636</x-m>
+      <y-m>0.785</y-m>
+      <z-m>0.870</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/lighting/engineer-color</property>
       </binding>
     </action>
   </animation>
