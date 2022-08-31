@@ -384,6 +384,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <property-rule n="101">
         <path>Systems/load-factor-filters.xml</path>
       </property-rule>
+      <property-rule n="102">
+        <path>Systems/lighting-filters.xml</path>
+      </property-rule>
     </systems>
 
     <state include="States/approach-overlay.xml" n="0" />
