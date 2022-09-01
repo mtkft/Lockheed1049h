@@ -25,61 +25,51 @@ var switch_ani = func(i,j) {
 # that are used by the animations.
 #
 
-var nav1selstr	= props.globals.getNode("/instrumentation/nav[0]/frequencies/selected-mhz-fmt");
-var nav1selmhz	= props.globals.getNode("/instrumentation/nav[0]/frequencies/display-sel-mhz");
-var nav1selkhz	= props.globals.getNode("/instrumentation/nav[0]/frequencies/display-sel-khz");
-var nav2selstr	= props.globals.getNode("/instrumentation/nav[1]/frequencies/selected-mhz-fmt");
-var nav2selmhz	= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sel-mhz");
-var nav2selkhz	= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sel-khz");
-var nav1sbystr	= props.globals.getNode("/instrumentation/nav[0]/frequencies/standby-mhz-fmt");
-var nav1sbymhz	= props.globals.getNode("/instrumentation/nav[0]/frequencies/display-sby-mhz");
-var nav1sbykhz	= props.globals.getNode("/instrumentation/nav[0]/frequencies/display-sby-khz");
-var nav2sbystr	= props.globals.getNode("/instrumentation/nav[1]/frequencies/standby-mhz-fmt");
-var nav2sbymhz	= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sby-mhz");
-var nav2sbykhz	= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sby-khz");
-var nav1radial  = props.globals.getNode("/instrumentation/nav[0]/radials/selected-deg");
-var nav2radial  = props.globals.getNode("/instrumentation/nav[1]/radials/selected-deg");
+var nav1sel	= props.globals.getNode("/instrumentation/nav[0]/frequencies/selected-mhz");
+var nav1sby	= props.globals.getNode("/instrumentation/nav[0]/frequencies/standby-mhz");
+var nav1selmhz= props.globals.getNode("/instrumentation/nav[0]/frequencies/display-sel-mhz");
+var nav1selkhz= props.globals.getNode("/instrumentation/nav[0]/frequencies/display-sel-khz");
+var nav1sbymhz= props.globals.getNode("/instrumentation/nav[0]/frequencies/display-sby-mhz");
+var nav1sbykhz= props.globals.getNode("/instrumentation/nav[0]/frequencies/display-sby-khz");
+var nav1radial	= props.globals.getNode("/instrumentation/nav[0]/radials/selected-deg");
 
-							# This initializes the values
-var navtemp = split(".",nav1selstr.getValue());
-nav1selmhz.setValue(navtemp[0]);
-nav1selkhz.setValue(navtemp[1]);
-navtemp = split(".",nav2selstr.getValue());
-nav2selmhz.setValue(navtemp[0]);
-nav2selkhz.setValue(navtemp[1]);
-navtemp = split(".",nav1sbystr.getValue());
-nav1sbymhz.setValue(navtemp[0]);
-nav1sbykhz.setValue(navtemp[1]);
-navtemp = split(".",nav2sbystr.getValue());
-nav2sbymhz.setValue(navtemp[0]);
-nav2sbykhz.setValue(navtemp[1]);
-							# And these make sure they're updated
-setlistener(nav1selstr, func {
-  var navtemp = split(".",nav1selstr.getValue());
+var nav2sel	= props.globals.getNode("/instrumentation/nav[1]/frequencies/selected-mhz");
+var nav2sby	= props.globals.getNode("/instrumentation/nav[1]/frequencies/standby-mhz");
+var nav2selmhz= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sel-mhz");
+var nav2selkhz= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sel-khz");
+var nav2sbymhz= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sby-mhz");
+var nav2sbykhz= props.globals.getNode("/instrumentation/nav[1]/frequencies/display-sby-khz");
+var nav2radial	= props.globals.getNode("/instrumentation/nav[1]/radials/selected-deg");
+
+							# Update support vars on nav change
+setlistener(nav1sel, func {
+  var navstr = sprintf("%.2f",nav1sel.getValue());	# String conversion
+  var navtemp = split(".",navstr);			# Split into MHz and KHz
   nav1selmhz.setValue(navtemp[0]);
   nav1selkhz.setValue(navtemp[1]);
-});
-setlistener(nav2selstr, func {
-  var navtemp = split(".",nav2selstr.getValue());
-  nav2selmhz.setValue(navtemp[0]);
-  nav2selkhz.setValue(navtemp[1]);
-});
-setlistener(nav1sbystr, func {
-  var navtemp = split(".",nav1sbystr.getValue());
+}, 1, 0);
+setlistener(nav1sby, func {
+  var navstr = sprintf("%.2f",nav1sby.getValue());
+  var navtemp = split(".",navstr);
   nav1sbymhz.setValue(navtemp[0]);
   nav1sbykhz.setValue(navtemp[1]);
-});
-setlistener(nav2sbystr, func {
-  var navtemp = split(".",nav2sbystr.getValue());
+}, 1, 0);
+setlistener(nav2sel, func {
+  var navstr = sprintf("%.2f",nav2sel.getValue());
+  var navtemp = split(".",navstr);
+  nav2selmhz.setValue(navtemp[0]);
+  nav2selkhz.setValue(navtemp[1]);
+}, 1, 0);
+setlistener(nav2sby, func {
+  var navstr = sprintf("%.2f",nav2sby.getValue());
+  var navtemp = split(".",navstr);
   nav2sbymhz.setValue(navtemp[0]);
   nav2sbykhz.setValue(navtemp[1]);
-});
+}, 1, 0);
 
 
 var comm1sel	= props.globals.getNode("/instrumentation/comm[0]/frequencies/selected-mhz");
 var comm1sby	= props.globals.getNode("/instrumentation/comm[0]/frequencies/standby-mhz");
-var comm1selstr	= props.globals.getNode("/instrumentation/comm[0]/frequencies/selected-mhz-fmt");
-var comm1sbystr	= props.globals.getNode("/instrumentation/comm[0]/frequencies/standby-mhz-fmt");
 var comm1selmhz= props.globals.getNode("/instrumentation/comm[0]/frequencies/display-sel-mhz");
 var comm1selkhz= props.globals.getNode("/instrumentation/comm[0]/frequencies/display-sel-khz");
 var comm1sbymhz= props.globals.getNode("/instrumentation/comm[0]/frequencies/display-sby-mhz");
@@ -87,8 +77,6 @@ var comm1sbykhz= props.globals.getNode("/instrumentation/comm[0]/frequencies/dis
 
 var comm2sel	= props.globals.getNode("/instrumentation/comm[1]/frequencies/selected-mhz");
 var comm2sby	= props.globals.getNode("/instrumentation/comm[1]/frequencies/standby-mhz");
-var comm2selstr	= props.globals.getNode("/instrumentation/comm[1]/frequencies/selected-mhz-fmt");
-var comm2sbystr	= props.globals.getNode("/instrumentation/comm[1]/frequencies/standby-mhz-fmt");
 var comm2selmhz= props.globals.getNode("/instrumentation/comm[1]/frequencies/display-sel-mhz");
 var comm2selkhz= props.globals.getNode("/instrumentation/comm[1]/frequencies/display-sel-khz");
 var comm2sbymhz= props.globals.getNode("/instrumentation/comm[1]/frequencies/display-sby-mhz");
@@ -100,25 +88,25 @@ setlistener(comm1sel, func {
   var commtemp = split(".",commstr);			# Split into MHz and KHz
   comm1selmhz.setValue(commtemp[0]);
   comm1selkhz.setValue(commtemp[1]);
-});
+}, 1, 0);
 setlistener(comm1sby, func {
   var commstr = sprintf("%.2f",comm1sby.getValue());
   var commtemp = split(".",commstr);
   comm1sbymhz.setValue(commtemp[0]);
   comm1sbykhz.setValue(commtemp[1]);
-});
+}, 1, 0);
 setlistener(comm2sel, func {
   var commstr = sprintf("%.2f",comm2sel.getValue());
   var commtemp = split(".",commstr);
   comm2selmhz.setValue(commtemp[0]);
   comm2selkhz.setValue(commtemp[1]);
-});
+}, 1, 0);
 setlistener(comm2sby, func {
   var commstr = sprintf("%.2f",comm2sby.getValue());
   var commtemp = split(".",commstr);
   comm2sbymhz.setValue(commtemp[0]);
   comm2sbykhz.setValue(commtemp[1]);
-});
+}, 1, 0);
 
 # When slaved to GPS, the NAV1 radial can be fractional, but when switching
 # back to regular VOR mode, we need to undo this and round to the nearest
@@ -127,10 +115,33 @@ setlistener('/instrumentation/nav[0]/slaved-to-gps', func (node) {
     if (!node.getBoolValue()) {
         nav1radial.setValue(math.floor(nav1radial.getValue() or 0));
     }
-});
+}, 1, 0);
 
+							# Set nav support vars to startups
+var init_navs = func {
+  var navstr = "";
+  var navtemp = 0;
+
+  navstr = sprintf("%.2f",nav1sel.getValue());
+  navtemp = split(".",navstr);
+  nav1selmhz.setValue(navtemp[0]);
+  nav1selkhz.setValue(navtemp[1]);
+  navstr = sprintf("%.2f",nav1sby.getValue());
+  navtemp = split(".",navstr);
+  nav1sbymhz.setValue(navtemp[0]);
+  nav1sbykhz.setValue(navtemp[1]);
+
+  navstr = sprintf("%.2f",nav2sel.getValue());
+  navtemp = split(".",navstr);
+  nav2selmhz.setValue(navtemp[0]);
+  nav2selkhz.setValue(navtemp[1]);
+  navstr = sprintf("%.2f",nav2sby.getValue());
+  navtemp = split(".",navstr);
+  nav2sbymhz.setValue(navtemp[0]);
+  nav2sbykhz.setValue(navtemp[1]);
+};
 							# Set comm support vars to startups
-var update_comms = maketimer (2.0, func {
+var init_comms = func {
   var commstr = "";
   var commtemp = 0;
 
@@ -151,9 +162,9 @@ var update_comms = maketimer (2.0, func {
   commtemp = split(".",commstr);
   comm2sbymhz.setValue(commtemp[0]);
   comm2sbykhz.setValue(commtemp[1]);
-});
+};
 
 
 var InstrumentationInit = func {
-  settimer (func () { update_comms.start(); }, 2.0); # delay the starting up
+  settimer (func () { init_comms(); init_navs(); }, 2.0); # delay the starting up
 }

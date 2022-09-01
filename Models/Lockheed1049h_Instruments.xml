@@ -1202,10 +1202,10 @@
   </model>
 
   <model>
-    <path>Aircraft/Instruments-3d/kt76a/kt76a.xml</path>
+    <path>Aircraft/Lockheed1049h/Models/Instruments/kt76a.xml</path>
     <overlay>
       <params>
-        <dimming>controls/lighting/panel-norm</dimming>
+        <dimming>controls/lighting/dome-norm</dimming>
       </params>
     </overlay>
     <offsets>
