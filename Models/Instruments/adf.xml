@@ -13,10 +13,10 @@
     <object-name>ActKnob2</object-name>
     <object-name>VolumeKnob</object-name>
     <emission>
-      <red>0.15</red>
-      <green>0.15</green>
-      <blue>0.15</blue>
-      <factor-prop>controls/lighting/chart</factor-prop>
+      <red>0.8</red>
+      <green>0.4</green>
+      <blue>0.2</blue>
+      <factor-prop>/controls/lighting/dome-norm</factor-prop>
     </emission>
   </animation>
   <animation>
@@ -31,7 +31,7 @@
       <red>0.8</red>
       <green>0.4</green>
       <blue>0.2</blue>
-      <factor-prop>/controls/lighting/panel-norm</factor-prop>
+      <factor-prop>/controls/lighting/panel-norm-ohp</factor-prop>
     </emission>
   </animation>
 

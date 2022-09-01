@@ -353,6 +353,7 @@
 
   <animation>
     <type>material</type>
+    <object-name>EngineerDeck</object-name>
     <object-name>EngineerDeckLv1</object-name>
     <object-name>EngineerDeckLv2</object-name>
     <object-name>EngPitch</object-name>
@@ -372,6 +373,14 @@
     <object-name>EngFuelSelect2</object-name>
     <object-name>EngFuelSelect3</object-name>
     <object-name>EngFuelSelect4</object-name>
+    <object-name>MJBno0</object-name>
+    <object-name>MJBno1</object-name>
+    <object-name>MJBno2</object-name>
+    <object-name>MJBno2a</object-name>
+    <object-name>MJBno3</object-name>
+    <object-name>MJBnosta</object-name>
+    <object-name>EngineerPanel</object-name>
+    <object-name>EngPanel1</object-name>
     <emission>
       <red>0.3</red>
       <green>0.28</green>
@@ -428,9 +437,9 @@
     <object-name>Switch.Magneto3</object-name>
     <object-name>Switch.Magneto4</object-name>
     <emission>
-      <red>0.16</red>
-      <green>0.08</green>
-      <blue>0.04</blue>
+      <red>0.2</red>
+      <green>0.1</green>
+      <blue>0.05</blue>
       <factor-prop>/controls/lighting/dome-norm</factor-prop>
     </emission>
   </animation>
