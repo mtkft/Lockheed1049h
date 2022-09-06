@@ -106,7 +106,7 @@
       <red>0.2</red>
       <green>0.2</green>
       <blue>0.2</blue>
-      <factor-prop>/controls/lighting/chart</factor-prop>
+      <factor-prop>/controls/lighting/dome-norm</factor-prop>
     </emission>
   </animation>
 
@@ -500,7 +500,7 @@
   <animation>
     <type>rotate</type>
     <object-name>FlapLever</object-name>
-    <property>controls/flight/flaps</property>
+    <property>control-positions/levers/flaps</property>
     <interpolation>
       <entry><ind>   0</ind><dep> 0</dep></entry>
       <entry><ind>0.25</ind><dep>65</dep></entry>
@@ -555,7 +555,7 @@
   <animation>
     <type>rotate</type>
     <object-name>ReverseLock</object-name>
-    <property>controls/engines/reverser_allow</property>
+    <property>control-positions/levers/reverser-lock</property>
     <factor>90</factor>
     <center>
       <x-m>-15.496</x-m>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyList>
+    <filter>
+        <name>Reverser lock lever</name>
+        <type>noise-spike</type>
+        <input>controls/engines/reverser_allow</input>
+        <max-rate-of-change>2.0</max-rate-of-change>
+        <output>control-positions/levers/reverser-lock</output>
+    </filter>
+
+    <filter>
+        <name>Flap lever</name>
+        <type>noise-spike</type>
+        <input>controls/flight/flaps</input>
+        <max-rate-of-change>2.0</max-rate-of-change>
+        <output>control-positions/levers/flaps</output>
+    </filter>
+</PropertyList>
